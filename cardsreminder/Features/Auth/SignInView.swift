@@ -1,0 +1,138 @@
+import AuthenticationServices
+import SwiftUI
+
+struct SignInView: View {
+    @Environment(AuthManager.self) private var authManager
+    @State private var currentNonce: String?
+
+    var body: some View {
+        ZStack {
+            Color.appBackground
+                .ignoresSafeArea()
+
+            VStack(spacing: 0) {
+                header
+
+                Spacer()
+
+                signInSection
+
+                Spacer()
+
+                PoweredByLenaraFooter()
+                    .padding(.bottom, 24)
+            }
+
+            if authManager.isLoading {
+                Color.black.opacity(0.25)
+                    .ignoresSafeArea()
+
+                ProgressView()
+                    .controlSize(.large)
+                    .tint(Color.primaryAction)
+            }
+        }
+    }
+
+    private var header: some View {
+        VStack(spacing: 16) {
+            ZStack {
+                Circle()
+                    .fill(Color.white.opacity(0.12))
+                    .frame(width: 80, height: 80)
+
+                Image(systemName: "creditcard.fill")
+                    .font(.system(size: 36))
+                    .foregroundStyle(.white)
+            }
+
+            VStack(spacing: 8) {
+                Text("CardsReminder")
+                    .font(.title.bold())
+                    .foregroundStyle(.white)
+
+                Text("Recuerda los vencimientos de tus tarjetas")
+                    .font(.subheadline)
+                    .foregroundStyle(.white.opacity(0.85))
+                    .multilineTextAlignment(.center)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, 40)
+        .padding(.bottom, 32)
+        .padding(.horizontal, 24)
+        .background(Color.headerSurface)
+        .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+        .padding(.horizontal, 20)
+        .padding(.top, 12)
+    }
+
+    private var signInSection: some View {
+        VStack(spacing: 24) {
+            VStack(spacing: 8) {
+                Text("Inicia sesión para continuar")
+                    .font(.headline)
+                    .foregroundStyle(.primary)
+
+                Text("Elige cómo quieres acceder a tu cuenta")
+                    .font(.subheadline)
+                    .foregroundStyle(Color.secondaryText)
+                    .multilineTextAlignment(.center)
+            }
+
+            if let errorMessage = authManager.errorMessage {
+                Text(errorMessage)
+                    .font(.footnote)
+                    .foregroundStyle(Color.redStateForeground)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 8)
+            }
+
+            VStack(spacing: 12) {
+                SignInWithAppleButton(.signIn) { request in
+                    let nonce = AuthManager.randomNonceString()
+                    currentNonce = nonce
+                    request.requestedScopes = [.fullName, .email]
+                    request.nonce = AuthManager.sha256(nonce)
+                } onCompletion: { result in
+                    Task {
+                        await authManager.handleAppleSignIn(result: result, nonce: currentNonce)
+                    }
+                }
+                .signInWithAppleButtonStyle(.black)
+                .frame(height: 52)
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+
+                Button {
+                    Task {
+                        await authManager.signInWithGoogle()
+                    }
+                } label: {
+                    HStack(spacing: 12) {
+                        Image("GoogleG")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 32, height: 32)
+                            .scaleEffect(1.4)
+                            .clipped()
+
+                        Text("Continuar con Google")
+                            .font(.system(size: 17, weight: .semibold))
+                    }
+                    .foregroundStyle(.primary)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 52)
+                    .background(Color.cardSurface)
+                    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                }
+                .disabled(authManager.isLoading)
+            }
+        }
+        .padding(.horizontal, 24)
+    }
+}
+
+#Preview {
+    SignInView()
+        .environment(AuthManager())
+}

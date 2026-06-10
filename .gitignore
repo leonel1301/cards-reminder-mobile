@@ -1,0 +1,39 @@
+# Xcode user-specific
+**/xcuserdata/
+*.xcuserstate
+*.xcbkptlist
+
+# Firebase / Google (descargar desde Firebase Console)
+**/GoogleService-Info.plist
+!**/GoogleService-Info.plist.example
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Build artifacts
+build/
+DerivedData/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.swiftpm/
+.build/
+
+# CocoaPods (por si lo usás en el futuro)
+Pods/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Secretos / entorno local
+.env
+.env.*
+*.pem
+*.p12
