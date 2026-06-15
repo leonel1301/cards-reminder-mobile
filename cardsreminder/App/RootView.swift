@@ -1,9 +1,15 @@
 import SwiftUI
+import FirebaseAuth
 
 struct RootView: View {
     @Environment(AuthManager.self) private var authManager
+    @Environment(CardsAPIService.self) private var cardsService
+    @Environment(OwnersAPIService.self) private var ownersService
+    @Environment(PushNotificationManager.self) private var pushManager
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @State private var showSplash = true
+    @State private var lastSyncedLanguage = PushNotificationManager.backendLanguageCode
+    @State private var previousSignedInUID: String?
 
     var body: some View {
         Group {
@@ -28,10 +34,52 @@ struct RootView: View {
         .animation(.easeInOut(duration: 0.35), value: showSplash)
         .animation(.easeInOut(duration: 0.35), value: hasCompletedOnboarding)
         .animation(.easeInOut(duration: 0.35), value: authManager.isSignedIn)
+        .task(id: authManager.user?.uid) {
+            let currentUID = authManager.user?.uid
+
+            if currentUID == nil {
+                resetUserScopedData()
+                previousSignedInUID = nil
+                return
+            }
+
+            let userSwitched = previousSignedInUID != nil && previousSignedInUID != currentUID
+            defer { previousSignedInUID = currentUID }
+
+            if userSwitched {
+                resetUserScopedData()
+            }
+
+            await pushManager.handleUserSessionChange(userSwitched: userSwitched)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSLocale.currentLocaleDidChangeNotification)) { _ in
+            Task { await resyncLanguageIfNeeded() }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+            Task { await resyncLanguageIfNeeded() }
+        }
+    }
+
+    private func resyncLanguageIfNeeded() async {
+        guard authManager.isSignedIn else { return }
+
+        let currentLanguage = PushNotificationManager.backendLanguageCode
+        guard currentLanguage != lastSyncedLanguage else { return }
+
+        lastSyncedLanguage = currentLanguage
+        await pushManager.syncDeviceWithBackendIfNeeded()
+    }
+
+    private func resetUserScopedData() {
+        cardsService.resetSession()
+        ownersService.resetSession()
     }
 }
 
 #Preview {
     RootView()
         .environment(AuthManager())
+        .environment(CardsAPIService())
+        .environment(OwnersAPIService())
+        .environment(PushNotificationManager.shared)
 }

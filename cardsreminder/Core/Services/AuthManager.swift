@@ -27,7 +27,7 @@ final class AuthManager {
 
     func signInWithGoogle() async {
         guard let rootViewController = Self.topViewController() else {
-            errorMessage = "No se pudo abrir la pantalla de inicio de sesión."
+            errorMessage = String(localized: "error_sign_in_screen")
             return
         }
 
@@ -65,7 +65,7 @@ final class AuthManager {
                   let identityToken = appleIDCredential.identityToken,
                   let idTokenString = String(data: identityToken, encoding: .utf8),
                   let nonce else {
-                errorMessage = "No se pudo obtener la credencial de Apple."
+                errorMessage = String(localized: "error_apple_credential")
                 isLoading = false
                 return
             }
@@ -151,7 +151,7 @@ private enum AuthError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .missingGoogleToken:
-            return "No se pudo obtener el token de Google."
+            return String(localized: "error_google_token")
         }
     }
 }

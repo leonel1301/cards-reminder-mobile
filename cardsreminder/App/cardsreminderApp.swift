@@ -12,16 +12,19 @@ import SwiftUI
 
 @main
 struct cardsreminderApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var authManager: AuthManager
+    @State private var pushNotificationManager = PushNotificationManager.shared
+    @State private var cardsService = CardsAPIService()
+    @State private var userService = UserAPIService()
+    @State private var ownersService = OwnersAPIService()
 
     var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        let schema = Schema([UserProfile.self])
+        let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            return try ModelContainer(for: schema, configurations: [configuration])
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
@@ -41,9 +44,13 @@ struct cardsreminderApp: App {
         WindowGroup {
             RootView()
                 .environment(authManager)
-            .onOpenURL { url in
-                GIDSignIn.sharedInstance.handle(url)
-            }
+                .environment(cardsService)
+                .environment(userService)
+                .environment(ownersService)
+                .environment(pushNotificationManager)
+                .onOpenURL { url in
+                    GIDSignIn.sharedInstance.handle(url)
+                }
         }
         .modelContainer(sharedModelContainer)
     }

@@ -47,11 +47,11 @@ struct SignInView: View {
             }
 
             VStack(spacing: 8) {
-                Text("CardsReminder")
+                Text("app_name")
                     .font(.title.bold())
                     .foregroundStyle(.white)
 
-                Text("Recuerda los vencimientos de tus tarjetas")
+                Text("sign_in_subtitle")
                     .font(.subheadline)
                     .foregroundStyle(.white.opacity(0.85))
                     .multilineTextAlignment(.center)
@@ -70,11 +70,11 @@ struct SignInView: View {
     private var signInSection: some View {
         VStack(spacing: 24) {
             VStack(spacing: 8) {
-                Text("Inicia sesión para continuar")
+                Text("sign_in_prompt")
                     .font(.headline)
                     .foregroundStyle(.primary)
 
-                Text("Elige cómo quieres acceder a tu cuenta")
+                Text("sign_in_choose_method")
                     .font(.subheadline)
                     .foregroundStyle(Color.secondaryText)
                     .multilineTextAlignment(.center)
@@ -116,7 +116,7 @@ struct SignInView: View {
                             .scaleEffect(1.4)
                             .clipped()
 
-                        Text("Continuar con Google")
+                        Text("sign_in_continue_google")
                             .font(.system(size: 17, weight: .semibold))
                     }
                     .foregroundStyle(.primary)

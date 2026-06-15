@@ -11,6 +11,7 @@
 		E3CA15F22FD87353001F7273 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = E3CA15F12FD87353001F7273 /* FirebaseCore */; };
 		E3CA15F52FD8745D001F7273 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = E3CA15F42FD8745D001F7273 /* GoogleSignIn */; };
 		E3CA15F72FD8745D001F7273 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E3CA15F62FD8745D001F7273 /* GoogleSignInSwift */; };
+		E3CA15F82FD87500001F7273 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = E3CA15F72FD87500001F7273 /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 			files = (
 				E3CA15F22FD87353001F7273 /* FirebaseCore in Frameworks */,
 				E3CA15F02FD87353001F7273 /* FirebaseAuth in Frameworks */,
+				E3CA15F82FD87500001F7273 /* FirebaseMessaging in Frameworks */,
 				E3CA15F52FD8745D001F7273 /* GoogleSignIn in Frameworks */,
 				E3CA15F72FD8745D001F7273 /* GoogleSignInSwift in Frameworks */,
 			);
@@ -125,6 +127,7 @@
 			packageProductDependencies = (
 				E3CA15EF2FD87353001F7273 /* FirebaseAuth */,
 				E3CA15F12FD87353001F7273 /* FirebaseCore */,
+				E3CA15F72FD87500001F7273 /* FirebaseMessaging */,
 				E3CA15F42FD8745D001F7273 /* GoogleSignIn */,
 				E3CA15F62FD8745D001F7273 /* GoogleSignInSwift */,
 			);
@@ -206,6 +209,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				es,
 				Base,
 			);
 			mainGroup = E3FA130F2FD7CD6200D7C538;
@@ -641,6 +645,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E3CA15F32FD8745D001F7273 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		E3CA15F72FD87500001F7273 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E3CA15EE2FD87353001F7273 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

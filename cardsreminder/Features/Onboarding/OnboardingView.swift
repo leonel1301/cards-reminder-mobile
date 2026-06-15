@@ -17,7 +17,7 @@ struct OnboardingView: View {
                     Spacer()
 
                     if currentPage < pages.count - 1 {
-                        Button("Omitir") {
+                        Button("action_skip") {
                             onComplete()
                         }
                         .font(.subheadline.weight(.medium))
@@ -71,7 +71,13 @@ struct OnboardingView: View {
                 onComplete()
             }
         } label: {
-            Text(currentPage < pages.count - 1 ? "Continuar" : "Empezar")
+            Group {
+                if currentPage < pages.count - 1 {
+                    Text("action_continue")
+                } else {
+                    Text("action_get_started")
+                }
+            }
                 .font(.headline)
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity)

@@ -27,11 +27,11 @@ struct SplashView: View {
                 .opacity(logoOpacity)
 
                 VStack(spacing: 8) {
-                    Text("CardsReminder")
+                    Text("app_name")
                         .font(.title.bold())
                         .foregroundStyle(.primary)
 
-                    Text("Tu aliado financiero")
+                    Text("app_tagline")
                         .font(.subheadline)
                         .foregroundStyle(Color.secondaryText)
                 }

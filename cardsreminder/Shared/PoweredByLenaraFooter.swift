@@ -3,7 +3,7 @@ import SwiftUI
 struct PoweredByLenaraFooter: View {
     var body: some View {
         HStack(spacing: 4) {
-            Text("Powered by")
+            Text("footer_powered_by")
                 .foregroundStyle(Color.secondaryText)
 
             Text("Lenara")
@@ -12,7 +12,7 @@ struct PoweredByLenaraFooter: View {
         }
         .font(.caption)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("Powered by Lenara")
+        .accessibilityLabel(Text("footer_powered_by_lenara"))
     }
 }
 
