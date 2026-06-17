@@ -22,6 +22,7 @@ struct CardFormView: View {
     @State private var isActive = true
     @State private var selectedOwnerID: UUID?
     @State private var showDeleteConfirmation = false
+    @State private var expandedDayPickerID: String?
 
     private var isEditing: Bool {
         if case .edit = mode { return true }
@@ -44,8 +45,10 @@ struct CardFormView: View {
 
                 Section("section_billing") {
                     DayNumberPicker(
+                        id: "billing_cycle",
                         title: String(localized: "picker_billing_cycle_day"),
-                        selection: $billingCycleDay
+                        selection: $billingCycleDay,
+                        expandedPickerID: $expandedDayPickerID
                     )
 
                     Text(
@@ -58,8 +61,10 @@ struct CardFormView: View {
                     .foregroundStyle(.secondary)
 
                     DayNumberPicker(
+                        id: "payment_due",
                         title: String(localized: "picker_payment_due_day"),
-                        selection: $paymentDueDay
+                        selection: $paymentDueDay,
+                        expandedPickerID: $expandedDayPickerID
                     )
                 }
 

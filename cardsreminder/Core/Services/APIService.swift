@@ -24,7 +24,7 @@ enum APIError: LocalizedError {
 struct APIService {
     static let shared = APIService()
 
-    var baseURL = URL(string: "http://10.25.221.174:8080")!
+    var baseURL = URL(string: "https://cards-reminder-api-production.up.railway.app")!
 
     private let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -105,7 +105,7 @@ struct APIService {
         }
 
         guard (200...299).contains(httpResponse.statusCode) else {
-            let message = String(data: data, encoding: .utf8)
+            let message = Self.parseServerErrorMessage(from: data)
             throw APIError.serverError(statusCode: httpResponse.statusCode, message: message)
         }
 
@@ -137,5 +137,33 @@ struct APIService {
         }
 
         return request
+    }
+
+    private struct APIErrorBody: Decodable {
+        let error: String?
+        let message: String?
+
+        var text: String? {
+            if let error, !error.isEmpty { return error }
+            if let message, !message.isEmpty { return message }
+            return nil
+        }
+    }
+
+    private static func parseServerErrorMessage(from data: Data) -> String? {
+        if data.isEmpty { return nil }
+
+        if let body = try? JSONDecoder().decode(APIErrorBody.self, from: data),
+           let text = body.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+           !text.isEmpty {
+            return text
+        }
+
+        let raw = String(data: data, encoding: .utf8)?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard let raw, !raw.isEmpty else { return nil }
+        if raw.hasPrefix("{") || raw.hasPrefix("[") { return nil }
+        return raw
     }
 }

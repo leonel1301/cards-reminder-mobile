@@ -4,6 +4,7 @@ struct CardsView: View {
     @Environment(CardsAPIService.self) private var cardsService
     @State private var showCreateForm = false
     @State private var editingCard: APICard?
+    @State private var cardPendingDelete: APICard?
 
     var body: some View {
         ScrollView {
@@ -46,6 +47,24 @@ struct CardsView: View {
         .sheet(item: $editingCard) { card in
             CardFormView(mode: .edit(card))
         }
+        .confirmationDialog(
+            "delete_card_confirm_title",
+            isPresented: showDeleteConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("action_delete", role: .destructive) {
+                guard let card = cardPendingDelete else { return }
+                cardPendingDelete = nil
+                Task { await deleteCard(card) }
+            }
+        }
+    }
+
+    private var showDeleteConfirmation: Binding<Bool> {
+        Binding(
+            get: { cardPendingDelete != nil },
+            set: { if !$0 { cardPendingDelete = nil } }
+        )
     }
 
     private var screenTitle: some View {
@@ -88,15 +107,18 @@ struct CardsView: View {
     private var cardsList: some View {
         VStack(spacing: 16) {
             ForEach(cardsService.cards) { card in
-                Button {
-                    editingCard = card
-                } label: {
-                    CreditCardView(card: card)
-                }
-                .buttonStyle(.plain)
+                CreditCardView(
+                    card: card,
+                    onEdit: { editingCard = card },
+                    onDelete: { cardPendingDelete = card }
+                )
             }
         }
         .padding(.horizontal, 16)
+    }
+
+    private func deleteCard(_ card: APICard) async {
+        _ = await cardsService.deleteCard(id: card.id)
     }
 }
 

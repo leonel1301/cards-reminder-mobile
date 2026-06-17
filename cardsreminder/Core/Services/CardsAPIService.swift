@@ -53,9 +53,7 @@ final class CardsAPIService {
                 cards = cardsList.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
                 loadedUserID = userID
             } catch {
-                if !error.isCancelled {
-                    errorMessage = error.localizedDescription
-                }
+                APIErrorHandling.handle(error) { errorMessage = $0 }
             }
 
             isLoading = false
@@ -70,9 +68,7 @@ final class CardsAPIService {
         do {
             return try await api.request(path: "/cards/\(id.uuidString)")
         } catch {
-            if !error.isCancelled {
-                errorMessage = error.localizedDescription
-            }
+            APIErrorHandling.handle(error) { errorMessage = $0 }
             return nil
         }
     }
@@ -90,9 +86,7 @@ final class CardsAPIService {
             cards.sort { $0.name.localizedCompare($1.name) == .orderedAscending }
             return card
         } catch {
-            if !error.isCancelled {
-                errorMessage = error.localizedDescription
-            }
+            APIErrorHandling.handle(error) { errorMessage = $0 }
             return nil
         }
     }
@@ -114,9 +108,7 @@ final class CardsAPIService {
             cards.sort { $0.name.localizedCompare($1.name) == .orderedAscending }
             return card
         } catch {
-            if !error.isCancelled {
-                errorMessage = error.localizedDescription
-            }
+            APIErrorHandling.handle(error) { errorMessage = $0 }
             return nil
         }
     }
@@ -133,18 +125,8 @@ final class CardsAPIService {
             cards.removeAll { $0.id == id }
             return true
         } catch {
-            if !error.isCancelled {
-                errorMessage = error.localizedDescription
-            }
+            APIErrorHandling.handle(error) { errorMessage = $0 }
             return false
         }
-    }
-}
-
-private extension Error {
-    var isCancelled: Bool {
-        if self is CancellationError { return true }
-        let nsError = self as NSError
-        return nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled
     }
 }

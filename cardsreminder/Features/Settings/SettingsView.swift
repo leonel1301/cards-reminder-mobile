@@ -1,6 +1,23 @@
 import SwiftData
 import SwiftUI
 
+private enum SettingsSheet: Identifiable {
+    case createOwner
+    case notifications
+    case editOwner(APIOwner)
+
+    var id: String {
+        switch self {
+        case .createOwner:
+            "createOwner"
+        case .notifications:
+            "notifications"
+        case .editOwner(let owner):
+            owner.id.uuidString
+        }
+    }
+}
+
 struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(AuthManager.self) private var authManager
@@ -10,9 +27,7 @@ struct SettingsView: View {
     @Environment(OwnersAPIService.self) private var ownersService
     @Query private var profiles: [UserProfile]
 
-    @State private var showCreateOwner = false
-    @State private var showNotifications = false
-    @State private var editingOwner: APIOwner?
+    @State private var activeSheet: SettingsSheet?
 
     private var profile: UserProfile? { profiles.first }
 
@@ -32,25 +47,27 @@ struct SettingsView: View {
             .padding(.bottom, 32)
         }
         .safeAreaPadding(.bottom)
-        .overlay {
-            if (userService.isLoading || ownersService.isLoading) && profile == nil && ownersService.owners.isEmpty {
-                ProgressView()
-            }
-        }
         .task {
-            await loadData()
+            if !userService.hasLoaded {
+                await userService.fetchProfile(into: modelContext)
+            }
+            if !ownersService.hasLoaded {
+                await ownersService.fetchOwners()
+            }
         }
         .refreshable {
             await loadData()
         }
-        .sheet(isPresented: $showCreateOwner) {
-            OwnerFormView(mode: .create)
-        }
-        .sheet(isPresented: $showNotifications) {
-            NotificationsSettingsView()
-        }
-        .sheet(item: $editingOwner) { owner in
-            OwnerFormView(mode: .edit(owner))
+        .sheet(item: $activeSheet) { sheet in
+            switch sheet {
+            case .createOwner:
+                OwnerFormView(mode: .create)
+            case .notifications:
+                NotificationsSettingsView()
+            case .editOwner(let owner):
+                OwnerFormView(mode: .edit(owner))
+                    .id(owner.id)
+            }
         }
     }
 
@@ -74,7 +91,7 @@ struct SettingsView: View {
     private var settingsMenu: some View {
         Menu {
             Button {
-                showNotifications = true
+                activeSheet = .notifications
             } label: {
                 Label("action_notifications", systemImage: "bell")
             }
@@ -97,8 +114,10 @@ struct SettingsView: View {
         Task {
             await pushManager.unregisterFromBackend()
             UserProfile.clearAll(in: modelContext)
+            APIAlertCenter.shared.dismiss()
             cardsService.resetSession()
             ownersService.resetSession()
+            userService.resetSession()
             authManager.signOut()
         }
     }
@@ -137,7 +156,7 @@ struct SettingsView: View {
             .padding(.horizontal, 16)
 
             Button {
-                showCreateOwner = true
+                activeSheet = .createOwner
             } label: {
                 Label("action_add_owner", systemImage: "plus.circle.fill")
                     .font(.headline)
@@ -149,7 +168,12 @@ struct SettingsView: View {
             .buttonStyle(.plain)
             .padding(.horizontal, 16)
 
-            if ownersService.owners.isEmpty && !ownersService.isLoading {
+            if ownersService.isLoading && ownersService.owners.isEmpty {
+                ProgressView()
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 24)
+                    .padding(.horizontal, 16)
+            } else if ownersService.owners.isEmpty {
                 Text("owners_empty_message")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -158,9 +182,11 @@ struct SettingsView: View {
                 VStack(spacing: 0) {
                     ForEach(ownersService.owners) { owner in
                         Button {
-                            editingOwner = owner
+                            activeSheet = .editOwner(owner)
                         } label: {
                             ownerRow(owner)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
 
@@ -199,7 +225,7 @@ struct SettingsView: View {
                     .foregroundStyle(.secondary)
             }
 
-            Spacer()
+            Spacer(minLength: 0)
 
             Image(systemName: "chevron.right")
                 .font(.caption.weight(.semibold))

@@ -58,6 +58,7 @@ struct RootView: View {
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
             Task { await resyncLanguageIfNeeded() }
         }
+        .apiErrorAlert()
     }
 
     private func resyncLanguageIfNeeded() async {
@@ -71,6 +72,7 @@ struct RootView: View {
     }
 
     private func resetUserScopedData() {
+        APIAlertCenter.shared.dismiss()
         cardsService.resetSession()
         ownersService.resetSession()
     }

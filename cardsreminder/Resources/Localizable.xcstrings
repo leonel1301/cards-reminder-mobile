@@ -1488,6 +1488,13 @@
         "es" : { "stringUnit" : { "state" : "translated", "value" : "%@ (tú)" } }
       }
     },
+    "notifications_debug_firebase_token_section" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Firebase Token (Debug)" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Token Firebase (Debug)" } }
+      }
+    },
     "notifications_debug_token_section" : {
       "extractionState" : "manual",
       "localizations" : {

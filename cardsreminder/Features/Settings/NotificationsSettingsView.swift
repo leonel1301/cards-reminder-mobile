@@ -6,6 +6,8 @@ struct NotificationsSettingsView: View {
     @Environment(AuthManager.self) private var authManager
     @Environment(PushNotificationManager.self) private var pushManager
 
+    @State private var firebaseIDToken: String?
+
     private var notificationsEnabled: Bool {
         pushManager.isNotificationsPreferenceEnabled
     }
@@ -74,6 +76,13 @@ struct NotificationsSettingsView: View {
                             .textSelection(.enabled)
                     }
                 }
+                if let token = firebaseIDToken {
+                    Section("notifications_debug_firebase_token_section") {
+                        Text(token)
+                            .font(.caption2.monospaced())
+                            .textSelection(.enabled)
+                    }
+                }
                 #endif
             }
             .id("\(authManager.user?.uid ?? "guest")-\(pushManager.preferenceRevision)")
@@ -92,6 +101,14 @@ struct NotificationsSettingsView: View {
                 } else if notificationsEnabled {
                     await pushManager.syncDeviceWithBackendIfNeeded()
                 }
+
+                #if DEBUG
+                if let user = authManager.user {
+                    firebaseIDToken = try? await user.getIDToken()
+                } else {
+                    firebaseIDToken = nil
+                }
+                #endif
             }
         }
     }

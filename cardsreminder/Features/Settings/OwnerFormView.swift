@@ -14,6 +14,12 @@ struct OwnerFormView: View {
     @State private var name = ""
     @State private var salaryDaySelection = 0
     @State private var showDeleteConfirmation = false
+    @State private var isSubmitting = false
+
+    private var editingOwnerID: UUID? {
+        if case .edit(let owner) = mode { return owner.id }
+        return nil
+    }
 
     private var isEditing: Bool {
         if case .edit = mode { return true }
@@ -83,10 +89,12 @@ struct OwnerFormView: View {
                     Button("action_save") {
                         Task { await save() }
                     }
-                    .disabled(!canSave || ownersService.isLoading)
+                    .disabled(!canSave || isSubmitting)
                 }
             }
-            .onAppear(perform: loadExistingValues)
+            .task(id: editingOwnerID) {
+                loadExistingValues()
+            }
             .confirmationDialog(
                 "delete_owner_confirm_title",
                 isPresented: $showDeleteConfirmation,
@@ -97,7 +105,7 @@ struct OwnerFormView: View {
                 }
             }
             .overlay {
-                if ownersService.isLoading {
+                if isSubmitting {
                     ProgressView()
                 }
             }
@@ -114,12 +122,20 @@ struct OwnerFormView: View {
     }
 
     private func loadExistingValues() {
-        guard case .edit(let owner) = mode else { return }
-        name = owner.name
-        salaryDaySelection = owner.salaryDay ?? 0
+        switch mode {
+        case .create:
+            name = ""
+            salaryDaySelection = 0
+        case .edit(let owner):
+            name = owner.name
+            salaryDaySelection = owner.salaryDay ?? 0
+        }
     }
 
     private func save() async {
+        isSubmitting = true
+        defer { isSubmitting = false }
+
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
 
         switch mode {
@@ -142,6 +158,10 @@ struct OwnerFormView: View {
 
     private func deleteOwner() async {
         guard case .edit(let owner) = mode, !owner.isSelf else { return }
+
+        isSubmitting = true
+        defer { isSubmitting = false }
+
         if await ownersService.deleteOwner(id: owner.id) {
             dismiss()
         }

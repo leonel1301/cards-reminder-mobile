@@ -1,3 +1,4 @@
+import FirebaseAuth
 import Foundation
 
 @Observable
@@ -7,14 +8,28 @@ final class OwnersAPIService {
     var isLoading = false
     var errorMessage: String?
 
+    private(set) var loadedUserID: String?
+
     private let api = APIService.shared
     private var fetchTask: Task<Void, Never>?
+
+    var hasLoaded: Bool {
+        guard let loadedUserID, loadedUserID == Auth.auth().currentUser?.uid else {
+            return false
+        }
+        return true
+    }
 
     var selfOwner: APIOwner? {
         owners.first(where: \.isSelf)
     }
 
     func fetchOwners() async {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            resetSession()
+            return
+        }
+
         if let fetchTask {
             await fetchTask.value
             return
@@ -27,10 +42,10 @@ final class OwnersAPIService {
             do {
                 let list: [APIOwner] = try await api.request(path: "/owners")
                 owners = list
+                sortOwners()
+                loadedUserID = userID
             } catch {
-                if !error.isCancelled {
-                    errorMessage = error.localizedDescription
-                }
+                APIErrorHandling.handle(error) { errorMessage = $0 }
             }
 
             isLoading = false
@@ -53,9 +68,7 @@ final class OwnersAPIService {
             sortOwners()
             return owner
         } catch {
-            if !error.isCancelled {
-                errorMessage = error.localizedDescription
-            }
+            APIErrorHandling.handle(error) { errorMessage = $0 }
             return nil
         }
     }
@@ -76,9 +89,7 @@ final class OwnersAPIService {
             sortOwners()
             return owner
         } catch {
-            if !error.isCancelled {
-                errorMessage = error.localizedDescription
-            }
+            APIErrorHandling.handle(error) { errorMessage = $0 }
             return nil
         }
     }
@@ -94,9 +105,7 @@ final class OwnersAPIService {
             owners.removeAll { $0.id == id }
             return true
         } catch {
-            if !error.isCancelled {
-                errorMessage = error.localizedDescription
-            }
+            APIErrorHandling.handle(error) { errorMessage = $0 }
             return false
         }
     }
@@ -109,6 +118,7 @@ final class OwnersAPIService {
         fetchTask?.cancel()
         fetchTask = nil
         owners = []
+        loadedUserID = nil
         errorMessage = nil
         isLoading = false
     }
@@ -118,13 +128,5 @@ final class OwnersAPIService {
             if lhs.isSelf != rhs.isSelf { return lhs.isSelf && !rhs.isSelf }
             return lhs.name.localizedCompare(rhs.name) == .orderedAscending
         }
-    }
-}
-
-private extension Error {
-    var isCancelled: Bool {
-        if self is CancellationError { return true }
-        let nsError = self as NSError
-        return nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled
     }
 }

@@ -83,14 +83,30 @@ struct CardColorPaletteGrid: View {
 }
 
 struct DayNumberPicker: View {
+    let id: String
     let title: String
     @Binding var selection: Int
+    @Binding var expandedPickerID: String?
+
+    private var isExpanded: Bool {
+        expandedPickerID == id
+    }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(title)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+        VStack(spacing: 0) {
+            Button {
+                expandedPickerID = isExpanded ? nil : id
+            } label: {
+                HStack {
+                    Text(title)
+                        .foregroundStyle(.primary)
+                    Spacer()
+                    Text("\(selection)")
+                        .foregroundStyle(isExpanded ? Color.accentColor : Color.secondary)
+                }
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
 
             Picker(title, selection: $selection) {
                 ForEach(1...31, id: \.self) { day in
@@ -99,8 +115,11 @@ struct DayNumberPicker: View {
             }
             .pickerStyle(.wheel)
             .frame(maxWidth: .infinity)
-            .frame(height: 120)
+            .frame(height: 150)
+            .frame(height: isExpanded ? 150 : 0, alignment: .top)
             .clipped()
+            .allowsHitTesting(isExpanded)
+            .accessibilityHidden(!isExpanded)
         }
     }
 }

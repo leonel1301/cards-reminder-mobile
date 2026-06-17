@@ -3,6 +3,8 @@ import UIKit
 
 struct CreditCardView: View {
     let card: APICard
+    var onEdit: (() -> Void)?
+    var onDelete: (() -> Void)?
 
     private var contentColor: Color {
         card.color.isLightForegroundPreferred ? Color.black.opacity(0.82) : .white
@@ -13,6 +15,28 @@ struct CreditCardView: View {
     }
 
     var body: some View {
+        Button {
+            onEdit?()
+        } label: {
+            cardContent
+        }
+        .buttonStyle(.plain)
+        .contextMenu {
+            if let onEdit {
+                Button(action: onEdit) {
+                    Label("screen_edit_card_title", systemImage: "pencil")
+                }
+            }
+
+            if let onDelete {
+                Button(role: .destructive, action: onDelete) {
+                    Label("action_delete_card", systemImage: "trash")
+                }
+            }
+        }
+    }
+
+    private var cardContent: some View {
         ZStack(alignment: .topTrailing) {
             cardBackground
 
@@ -38,6 +62,7 @@ struct CreditCardView: View {
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .shadow(color: card.color.opacity(card.isActive ? 0.35 : 0.15), radius: 10, y: 6)
         .opacity(card.isActive ? 1 : 0.72)
+        .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 
     private var cardBackground: some View {

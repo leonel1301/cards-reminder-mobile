@@ -24,11 +24,13 @@ struct RegisterDeviceRequest: Encodable, Sendable {
     let fcmToken: String
     let platform: String
     let language: String
+    let timezone: String
 
     enum CodingKeys: String, CodingKey {
         case fcmToken = "fcm_token"
         case platform
         case language
+        case timezone
     }
 }
 

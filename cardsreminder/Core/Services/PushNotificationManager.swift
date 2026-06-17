@@ -59,6 +59,10 @@ final class PushNotificationManager {
         Locale.current.language.languageCode?.identifier ?? "es"
     }
 
+    static var backendTimezoneIdentifier: String {
+        TimeZone.current.identifier
+    }
+
     func refreshAuthorizationStatus() async {
         let settings = await UNUserNotificationCenter.current().notificationSettings()
         authorizationStatus = settings.authorizationStatus
@@ -139,7 +143,8 @@ final class PushNotificationManager {
         do {
             _ = try await devicesAPI.register(
                 fcmToken: token,
-                language: Self.backendLanguageCode
+                language: Self.backendLanguageCode,
+                timezone: Self.backendTimezoneIdentifier
             )
         } catch {
             if !error.isCancelled {

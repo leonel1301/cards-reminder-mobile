@@ -6,7 +6,8 @@ struct DevicesAPIService {
     func register(
         fcmToken: String,
         platform: String = "ios",
-        language: String
+        language: String,
+        timezone: String
     ) async throws -> APIDevice {
         try await api.request(
             path: "/devices",
@@ -14,7 +15,8 @@ struct DevicesAPIService {
             body: RegisterDeviceRequest(
                 fcmToken: fcmToken,
                 platform: platform,
-                language: language
+                language: language,
+                timezone: timezone
             )
         )
     }
