@@ -2549,6 +2549,23 @@
         }
       }
     },
+    "sign_in_continue_apple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in with Apple"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar sesión con Apple"
+          }
+        }
+      }
+    },
     "sign_in_continue_google" : {
       "extractionState" : "manual",
       "localizations" : {

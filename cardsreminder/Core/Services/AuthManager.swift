@@ -15,6 +15,7 @@ final class AuthManager {
     var isSignedIn: Bool { user != nil }
 
     private var authStateHandle: AuthStateDidChangeListenerHandle?
+    private var appleSignInCoordinator: AppleSignInCoordinator?
 
     init() {
         user = Auth.auth().currentUser
@@ -55,40 +56,65 @@ final class AuthManager {
         isLoading = false
     }
 
-    func handleAppleSignIn(result: Result<ASAuthorization, Error>, nonce: String?) async {
+    func signInWithApple() {
+        guard !isLoading else { return }
+
         isLoading = true
         errorMessage = nil
 
-        switch result {
-        case .success(let authorization):
-            guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
-                  let identityToken = appleIDCredential.identityToken,
-                  let idTokenString = String(data: identityToken, encoding: .utf8),
-                  let nonce else {
-                errorMessage = String(localized: "error_apple_credential")
-                isLoading = false
-                return
-            }
+        let coordinator = AppleSignInCoordinator()
+        appleSignInCoordinator = coordinator
 
-            do {
-                let credential = OAuthProvider.appleCredential(
-                    withIDToken: idTokenString,
-                    rawNonce: nonce,
-                    fullName: appleIDCredential.fullName
-                )
-                let authResult = try await Auth.auth().signIn(with: credential)
-                user = authResult.user
-            } catch {
-                errorMessage = error.localizedDescription
-            }
+        coordinator.signIn { [weak self] result in
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+                defer {
+                    self.appleSignInCoordinator = nil
+                    self.isLoading = false
+                }
 
-        case .failure(let error):
-            if (error as NSError).code != ASAuthorizationError.canceled.rawValue {
-                errorMessage = error.localizedDescription
+                switch result {
+                case .success(let (appleIDCredential, nonce)):
+                    await self.completeAppleSignIn(credential: appleIDCredential, nonce: nonce)
+
+                case .failure(let error):
+                    if !Self.isBenignAppleSignInError(error) {
+                        self.errorMessage = error.localizedDescription
+                    }
+                }
             }
         }
+    }
 
-        isLoading = false
+    private func completeAppleSignIn(
+        credential appleIDCredential: ASAuthorizationAppleIDCredential,
+        nonce: String
+    ) async {
+        guard let identityToken = appleIDCredential.identityToken,
+              let idTokenString = String(data: identityToken, encoding: .utf8) else {
+            errorMessage = String(localized: "error_apple_credential")
+            return
+        }
+
+        do {
+            let credential = OAuthProvider.appleCredential(
+                withIDToken: idTokenString,
+                rawNonce: nonce,
+                fullName: appleIDCredential.fullName
+            )
+            let authResult = try await Auth.auth().signIn(with: credential)
+            user = authResult.user
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    private static func isBenignAppleSignInError(_ error: Error) -> Bool {
+        let nsError = error as NSError
+        guard nsError.domain == ASAuthorizationError.errorDomain else { return false }
+
+        return nsError.code == ASAuthorizationError.canceled.rawValue
+            || nsError.code == ASAuthorizationError.unknown.rawValue
     }
 
     func signOut() {
@@ -121,13 +147,16 @@ final class AuthManager {
     }
 
     @MainActor
-    static func topViewController() -> UIViewController? {
-        let base = UIApplication.shared.connectedScenes
+    static func keyWindow() -> UIWindow? {
+        UIApplication.shared.connectedScenes
             .compactMap { $0 as? UIWindowScene }
             .flatMap(\.windows)
-            .first { $0.isKeyWindow }?
-            .rootViewController
-        return _topViewController(base: base)
+            .first { $0.isKeyWindow }
+    }
+
+    @MainActor
+    static func topViewController() -> UIViewController? {
+        _topViewController(base: keyWindow()?.rootViewController)
     }
 
     private static func _topViewController(base: UIViewController?) -> UIViewController? {
