@@ -1,32 +1,46 @@
 import SwiftUI
+import UIKit
 
 struct CardsView: View {
     @Environment(CardsAPIService.self) private var cardsService
+    @Environment(PaymentsAPIService.self) private var paymentsService
     @State private var showCreateForm = false
     @State private var editingCard: APICard?
+    @State private var paymentsCard: APICard?
     @State private var cardPendingDelete: APICard?
+    @State private var cardPendingPayment: APICard?
+    @State private var markingPaidCardID: UUID?
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                screenTitle
+        VStack(spacing: 0) {
+            screenTitle
 
-                addButton
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    if let summary = paymentsService.summary, summary.hasAttentionItems {
+                        DashboardSummaryBanner(summary: summary)
+                            .padding(.horizontal, 16)
+                            .transition(.opacity.combined(with: .move(edge: .top)))
+                    }
 
-                if let errorMessage = cardsService.errorMessage {
-                    Text(errorMessage)
-                        .font(.caption)
-                        .foregroundStyle(.red)
-                        .padding(.horizontal, 16)
+                    addButton
+
+                    if let errorMessage = cardsService.errorMessage ?? paymentsService.errorMessage {
+                        Text(errorMessage)
+                            .font(.caption)
+                            .foregroundStyle(.red)
+                            .padding(.horizontal, 16)
+                    }
+
+                    if cardsService.cards.isEmpty && !cardsService.isLoading {
+                        emptyState
+                    } else {
+                        cardsList
+                    }
                 }
-
-                if cardsService.cards.isEmpty && !cardsService.isLoading {
-                    emptyState
-                } else {
-                    cardsList
-                }
+                .padding(.bottom, 16)
+                .animation(SmoothRevealAnimation.motion, value: paymentsService.dashboardRevision)
             }
-            .padding(.bottom, 16)
         }
         .safeAreaPadding(.bottom)
         .overlay {
@@ -35,28 +49,48 @@ struct CardsView: View {
             }
         }
         .task {
-            guard !cardsService.hasLoaded else { return }
-            await cardsService.fetchCards()
+            await loadCardsScreen()
         }
         .refreshable {
-            await cardsService.fetchCards()
+            await refreshCardsScreen()
         }
-        .sheet(isPresented: $showCreateForm) {
+        .sheet(isPresented: $showCreateForm, onDismiss: {
+            Task { await refreshCardsScreen() }
+        }) {
             CardFormView(mode: .create)
         }
-        .sheet(item: $editingCard) { card in
+        .sheet(item: $editingCard, onDismiss: {
+            Task { await refreshCardsScreen() }
+        }) { card in
             CardFormView(mode: .edit(card))
         }
-        .confirmationDialog(
-            "delete_card_confirm_title",
-            isPresented: showDeleteConfirmation,
-            titleVisibility: .visible
-        ) {
+        .sheet(item: $paymentsCard) { card in
+            CardPaymentsSheet(card: card)
+        }
+        .alert("delete_card_confirm_title", isPresented: showDeleteConfirmation) {
+            Button("action_cancel", role: .cancel) {
+                cardPendingDelete = nil
+            }
             Button("action_delete", role: .destructive) {
                 guard let card = cardPendingDelete else { return }
                 cardPendingDelete = nil
                 Task { await deleteCard(card) }
             }
+        }
+        .alert(
+            "payments_quick_confirm_title",
+            isPresented: showPaymentConfirmation,
+            presenting: cardPendingPayment
+        ) { card in
+            Button("action_cancel", role: .cancel) {
+                cardPendingPayment = nil
+            }
+            Button("payments_mark_paid") {
+                cardPendingPayment = nil
+                Task { await quickMarkPaid(card) }
+            }
+        } message: { card in
+            Text(quickPaymentConfirmationMessage(for: card))
         }
     }
 
@@ -67,12 +101,36 @@ struct CardsView: View {
         )
     }
 
+    private var showPaymentConfirmation: Binding<Bool> {
+        Binding(
+            get: { cardPendingPayment != nil },
+            set: { if !$0 { cardPendingPayment = nil } }
+        )
+    }
+
+    private func quickPaymentConfirmationMessage(for card: APICard) -> String {
+        guard let status = paymentsService.status(for: card.id) else {
+            return String(localized: "payments_quick_confirm_message_fallback")
+        }
+
+        let period = cycleDateRangeLabel(start: status.cycleStart, end: status.cycleEnd)
+        return String(format: String(localized: "payments_quick_confirm_message"), period)
+    }
+
+    private func cycleDateRangeLabel(start: Date, end: Date) -> String {
+        let startLabel = start.formatted(date: .abbreviated, time: .omitted)
+        let endLabel = end.formatted(date: .abbreviated, time: .omitted)
+        return "\(startLabel) – \(endLabel)"
+    }
+
     private var screenTitle: some View {
         Text("screen_cards_title")
             .font(.largeTitle.bold())
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 16)
             .padding(.top, 8)
+            .padding(.bottom, 8)
+            .background(Color(.systemBackground))
     }
 
     private var addButton: some View {
@@ -106,23 +164,68 @@ struct CardsView: View {
 
     private var cardsList: some View {
         VStack(spacing: 16) {
-            ForEach(cardsService.cards) { card in
+            ForEach(Array(cardsService.cards.enumerated()), id: \.element.id) { index, card in
                 CreditCardView(
                     card: card,
+                    status: paymentsService.status(for: card.id),
+                    statusRevealDelay: SmoothRevealAnimation.staggerDelay(for: index),
+                    onOpenPayments: { paymentsCard = card },
+                    onMarkPaid: card.isActive ? { cardPendingPayment = card } : nil,
                     onEdit: { editingCard = card },
                     onDelete: { cardPendingDelete = card }
                 )
+                .overlay {
+                    if markingPaidCardID == card.id {
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .fill(.ultraThinMaterial)
+                            .overlay { ProgressView() }
+                    }
+                }
             }
         }
         .padding(.horizontal, 16)
     }
 
+    /// Carga inicial: si el calendario (u otra pantalla) ya trajo `/cards`, solo pide `/dashboard`.
+    private func loadCardsScreen() async {
+        if cardsService.hasLoaded {
+            await paymentsService.fetchDashboard()
+        } else {
+            async let cards: Void = cardsService.fetchCards()
+            async let dashboard: Void = paymentsService.fetchDashboard()
+            _ = await (cards, dashboard)
+        }
+    }
+
+    /// Pull-to-refresh: actualiza lista completa y status en paralelo.
+    private func refreshCardsScreen() async {
+        async let cards: Void = cardsService.fetchCards()
+        async let dashboard: Void = paymentsService.fetchDashboard()
+        _ = await (cards, dashboard)
+    }
+
     private func deleteCard(_ card: APICard) async {
-        _ = await cardsService.deleteCard(id: card.id)
+        guard await cardsService.deleteCard(id: card.id) else { return }
+        await paymentsService.fetchDashboard()
+    }
+
+    private func quickMarkPaid(_ card: APICard) async {
+        markingPaidCardID = card.id
+        defer { markingPaidCardID = nil }
+
+        guard let response = await paymentsService.markAsPaid(cardID: card.id) else { return }
+
+        if let index = cardsService.cards.firstIndex(where: { $0.id == response.card.id }) {
+            cardsService.cards[index] = response.card
+        }
+
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
     }
 }
 
 #Preview {
     CardsView()
         .environment(CardsAPIService())
+        .environment(PaymentsAPIService())
 }

@@ -130,6 +130,7 @@ struct APIService {
         request.httpMethod = method
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue(Self.acceptLanguageHeaderValue, forHTTPHeaderField: "Accept-Language")
 
         if let body {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -137,6 +138,10 @@ struct APIService {
         }
 
         return request
+    }
+
+    private static var acceptLanguageHeaderValue: String {
+        Locale.current.language.languageCode?.identifier ?? "es"
     }
 
     private struct APIErrorBody: Decodable {

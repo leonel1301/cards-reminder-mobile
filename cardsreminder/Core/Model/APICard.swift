@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct APICard: Codable, Identifiable, Sendable {
+struct APICard: Codable, Identifiable, Sendable, Equatable {
     let id: UUID
     let userID: UUID
     let ownerID: UUID

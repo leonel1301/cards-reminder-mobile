@@ -19,25 +19,32 @@ extension OnboardingPage {
             subtitle: String(localized: "onboarding_welcome_subtitle")
         ),
         OnboardingPage(
-            icon: "bell.badge.fill",
-            iconBackground: Color.redStateBackground,
-            iconForeground: .redStateForeground,
-            title: String(localized: "onboarding_reminders_title"),
-            subtitle: String(localized: "onboarding_reminders_subtitle")
+            icon: "sun.max.fill",
+            iconBackground: Color.amberStateBackground,
+            iconForeground: .amberStateForeground,
+            title: String(localized: "onboarding_today_title"),
+            subtitle: String(localized: "onboarding_today_subtitle")
         ),
         OnboardingPage(
-            icon: "calendar.badge.clock",
+            icon: "calendar",
             iconBackground: Color.violetStateBackground,
             iconForeground: .violetStateForeground,
-            title: String(localized: "onboarding_optimal_title"),
-            subtitle: String(localized: "onboarding_optimal_subtitle")
+            title: String(localized: "onboarding_calendar_title"),
+            subtitle: String(localized: "onboarding_calendar_subtitle")
         ),
         OnboardingPage(
-            icon: "checkmark.seal.fill",
+            icon: "person.2.fill",
+            iconBackground: Color.primaryAction.opacity(0.12),
+            iconForeground: .primaryAction,
+            title: String(localized: "onboarding_owners_title"),
+            subtitle: String(localized: "onboarding_owners_subtitle")
+        ),
+        OnboardingPage(
+            icon: "bell.badge.fill",
             iconBackground: Color.emeraldStateBackground,
             iconForeground: .emeraldStateForeground,
-            title: String(localized: "onboarding_status_title"),
-            subtitle: String(localized: "onboarding_status_subtitle")
+            title: String(localized: "onboarding_control_title"),
+            subtitle: String(localized: "onboarding_control_subtitle")
         ),
     ]
 }

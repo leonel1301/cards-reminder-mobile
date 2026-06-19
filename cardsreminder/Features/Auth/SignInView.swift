@@ -55,6 +55,8 @@ struct SignInView: View {
                     .font(.subheadline)
                     .foregroundStyle(.white.opacity(0.85))
                     .multilineTextAlignment(.center)
+                    .lineSpacing(3)
+                    .padding(.horizontal, 8)
             }
         }
         .frame(maxWidth: .infinity)

@@ -21,7 +21,6 @@ private enum SettingsSheet: Identifiable {
 struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(AuthManager.self) private var authManager
-    @Environment(CardsAPIService.self) private var cardsService
     @Environment(PushNotificationManager.self) private var pushManager
     @Environment(UserAPIService.self) private var userService
     @Environment(OwnersAPIService.self) private var ownersService
@@ -32,28 +31,29 @@ struct SettingsView: View {
     private var profile: UserProfile? { profiles.first }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                screenHeader
+        VStack(spacing: 0) {
+            screenHeader
 
-                profileSection
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    profileSection
+                        .transition(SmoothRevealAnimation.sectionTransition)
 
-                ownersSection
+                    ownersSection
+                        .transition(SmoothRevealAnimation.sectionTransition)
 
-                if let errorMessage = userService.errorMessage ?? ownersService.errorMessage {
-                    errorBanner(errorMessage)
+                    if let errorMessage = userService.errorMessage ?? ownersService.errorMessage {
+                        errorBanner(errorMessage)
+                    }
                 }
+                .padding(.bottom, 32)
+                .animation(SmoothRevealAnimation.motion, value: userService.contentRevision)
+                .animation(SmoothRevealAnimation.motion, value: ownersService.contentRevision)
             }
-            .padding(.bottom, 32)
         }
         .safeAreaPadding(.bottom)
         .task {
-            if !userService.hasLoaded {
-                await userService.fetchProfile(into: modelContext)
-            }
-            if !ownersService.hasLoaded {
-                await ownersService.fetchOwners()
-            }
+            await loadInitialData()
         }
         .refreshable {
             await loadData()
@@ -71,9 +71,24 @@ struct SettingsView: View {
         }
     }
 
+    private func loadInitialData() async {
+        if userService.hasLoaded && ownersService.hasLoaded { return }
+
+        if !userService.hasLoaded && !ownersService.hasLoaded {
+            async let profile: Void = userService.fetchProfile(into: modelContext)
+            async let owners: Void = ownersService.fetchOwners()
+            _ = await (profile, owners)
+        } else if !userService.hasLoaded {
+            await userService.fetchProfile(into: modelContext)
+        } else {
+            await ownersService.fetchOwners()
+        }
+    }
+
     private func loadData() async {
-        await userService.fetchProfile(into: modelContext)
-        await ownersService.fetchOwners()
+        async let profile: Void = userService.fetchProfile(into: modelContext)
+        async let owners: Void = ownersService.fetchOwners()
+        _ = await (profile, owners)
     }
 
     private var screenHeader: some View {
@@ -86,6 +101,8 @@ struct SettingsView: View {
         }
         .padding(.horizontal, 16)
         .padding(.top, 8)
+        .padding(.bottom, 8)
+        .background(Color(.systemBackground))
     }
 
     private var settingsMenu: some View {
@@ -114,10 +131,6 @@ struct SettingsView: View {
         Task {
             await pushManager.unregisterFromBackend()
             UserProfile.clearAll(in: modelContext)
-            APIAlertCenter.shared.dismiss()
-            cardsService.resetSession()
-            ownersService.resetSession()
-            userService.resetSession()
             authManager.signOut()
         }
     }
@@ -151,6 +164,7 @@ struct SettingsView: View {
                         .padding(.vertical, 4)
                         .background(Color(.tertiarySystemFill))
                         .clipShape(Capsule())
+                        .transition(SmoothRevealAnimation.transition)
                 }
             }
             .padding(.horizontal, 16)
@@ -180,7 +194,7 @@ struct SettingsView: View {
                     .padding(.horizontal, 16)
             } else {
                 VStack(spacing: 0) {
-                    ForEach(ownersService.owners) { owner in
+                    ForEach(Array(ownersService.owners.enumerated()), id: \.element.id) { index, owner in
                         Button {
                             activeSheet = .editOwner(owner)
                         } label: {
@@ -189,6 +203,11 @@ struct SettingsView: View {
                                 .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
+                        .transition(SmoothRevealAnimation.transition)
+                        .animation(
+                            SmoothRevealAnimation.motion.delay(SmoothRevealAnimation.staggerDelay(for: index)),
+                            value: ownersService.contentRevision
+                        )
 
                         if owner.id != ownersService.owners.last?.id {
                             Divider().padding(.leading, 16)
@@ -198,6 +217,7 @@ struct SettingsView: View {
                 .background(Color(.secondarySystemBackground))
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .padding(.horizontal, 16)
+                .transition(SmoothRevealAnimation.sectionTransition)
             }
         }
     }

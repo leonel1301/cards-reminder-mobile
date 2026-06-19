@@ -18,6 +18,7 @@ struct cardsreminderApp: App {
     @State private var cardsService = CardsAPIService()
     @State private var userService = UserAPIService()
     @State private var ownersService = OwnersAPIService()
+    @State private var paymentsService = PaymentsAPIService()
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([UserProfile.self])
@@ -47,6 +48,7 @@ struct cardsreminderApp: App {
                 .environment(cardsService)
                 .environment(userService)
                 .environment(ownersService)
+                .environment(paymentsService)
                 .environment(pushNotificationManager)
                 .onOpenURL { url in
                     GIDSignIn.sharedInstance.handle(url)

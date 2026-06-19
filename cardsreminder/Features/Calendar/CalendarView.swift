@@ -48,37 +48,30 @@ struct CalendarView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                screenTitle
+        VStack(spacing: 0) {
+            screenTitle
 
-                if let errorMessage = cardsService.errorMessage {
-                    errorBanner(errorMessage)
+            ScrollView {
+                VStack(spacing: 0) {
+                    if let errorMessage = cardsService.errorMessage {
+                        errorBanner(errorMessage)
+                    }
+
+                    monthHeader
+
+                    weekdayLabelsRow
+
+                    Divider()
+
+                    if activeCards.isEmpty && !cardsService.isLoading {
+                        emptyState
+                            .transition(SmoothRevealAnimation.sectionTransition)
+                    } else {
+                        loadedCalendarContent
+                            .transition(SmoothRevealAnimation.sectionTransition)
+                    }
                 }
-
-                monthHeader
-
-                weekdayLabelsRow
-
-                Divider()
-
-                if activeCards.isEmpty && !cardsService.isLoading {
-                    emptyState
-                } else {
-                    calendarGrid
-                        .simultaneousGesture(monthSwipeGesture)
-                }
-
-                Divider()
-
-                if !activeCards.isEmpty {
-                    CalendarLegendRows(
-                        cards: activeCards,
-                        billingPeriods: visibleBillingPeriods,
-                        payments: visiblePayments,
-                        selection: $selection
-                    )
-                }
+                .animation(SmoothRevealAnimation.motion, value: cardsService.contentRevision)
             }
         }
         .safeAreaPadding(.bottom)
@@ -99,6 +92,25 @@ struct CalendarView: View {
         }
     }
 
+    private var loadedCalendarContent: some View {
+        VStack(spacing: 0) {
+            calendarGrid
+                .simultaneousGesture(monthSwipeGesture)
+
+            Divider()
+
+            if !activeCards.isEmpty {
+                CalendarLegendRows(
+                    cards: activeCards,
+                    billingPeriods: visibleBillingPeriods,
+                    payments: visiblePayments,
+                    selection: $selection
+                )
+                .transition(.opacity.combined(with: .move(edge: .bottom)))
+            }
+        }
+    }
+
     private var screenTitle: some View {
         Text("screen_calendar_title")
             .font(.largeTitle.bold())
@@ -106,6 +118,7 @@ struct CalendarView: View {
             .padding(.horizontal, 16)
             .padding(.top, 8)
             .padding(.bottom, 4)
+            .background(Color(.systemBackground))
     }
 
     private var emptyState: some View {

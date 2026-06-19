@@ -5,6 +5,8 @@ struct RootView: View {
     @Environment(AuthManager.self) private var authManager
     @Environment(CardsAPIService.self) private var cardsService
     @Environment(OwnersAPIService.self) private var ownersService
+    @Environment(PaymentsAPIService.self) private var paymentsService
+    @Environment(UserAPIService.self) private var userService
     @Environment(PushNotificationManager.self) private var pushManager
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @State private var showSplash = true
@@ -75,6 +77,8 @@ struct RootView: View {
         APIAlertCenter.shared.dismiss()
         cardsService.resetSession()
         ownersService.resetSession()
+        paymentsService.resetSession()
+        userService.resetSession()
     }
 }
 
@@ -83,5 +87,7 @@ struct RootView: View {
         .environment(AuthManager())
         .environment(CardsAPIService())
         .environment(OwnersAPIService())
+        .environment(PaymentsAPIService())
+        .environment(UserAPIService())
         .environment(PushNotificationManager.shared)
 }

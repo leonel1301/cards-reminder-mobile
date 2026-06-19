@@ -3,6 +3,10 @@ import UIKit
 
 struct CreditCardView: View {
     let card: APICard
+    var status: APICardStatus?
+    var statusRevealDelay: Double = 0
+    var onOpenPayments: (() -> Void)?
+    var onMarkPaid: (() -> Void)?
     var onEdit: (() -> Void)?
     var onDelete: (() -> Void)?
 
@@ -14,26 +18,41 @@ struct CreditCardView: View {
         card.color.isLightForegroundPreferred ? Color.black.opacity(0.55) : .white.opacity(0.78)
     }
 
-    var body: some View {
-        Button {
-            onEdit?()
-        } label: {
-            cardContent
-        }
-        .buttonStyle(.plain)
-        .contextMenu {
-            if let onEdit {
-                Button(action: onEdit) {
-                    Label("screen_edit_card_title", systemImage: "pencil")
-                }
-            }
+    private var isPaidThisCycle: Bool {
+        status?.isPaidThisCycle == true
+    }
 
-            if let onDelete {
-                Button(role: .destructive, action: onDelete) {
-                    Label("action_delete_card", systemImage: "trash")
+    var body: some View {
+        cardContent
+            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .onTapGesture {
+                onOpenPayments?()
+            }
+            .contextMenu {
+                if let onOpenPayments {
+                    Button(action: onOpenPayments) {
+                        Label("payments_view_history", systemImage: "clock.arrow.circlepath")
+                    }
+                }
+
+                if let onMarkPaid, card.isActive, !isPaidThisCycle {
+                    Button(action: onMarkPaid) {
+                        Label("payments_mark_paid", systemImage: "banknote")
+                    }
+                }
+
+                if let onEdit {
+                    Button(action: onEdit) {
+                        Label("screen_edit_card_title", systemImage: "pencil")
+                    }
+                }
+
+                if let onDelete {
+                    Button(role: .destructive, action: onDelete) {
+                        Label("action_delete_card", systemImage: "trash")
+                    }
                 }
             }
-        }
     }
 
     private var cardContent: some View {
@@ -62,7 +81,80 @@ struct CreditCardView: View {
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .shadow(color: card.color.opacity(card.isActive ? 0.35 : 0.15), radius: 10, y: 6)
         .opacity(card.isActive ? 1 : 0.72)
-        .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+
+    private var markPaidButton: some View {
+        Group {
+            if isPaidThisCycle {
+                markPaidButtonIcon
+            } else {
+                markPaidButtonIcon
+                    .highPriorityGesture(TapGesture().onEnded { onMarkPaid?() })
+            }
+        }
+        .allowsHitTesting(!isPaidThisCycle)
+        .accessibilityLabel(
+            Text(isPaidThisCycle ? "payments_already_paid" : "payments_mark_paid")
+        )
+        .accessibilityAddTraits(isPaidThisCycle ? .isStaticText : .isButton)
+        .animation(SmoothRevealAnimation.motion, value: isPaidThisCycle)
+    }
+
+    private var markPaidButtonIcon: some View {
+        Image(systemName: isPaidThisCycle ? "checkmark.circle.fill" : "banknote")
+            .font(.title3.weight(.semibold))
+            .symbolRenderingMode(.palette)
+            .foregroundStyle(
+                isPaidThisCycle ? Color.emeraldStateForeground : contentColor,
+                isPaidThisCycle ? Color.emeraldStateBackground : contentColor.opacity(0.35)
+            )
+            .frame(width: 36, height: 36)
+            .background(markPaidButtonBackground)
+            .clipShape(Circle())
+            .overlay {
+                if !isPaidThisCycle {
+                    Circle()
+                        .strokeBorder(contentColor.opacity(0.45), lineWidth: 1.5)
+                }
+            }
+            .contentShape(Circle())
+            .opacity(isPaidThisCycle ? 0.85 : 1)
+    }
+
+    private var markPaidButtonBackground: Color {
+        if isPaidThisCycle {
+            return Color.emeraldStateBackground.opacity(0.95)
+        }
+        return card.color.isLightForegroundPreferred
+            ? Color.black.opacity(0.1)
+            : Color.white.opacity(0.22)
+    }
+
+    private var headerRow: some View {
+        HStack(alignment: .center, spacing: 0) {
+            chipView
+
+            Spacer(minLength: 12)
+
+            HStack(alignment: .center, spacing: 12) {
+                VStack(alignment: .trailing, spacing: 2) {
+                    Text(card.name)
+                        .font(.subheadline.weight(.semibold))
+                        .lineLimit(2)
+                        .multilineTextAlignment(.trailing)
+
+                    if let issuer = card.issuer, !issuer.isEmpty {
+                        Text(issuer)
+                            .font(.caption)
+                            .foregroundStyle(secondaryContentColor)
+                    }
+                }
+
+                if card.isActive, onMarkPaid != nil {
+                    markPaidButton
+                }
+            }
+        }
     }
 
     private var cardBackground: some View {
@@ -92,27 +184,6 @@ struct CreditCardView: View {
                 .fill(.black.opacity(0.06))
                 .frame(width: 140, height: 140)
                 .offset(x: -100, y: 80)
-        }
-    }
-
-    private var headerRow: some View {
-        HStack(alignment: .top) {
-            chipView
-
-            Spacer()
-
-            VStack(alignment: .trailing, spacing: 2) {
-                Text(card.name)
-                    .font(.subheadline.weight(.semibold))
-                    .lineLimit(2)
-                    .multilineTextAlignment(.trailing)
-
-                if let issuer = card.issuer, !issuer.isEmpty {
-                    Text(issuer)
-                        .font(.caption)
-                        .foregroundStyle(secondaryContentColor)
-                }
-            }
         }
     }
 
@@ -161,6 +232,15 @@ struct CreditCardView: View {
             }
 
             Spacer()
+
+            if let status, card.isActive {
+                CardStatusBadge(status: status)
+                    .transition(SmoothRevealAnimation.transition)
+                    .animation(
+                        SmoothRevealAnimation.motion.delay(statusRevealDelay),
+                        value: status
+                    )
+            }
         }
     }
 
@@ -195,37 +275,56 @@ private extension Color {
 
 #Preview {
     VStack(spacing: 16) {
-        CreditCardView(card: APICard(
-            id: UUID(),
-            userID: UUID(),
-            ownerID: UUID(),
-            name: "Visa Banco X",
-            lastFourDigits: "4532",
-            issuer: "Banco X",
-            billingCycleDay: 15,
-            paymentDueDay: 5,
-            colorHex: "6366F1",
-            notes: nil,
-            isActive: true,
-            createdAt: .now,
-            updatedAt: .now
-        ))
+        CreditCardView(
+            card: APICard(
+                id: UUID(),
+                userID: UUID(),
+                ownerID: UUID(),
+                name: "Visa Banco X",
+                lastFourDigits: "4532",
+                issuer: "Banco X",
+                billingCycleDay: 15,
+                paymentDueDay: 5,
+                colorHex: "6366F1",
+                notes: nil,
+                isActive: true,
+                createdAt: .now,
+                updatedAt: .now
+            ),
+            status: APICardStatus(
+                status: "urgent",
+                cycleStart: .now,
+                cycleEnd: .now,
+                paymentDueDate: .now,
+                daysUntilPayment: 2,
+                daysOverdue: 0,
+                optimalPurchaseDay: 16,
+                isOptimalPurchaseDay: false,
+                isPaidThisCycle: false
+            ),
+            onOpenPayments: {},
+            onMarkPaid: {}
+        )
 
-        CreditCardView(card: APICard(
-            id: UUID(),
-            userID: UUID(),
-            ownerID: UUID(),
-            name: "Falabella",
-            lastFourDigits: "8821",
-            issuer: "CMR",
-            billingCycleDay: 9,
-            paymentDueDay: 5,
-            colorHex: "22C55E",
-            notes: nil,
-            isActive: false,
-            createdAt: .now,
-            updatedAt: .now
-        ))
+        CreditCardView(
+            card: APICard(
+                id: UUID(),
+                userID: UUID(),
+                ownerID: UUID(),
+                name: "Falabella",
+                lastFourDigits: "8821",
+                issuer: "CMR",
+                billingCycleDay: 9,
+                paymentDueDay: 5,
+                colorHex: "22C55E",
+                notes: nil,
+                isActive: false,
+                createdAt: .now,
+                updatedAt: .now
+            ),
+            onOpenPayments: {},
+            onMarkPaid: {}
+        )
     }
     .padding()
 }

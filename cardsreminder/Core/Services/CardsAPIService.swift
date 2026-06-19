@@ -1,5 +1,6 @@
 import FirebaseAuth
 import Foundation
+import SwiftUI
 
 @Observable
 @MainActor
@@ -9,6 +10,7 @@ final class CardsAPIService {
     var errorMessage: String?
 
     private(set) var loadedUserID: String?
+    private(set) var contentRevision = 0
 
     private let api = APIService.shared
     private var fetchTask: Task<Void, Never>?
@@ -29,6 +31,7 @@ final class CardsAPIService {
         fetchTask = nil
         cards = []
         loadedUserID = nil
+        contentRevision = 0
         errorMessage = nil
         isLoading = false
     }
@@ -50,8 +53,11 @@ final class CardsAPIService {
 
             do {
                 let cardsList: [APICard] = try await api.request(path: "/cards")
-                cards = cardsList.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
-                loadedUserID = userID
+                withAnimation(SmoothRevealAnimation.motion) {
+                    cards = cardsList.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
+                    loadedUserID = userID
+                    contentRevision += 1
+                }
             } catch {
                 APIErrorHandling.handle(error) { errorMessage = $0 }
             }

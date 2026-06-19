@@ -233,6 +233,43 @@ enum CalendarBillingLogic {
 
         return date.formatted(.dateTime.day().month(.abbreviated).locale(currentLocale))
     }
+
+    static func currentPeriod(for card: APICard, referenceDate: Date = .now) -> BillingPeriodInstance {
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: referenceDate)
+        let month = calendar.component(.month, from: referenceDate)
+        let day = calendar.component(.day, from: referenceDate)
+
+        for delta in -1...0 {
+            let (startYear, startMonth) = addMonths(year: year, month: month, delta: delta)
+            let period = makePeriod(card: card, startYear: startYear, startMonth: startMonth)
+            if dayInPeriod(period, year: year, month: month, day: day) {
+                return period
+            }
+        }
+
+        return makePeriod(card: card, startYear: year, startMonth: month)
+    }
+
+    static func cycleEndDate(for period: BillingPeriodInstance) -> Date? {
+        dateComponents(year: period.endYear, month: period.endMonth, day: period.endDay)
+    }
+
+    static func cycleStartDate(for period: BillingPeriodInstance) -> Date? {
+        dateComponents(year: period.startYear, month: period.startMonth, day: period.startDay)
+    }
+
+    static func paymentDueDate(for period: BillingPeriodInstance) -> Date? {
+        dateComponents(year: period.paymentYear, month: period.paymentMonth, day: period.paymentDay)
+    }
+
+    private static func dateComponents(year: Int, month: Int, day: Int) -> Date? {
+        var components = DateComponents()
+        components.year = year
+        components.month = month
+        components.day = day
+        return Calendar.current.date(from: components)
+    }
 }
 
 extension BillingPeriodInstance {

@@ -1,6 +1,7 @@
 import FirebaseAuth
 import Foundation
 import SwiftData
+import SwiftUI
 
 @Observable
 @MainActor
@@ -9,6 +10,7 @@ final class UserAPIService {
     var errorMessage: String?
 
     private(set) var loadedUserID: String?
+    private(set) var contentRevision = 0
 
     private let api = APIService.shared
     private var fetchTask: Task<Void, Never>?
@@ -24,6 +26,7 @@ final class UserAPIService {
         fetchTask?.cancel()
         fetchTask = nil
         loadedUserID = nil
+        contentRevision = 0
         errorMessage = nil
         isLoading = false
     }
@@ -45,8 +48,11 @@ final class UserAPIService {
 
             do {
                 let user: APIUser = try await api.request(path: "/me")
-                UserProfile.sync(user, in: context)
-                loadedUserID = userID
+                withAnimation(SmoothRevealAnimation.motion) {
+                    UserProfile.sync(user, in: context)
+                    loadedUserID = userID
+                    contentRevision += 1
+                }
             } catch {
                 APIErrorHandling.handle(error) { errorMessage = $0 }
             }

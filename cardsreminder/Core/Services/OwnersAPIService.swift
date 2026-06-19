@@ -1,5 +1,6 @@
 import FirebaseAuth
 import Foundation
+import SwiftUI
 
 @Observable
 @MainActor
@@ -9,6 +10,7 @@ final class OwnersAPIService {
     var errorMessage: String?
 
     private(set) var loadedUserID: String?
+    private(set) var contentRevision = 0
 
     private let api = APIService.shared
     private var fetchTask: Task<Void, Never>?
@@ -41,9 +43,12 @@ final class OwnersAPIService {
 
             do {
                 let list: [APIOwner] = try await api.request(path: "/owners")
-                owners = list
-                sortOwners()
-                loadedUserID = userID
+                withAnimation(SmoothRevealAnimation.motion) {
+                    owners = list
+                    sortOwners()
+                    loadedUserID = userID
+                    contentRevision += 1
+                }
             } catch {
                 APIErrorHandling.handle(error) { errorMessage = $0 }
             }
@@ -119,6 +124,7 @@ final class OwnersAPIService {
         fetchTask = nil
         owners = []
         loadedUserID = nil
+        contentRevision = 0
         errorMessage = nil
         isLoading = false
     }

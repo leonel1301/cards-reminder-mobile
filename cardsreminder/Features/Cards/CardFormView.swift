@@ -9,6 +9,7 @@ struct CardFormView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(CardsAPIService.self) private var cardsService
     @Environment(OwnersAPIService.self) private var ownersService
+    @Environment(PushNotificationManager.self) private var pushManager
 
     let mode: Mode
 
@@ -22,6 +23,8 @@ struct CardFormView: View {
     @State private var isActive = true
     @State private var selectedOwnerID: UUID?
     @State private var showDeleteConfirmation = false
+    @State private var showRemindersPrompt = false
+    @State private var showRemindersLaterInfo = false
     @State private var expandedDayPickerID: String?
 
     private var isEditing: Bool {
@@ -69,18 +72,9 @@ struct CardFormView: View {
                 }
 
                 Section("section_owner") {
-                    if isEditing {
-                        Picker("field_card_owner", selection: $selectedOwnerID) {
-                            ForEach(ownersService.owners) { owner in
-                                Text(owner.displayName).tag(Optional(owner.id))
-                            }
-                        }
-                    } else {
-                        Picker("field_card_owner", selection: $selectedOwnerID) {
-                            Text("owner_auto_assign").tag(Optional<UUID>.none)
-                            ForEach(ownersService.owners) { owner in
-                                Text(owner.displayName).tag(Optional(owner.id))
-                            }
+                    Picker("field_card_owner", selection: $selectedOwnerID) {
+                        ForEach(ownersService.owners) { owner in
+                            Text(owner.displayName).tag(Optional(owner.id))
                         }
                     }
                 }
@@ -129,16 +123,36 @@ struct CardFormView: View {
             }
             .task {
                 await ownersService.fetchOwners()
+                if !isEditing, selectedOwnerID == nil {
+                    selectedOwnerID = ownersService.selfOwner?.id
+                }
+                if !isEditing {
+                    await pushManager.refreshAuthorizationStatus()
+                }
             }
             .onAppear(perform: loadExistingValues)
-            .confirmationDialog(
-                "delete_card_confirm_title",
-                isPresented: $showDeleteConfirmation,
-                titleVisibility: .visible
-            ) {
+            .alert("delete_card_confirm_title", isPresented: $showDeleteConfirmation) {
+                Button("action_cancel", role: .cancel) {}
                 Button("action_delete", role: .destructive) {
                     Task { await deleteCard() }
                 }
+            }
+            .alert("card_create_reminders_title", isPresented: $showRemindersPrompt) {
+                Button("card_create_reminders_enable") {
+                    Task { await enableRemindersAfterCreate() }
+                }
+                Button("action_not_now", role: .cancel) {
+                    showRemindersLaterInfo = true
+                }
+            } message: {
+                Text("card_create_reminders_message")
+            }
+            .alert("card_create_reminders_later_title", isPresented: $showRemindersLaterInfo) {
+                Button("action_ok") {
+                    dismiss()
+                }
+            } message: {
+                Text("card_create_reminders_later_message")
             }
             .overlay {
                 if cardsService.isLoading {
@@ -191,7 +205,11 @@ struct CardFormView: View {
                 ownerID: selectedOwnerID
             )
             if await cardsService.createCard(request) != nil {
-                dismiss()
+                if shouldPromptForReminders {
+                    showRemindersPrompt = true
+                } else {
+                    dismiss()
+                }
             }
 
         case .edit(let card):
@@ -212,6 +230,20 @@ struct CardFormView: View {
         }
     }
 
+    private var shouldPromptForReminders: Bool {
+        !pushManager.isAuthorized || !pushManager.isNotificationsPreferenceEnabled
+    }
+
+    private func enableRemindersAfterCreate() async {
+        await pushManager.applyNotificationsPreference(enabled: true)
+
+        if pushManager.isAuthorized && pushManager.isNotificationsPreferenceEnabled {
+            dismiss()
+        } else {
+            showRemindersLaterInfo = true
+        }
+    }
+
     private func deleteCard() async {
         guard case .edit(let card) = mode else { return }
         if await cardsService.deleteCard(id: card.id) {
@@ -224,4 +256,5 @@ struct CardFormView: View {
     CardFormView(mode: .create)
         .environment(CardsAPIService())
         .environment(OwnersAPIService())
+        .environment(PushNotificationManager.shared)
 }

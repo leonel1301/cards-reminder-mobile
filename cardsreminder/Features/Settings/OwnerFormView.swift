@@ -95,11 +95,8 @@ struct OwnerFormView: View {
             .task(id: editingOwnerID) {
                 loadExistingValues()
             }
-            .confirmationDialog(
-                "delete_owner_confirm_title",
-                isPresented: $showDeleteConfirmation,
-                titleVisibility: .visible
-            ) {
+            .alert("delete_owner_confirm_title", isPresented: $showDeleteConfirmation) {
+                Button("action_cancel", role: .cancel) {}
                 Button("action_delete", role: .destructive) {
                     Task { await deleteOwner() }
                 }
