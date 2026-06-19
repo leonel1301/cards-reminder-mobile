@@ -1090,6 +1090,23 @@
         }
       }
     },
+    "field_last_four_digits_validation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter exactly 4 digits."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingresa exactamente 4 dígitos."
+          }
+        }
+      }
+    },
     "field_member_since" : {
       "extractionState" : "manual",
       "localizations" : {

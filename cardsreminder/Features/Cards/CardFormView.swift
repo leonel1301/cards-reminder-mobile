@@ -39,11 +39,24 @@ struct CardFormView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("section_card") {
+                Section {
                     TextField("field_card_name", text: $name)
                     TextField("field_last_four_digits", text: $lastFourDigits)
                         .keyboardType(.numberPad)
+                        .onChange(of: lastFourDigits) { _, newValue in
+                            let sanitized = sanitizeLastFourDigits(newValue)
+                            if sanitized != newValue {
+                                lastFourDigits = sanitized
+                            }
+                        }
                     TextField("field_issuer_optional", text: $issuer)
+                } header: {
+                    Text("section_card")
+                } footer: {
+                    if showLastFourDigitsValidationMessage {
+                        Text("field_last_four_digits_validation")
+                            .foregroundStyle(.red)
+                    }
                 }
 
                 Section("section_billing") {
@@ -166,10 +179,17 @@ struct CardFormView: View {
         billingCycleDay >= 31 ? 1 : billingCycleDay + 1
     }
 
+    private var showLastFourDigitsValidationMessage: Bool {
+        !lastFourDigits.isEmpty && lastFourDigits.count < 4
+    }
+
     private var canSave: Bool {
         !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
             && lastFourDigits.count == 4
-            && lastFourDigits.allSatisfy(\.isNumber)
+    }
+
+    private func sanitizeLastFourDigits(_ value: String) -> String {
+        String(value.filter(\.isNumber).prefix(4))
     }
 
     private func loadExistingValues() {
