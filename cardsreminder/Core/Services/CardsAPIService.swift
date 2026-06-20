@@ -27,8 +27,7 @@ final class CardsAPIService {
     }
 
     func resetSession() {
-        fetchTask?.cancel()
-        fetchTask = nil
+        cancelInFlightRequests()
         cards = []
         loadedUserID = nil
         contentRevision = 0
@@ -36,7 +35,18 @@ final class CardsAPIService {
         isLoading = false
     }
 
-    func fetchCards() async {
+    func cancelInFlightRequests() {
+        fetchTask?.cancel()
+    }
+
+    func refreshOnForeground() async {
+        guard hasLoaded else { return }
+
+        errorMessage = nil
+        await fetchCards(silentUnlessEmpty: true, maxAttempts: 2)
+    }
+
+    func fetchCards(silentUnlessEmpty: Bool = true, maxAttempts: Int = 1) async {
         guard let userID = Auth.auth().currentUser?.uid else {
             resetSession()
             return
@@ -49,21 +59,41 @@ final class CardsAPIService {
 
         let task = Task { @MainActor in
             isLoading = true
-            errorMessage = nil
-
-            do {
-                let cardsList: [APICard] = try await api.request(path: "/cards")
-                withAnimation(SmoothRevealAnimation.motion) {
-                    cards = cardsList.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
-                    loadedUserID = userID
-                    contentRevision += 1
-                }
-            } catch {
-                APIErrorHandling.handle(error) { errorMessage = $0 }
+            if !silentUnlessEmpty || cards.isEmpty {
+                errorMessage = nil
             }
 
-            isLoading = false
-            fetchTask = nil
+            defer {
+                isLoading = false
+                fetchTask = nil
+            }
+
+            let attempts = max(1, maxAttempts)
+
+            for attempt in 1...attempts {
+                if Task.isCancelled { return }
+
+                do {
+                    let cardsList: [APICard] = try await api.request(path: "/cards")
+                    withAnimation(SmoothRevealAnimation.motion) {
+                        cards = cardsList.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
+                        loadedUserID = userID
+                        contentRevision += 1
+                    }
+                    errorMessage = nil
+                    return
+                } catch {
+                    guard !error.isRequestCancelled else { return }
+
+                    if attempt < attempts {
+                        try? await Task.sleep(nanoseconds: UInt64(attempt) * 1_000_000_000)
+                        continue
+                    }
+
+                    guard !silentUnlessEmpty || cards.isEmpty else { return }
+                    APIErrorHandling.handle(error) { errorMessage = $0 }
+                }
+            }
         }
 
         fetchTask = task
@@ -134,5 +164,13 @@ final class CardsAPIService {
             APIErrorHandling.handle(error) { errorMessage = $0 }
             return false
         }
+    }
+}
+
+private extension Error {
+    var isRequestCancelled: Bool {
+        if self is CancellationError { return true }
+        let nsError = self as NSError
+        return nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled
     }
 }

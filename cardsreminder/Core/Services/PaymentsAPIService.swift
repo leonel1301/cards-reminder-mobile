@@ -14,8 +14,14 @@ final class PaymentsAPIService {
     var errorMessage: String?
 
     private let api = APIService.shared
+    private var fetchDashboardTask: Task<Void, Never>?
+
+    var hasCachedDashboard: Bool {
+        !dashboardCards.isEmpty || summary != nil
+    }
 
     func resetSession() {
+        cancelInFlightRequests()
         statusByCardID = [:]
         dashboardCards = []
         summary = nil
@@ -26,28 +32,72 @@ final class PaymentsAPIService {
         isLoading = false
     }
 
+    func cancelInFlightRequests() {
+        fetchDashboardTask?.cancel()
+    }
+
+    func refreshOnForeground() async {
+        guard hasCachedDashboard else { return }
+
+        errorMessage = nil
+        await fetchDashboard(silentUnlessEmpty: true, maxAttempts: 3)
+    }
+
     func status(for cardID: UUID) -> APICardStatus? {
         statusByCardID[cardID]
     }
 
-    func fetchDashboard() async {
-        isLoadingDashboard = true
-        defer { isLoadingDashboard = false }
-
-        do {
-            let response: DashboardResponse = try await api.request(path: "/dashboard")
-            withAnimation(SmoothRevealAnimation.motion) {
-                summary = response.summary
-                bestForPurchase = response.bestForPurchase
-                dashboardCards = response.cards.filter(\.card.isActive)
-                for entry in response.cards {
-                    statusByCardID[entry.card.id] = entry.status
-                }
-                dashboardRevision += 1
-            }
-        } catch {
-            APIErrorHandling.handle(error) { errorMessage = $0 }
+    func fetchDashboard(silentUnlessEmpty: Bool = true, maxAttempts: Int = 1) async {
+        if let fetchDashboardTask {
+            await fetchDashboardTask.value
+            return
         }
+
+        let task = Task { @MainActor in
+            isLoadingDashboard = true
+            if !silentUnlessEmpty || !hasCachedDashboard {
+                errorMessage = nil
+            }
+
+            defer {
+                isLoadingDashboard = false
+                fetchDashboardTask = nil
+            }
+
+            let attempts = max(1, maxAttempts)
+
+            for attempt in 1...attempts {
+                if Task.isCancelled { return }
+
+                do {
+                    let response: DashboardResponse = try await api.request(path: "/dashboard")
+                    withAnimation(SmoothRevealAnimation.motion) {
+                        summary = response.summary
+                        bestForPurchase = response.bestForPurchase
+                        dashboardCards = response.cards.filter(\.card.isActive)
+                        for entry in response.cards {
+                            statusByCardID[entry.card.id] = entry.status
+                        }
+                        dashboardRevision += 1
+                    }
+                    errorMessage = nil
+                    return
+                } catch {
+                    guard !error.isRequestCancelled else { return }
+
+                    if attempt < attempts {
+                        try? await Task.sleep(nanoseconds: UInt64(attempt) * 1_000_000_000)
+                        continue
+                    }
+
+                    guard !silentUnlessEmpty || !hasCachedDashboard else { return }
+                    APIErrorHandling.handle(error) { errorMessage = $0 }
+                }
+            }
+        }
+
+        fetchDashboardTask = task
+        await task.value
     }
 
     func fetchCardStatus(cardID: UUID) async -> CardStatusResponse? {
@@ -58,7 +108,6 @@ final class PaymentsAPIService {
             statusByCardID[cardID] = response.status
             return response
         } catch {
-            APIErrorHandling.handle(error) { errorMessage = $0 }
             return nil
         }
     }
@@ -71,7 +120,6 @@ final class PaymentsAPIService {
             statusByCardID[cardID] = response.status
             return response
         } catch {
-            APIErrorHandling.handle(error) { errorMessage = $0 }
             return nil
         }
     }
@@ -82,7 +130,6 @@ final class PaymentsAPIService {
                 path: "/cards/\(cardID.uuidString)/optimal-purchase-days"
             )
         } catch {
-            APIErrorHandling.handle(error) { errorMessage = $0 }
             return nil
         }
     }
@@ -91,7 +138,6 @@ final class PaymentsAPIService {
         do {
             return try await api.request(path: "/cards/\(cardID.uuidString)/payments")
         } catch {
-            APIErrorHandling.handle(error) { errorMessage = $0 }
             return nil
         }
     }
@@ -110,11 +156,19 @@ final class PaymentsAPIService {
                 body: body
             )
             statusByCardID[cardID] = response.status
-            await fetchDashboard()
+            await fetchDashboard(silentUnlessEmpty: false, maxAttempts: 2)
             return response
         } catch {
             APIErrorHandling.handle(error) { errorMessage = $0 }
             return nil
         }
+    }
+}
+
+private extension Error {
+    var isRequestCancelled: Bool {
+        if self is CancellationError { return true }
+        let nsError = self as NSError
+        return nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled
     }
 }

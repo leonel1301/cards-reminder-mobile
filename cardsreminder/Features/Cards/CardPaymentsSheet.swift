@@ -341,7 +341,7 @@ struct CardPaymentsSheet: View {
         let paymentsResponse = await paymentsTask
 
         if currentCycleResponse == nil && optimalDaysResponse == nil && paymentsResponse == nil {
-            loadError = paymentsService.errorMessage
+            loadError = String(localized: "error_invalid_response")
             return
         }
 

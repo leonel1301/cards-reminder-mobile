@@ -25,7 +25,7 @@ struct CardsView: View {
 
                     addButton
 
-                    if let errorMessage = cardsService.errorMessage ?? paymentsService.errorMessage {
+                    if let errorMessage = visibleErrorMessage {
                         Text(errorMessage)
                             .font(.caption)
                             .foregroundStyle(.red)
@@ -92,6 +92,16 @@ struct CardsView: View {
         } message: { card in
             Text(quickPaymentConfirmationMessage(for: card))
         }
+    }
+
+    private var visibleErrorMessage: String? {
+        if let message = cardsService.errorMessage, cardsService.cards.isEmpty {
+            return message
+        }
+        if let message = paymentsService.errorMessage, !paymentsService.hasCachedDashboard {
+            return message
+        }
+        return nil
     }
 
     private var showDeleteConfirmation: Binding<Bool> {
@@ -199,8 +209,8 @@ struct CardsView: View {
 
     /// Pull-to-refresh: actualiza lista completa y status en paralelo.
     private func refreshCardsScreen() async {
-        async let cards: Void = cardsService.fetchCards()
-        async let dashboard: Void = paymentsService.fetchDashboard()
+        async let cards: Void = cardsService.fetchCards(silentUnlessEmpty: false)
+        async let dashboard: Void = paymentsService.fetchDashboard(silentUnlessEmpty: false)
         _ = await (cards, dashboard)
     }
 

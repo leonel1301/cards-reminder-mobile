@@ -31,7 +31,8 @@ struct TimelineView: View {
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    if let errorMessage = paymentsService.errorMessage {
+                    if let errorMessage = paymentsService.errorMessage,
+                       !paymentsService.hasCachedDashboard {
                         errorBanner(errorMessage)
                     }
 
@@ -268,8 +269,8 @@ struct TimelineView: View {
     }
 
     private func refreshTimeline() async {
-        async let cards: Void = cardsService.fetchCards()
-        async let dashboard: Void = paymentsService.fetchDashboard()
+        async let cards: Void = cardsService.fetchCards(silentUnlessEmpty: false)
+        async let dashboard: Void = paymentsService.fetchDashboard(silentUnlessEmpty: false)
         _ = await (cards, dashboard)
     }
 
