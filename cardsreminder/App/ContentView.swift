@@ -32,6 +32,9 @@ struct ContentView: View {
                     Label("tab_settings", systemImage: "gearshape")
                 }
         }
+        .task {
+            await bootstrapDataIfNeeded()
+        }
         .onChange(of: scenePhase) { _, newPhase in
             switch newPhase {
             case .background:
@@ -39,12 +42,23 @@ struct ContentView: View {
                 paymentsService.cancelInFlightRequests()
             case .active:
                 Task {
-                    await cardsService.refreshOnForeground()
-                    await paymentsService.refreshOnForeground()
+                    async let cards: Void = cardsService.resumeOnForeground()
+                    async let dashboard: Void = paymentsService.resumeOnForeground()
+                    _ = await (cards, dashboard)
                 }
             default:
                 break
             }
+        }
+    }
+
+    private func bootstrapDataIfNeeded() async {
+        if !cardsService.hasLoaded {
+            async let cards: Void = cardsService.fetchCards()
+            async let dashboard: Void = paymentsService.fetchDashboard()
+            _ = await (cards, dashboard)
+        } else if !paymentsService.hasCachedDashboard {
+            await paymentsService.fetchDashboard()
         }
     }
 }

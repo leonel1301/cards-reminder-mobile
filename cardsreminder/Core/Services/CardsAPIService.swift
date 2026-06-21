@@ -39,11 +39,13 @@ final class CardsAPIService {
         fetchTask?.cancel()
     }
 
-    func refreshOnForeground() async {
-        guard hasLoaded else { return }
-
-        errorMessage = nil
-        await fetchCards(silentUnlessEmpty: true, maxAttempts: 2)
+    func resumeOnForeground() async {
+        if hasLoaded {
+            errorMessage = nil
+            await fetchCards(silentUnlessEmpty: true, maxAttempts: 2)
+        } else if fetchTask == nil {
+            await fetchCards()
+        }
     }
 
     func fetchCards(silentUnlessEmpty: Bool = true, maxAttempts: Int = 1) async {
@@ -158,7 +160,10 @@ final class CardsAPIService {
 
         do {
             try await api.requestVoid(path: "/cards/\(id.uuidString)", method: "DELETE")
-            cards.removeAll { $0.id == id }
+            withAnimation(SmoothRevealAnimation.motion) {
+                cards.removeAll { $0.id == id }
+                contentRevision += 1
+            }
             return true
         } catch {
             APIErrorHandling.handle(error) { errorMessage = $0 }

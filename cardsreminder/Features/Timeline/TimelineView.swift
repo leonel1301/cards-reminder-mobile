@@ -8,6 +8,7 @@ struct TimelineView: View {
     @State private var paymentsCard: APICard?
     @State private var markingPaidCardID: UUID?
     @State private var isContentRevealed = false
+    @State private var isFeelingExplanationPresented = false
 
     private var buildResult: TimelineBuildResult {
         TimelineEventBuilder.build(
@@ -47,20 +48,17 @@ struct TimelineView: View {
                 .padding(.bottom, 16)
                 .animation(SmoothRevealAnimation.motion, value: paymentsService.dashboardRevision)
             }
+            .refreshable {
+                guard !isFeelingExplanationPresented else { return }
+                await refreshTimeline()
+                revealContent()
+            }
         }
         .safeAreaPadding(.bottom)
         .overlay {
             if isInitialLoading {
                 ProgressView()
             }
-        }
-        .task {
-            await loadTimeline()
-            revealContent()
-        }
-        .refreshable {
-            await refreshTimeline()
-            revealContent()
         }
         .onChange(of: paymentsService.dashboardRevision) { _, _ in
             revealContent()
@@ -76,9 +74,19 @@ struct TimelineView: View {
                 .font(.largeTitle.bold())
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            Text(Date.now.formatted(.dateTime.weekday(.wide).day().month(.wide)))
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+            HStack(alignment: .center, spacing: 12) {
+                Text(Date.now.formatted(.dateTime.weekday(.wide).day().month(.wide)))
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                if let summary = paymentsService.summary, !isInitialLoading {
+                    FinanceFeelingButton(
+                        feeling: DashboardFeeling(summary: summary),
+                        isExplanationPresented: $isFeelingExplanationPresented
+                    )
+                }
+            }
         }
         .padding(.horizontal, 16)
         .padding(.top, 8)
@@ -256,16 +264,6 @@ struct TimelineView: View {
         event.card.isActive
             && !event.status.isPaidThisCycle
             && (event.kind == .overdue || event.kind == .paymentDueToday || event.kind == .urgent || event.kind == .dueSoon)
-    }
-
-    private func loadTimeline() async {
-        if cardsService.hasLoaded {
-            await paymentsService.fetchDashboard()
-        } else {
-            async let cards: Void = cardsService.fetchCards()
-            async let dashboard: Void = paymentsService.fetchDashboard()
-            _ = await (cards, dashboard)
-        }
     }
 
     private func refreshTimeline() async {

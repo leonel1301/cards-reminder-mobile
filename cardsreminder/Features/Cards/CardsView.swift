@@ -10,6 +10,7 @@ struct CardsView: View {
     @State private var cardPendingDelete: APICard?
     @State private var cardPendingPayment: APICard?
     @State private var markingPaidCardID: UUID?
+    @State private var deletingCardID: UUID?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -47,9 +48,6 @@ struct CardsView: View {
             if cardsService.isLoading && cardsService.cards.isEmpty {
                 ProgressView()
             }
-        }
-        .task {
-            await loadCardsScreen()
         }
         .refreshable {
             await refreshCardsScreen()
@@ -184,30 +182,45 @@ struct CardsView: View {
                     onEdit: { editingCard = card },
                     onDelete: { cardPendingDelete = card }
                 )
+                .scaleEffect(deletingCardID == card.id ? 0.92 : 1)
+                .opacity(deletingCardID == card.id ? 0 : 1)
+                .blur(radius: deletingCardID == card.id ? 6 : 0)
                 .overlay {
-                    if markingPaidCardID == card.id {
+                    if deletingCardID == card.id {
+                        deletingOverlay
+                    } else if markingPaidCardID == card.id {
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
                             .fill(.ultraThinMaterial)
                             .overlay { ProgressView() }
                     }
                 }
+                .transition(
+                    .asymmetric(
+                        insertion: SmoothRevealAnimation.sectionTransition,
+                        removal: .opacity
+                            .combined(with: .scale(scale: 0.88))
+                            .combined(with: .move(edge: .trailing))
+                    )
+                )
             }
         }
         .padding(.horizontal, 16)
+        .animation(SmoothRevealAnimation.motion, value: cardsService.contentRevision)
+        .animation(SmoothRevealAnimation.motion, value: deletingCardID)
     }
 
-    /// Carga inicial: si el calendario (u otra pantalla) ya trajo `/cards`, solo pide `/dashboard`.
-    private func loadCardsScreen() async {
-        if cardsService.hasLoaded {
-            await paymentsService.fetchDashboard()
-        } else {
-            async let cards: Void = cardsService.fetchCards()
-            async let dashboard: Void = paymentsService.fetchDashboard()
-            _ = await (cards, dashboard)
-        }
+    private var deletingOverlay: some View {
+        RoundedRectangle(cornerRadius: 16, style: .continuous)
+            .fill(.black.opacity(0.28))
+            .overlay {
+                Image(systemName: "trash.fill")
+                    .font(.title2.weight(.semibold))
+                    .foregroundStyle(.white)
+                    .symbolEffect(.bounce, options: .nonRepeating)
+            }
+            .transition(.opacity)
     }
 
-    /// Pull-to-refresh: actualiza lista completa y status en paralelo.
     private func refreshCardsScreen() async {
         async let cards: Void = cardsService.fetchCards(silentUnlessEmpty: false)
         async let dashboard: Void = paymentsService.fetchDashboard(silentUnlessEmpty: false)
@@ -215,8 +228,24 @@ struct CardsView: View {
     }
 
     private func deleteCard(_ card: APICard) async {
-        guard await cardsService.deleteCard(id: card.id) else { return }
+        withAnimation(SmoothRevealAnimation.motion) {
+            deletingCardID = card.id
+        }
+
+        try? await Task.sleep(nanoseconds: 220_000_000)
+
+        guard await cardsService.deleteCard(id: card.id) else {
+            withAnimation(SmoothRevealAnimation.motion) {
+                deletingCardID = nil
+            }
+            return
+        }
+
+        deletingCardID = nil
         await paymentsService.fetchDashboard()
+
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
     }
 
     private func quickMarkPaid(_ card: APICard) async {

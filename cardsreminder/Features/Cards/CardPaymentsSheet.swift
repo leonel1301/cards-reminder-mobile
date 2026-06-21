@@ -16,6 +16,7 @@ struct CardPaymentsSheet: View {
     @State private var isMarkingPaid = false
     @State private var loadError: String?
     @State private var showEditForm = false
+    @State private var showMarkPaidConfirmation = false
 
     private var displayCard: APICard {
         cardsService.cards.first { $0.id == card.id } ?? card
@@ -63,6 +64,14 @@ struct CardPaymentsSheet: View {
                 Task { await loadData() }
             }) {
                 CardFormView(mode: .edit(displayCard))
+            }
+            .alert("payments_quick_confirm_title", isPresented: $showMarkPaidConfirmation) {
+                Button("action_cancel", role: .cancel) {}
+                Button("payments_mark_paid") {
+                    Task { await markPaid() }
+                }
+            } message: {
+                Text(markPaidConfirmationMessage())
             }
             .task {
                 await loadData()
@@ -225,7 +234,7 @@ struct CardPaymentsSheet: View {
             paymentNotesField
 
             Button {
-                Task { await markPaid() }
+                showMarkPaidConfirmation = true
             } label: {
                 HStack {
                     if isMarkingPaid {
@@ -327,6 +336,15 @@ struct CardPaymentsSheet: View {
         }
     }
 
+    private func markPaidConfirmationMessage() -> String {
+        guard let status else {
+            return String(localized: "payments_quick_confirm_message_fallback")
+        }
+
+        let period = cycleDateRangeLabel(start: status.cycleStart, end: status.cycleEnd)
+        return String(format: String(localized: "payments_quick_confirm_message"), period)
+    }
+
     private func loadData() async {
         isLoading = true
         loadError = nil
@@ -380,19 +398,8 @@ struct CardPaymentsSheet: View {
             return
         }
 
-        status = response.status
-        optimalPurchaseDays = response.optimalPurchaseDays
         updateCardInService(response.card)
-
-        if let refreshed = await paymentsService.fetchCurrentCycle(cardID: card.id) {
-            status = refreshed.status
-            currentCycle = refreshed.cycle
-            updateCardInService(refreshed.card)
-        }
-
-        if let refreshed = await paymentsService.fetchPayments(cardID: card.id) {
-            payments = refreshed.payments
-        }
+        dismiss()
     }
 }
 

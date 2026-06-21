@@ -36,11 +36,13 @@ final class PaymentsAPIService {
         fetchDashboardTask?.cancel()
     }
 
-    func refreshOnForeground() async {
-        guard hasCachedDashboard else { return }
-
-        errorMessage = nil
-        await fetchDashboard(silentUnlessEmpty: true, maxAttempts: 3)
+    func resumeOnForeground() async {
+        if hasCachedDashboard {
+            errorMessage = nil
+            await fetchDashboard(silentUnlessEmpty: true, maxAttempts: 3)
+        } else if fetchDashboardTask == nil {
+            await fetchDashboard()
+        }
     }
 
     func status(for cardID: UUID) -> APICardStatus? {

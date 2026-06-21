@@ -83,10 +83,6 @@ struct CalendarView: View {
         .onChange(of: displayedMonth) { _, _ in
             selection = nil
         }
-        .task {
-            guard !cardsService.hasLoaded else { return }
-            await cardsService.fetchCards()
-        }
         .refreshable {
             await cardsService.fetchCards()
         }

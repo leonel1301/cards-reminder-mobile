@@ -37,7 +37,7 @@ struct CreditCardView: View {
 
                 if let onMarkPaid, card.isActive, !isPaidThisCycle {
                     Button(action: onMarkPaid) {
-                        Label("payments_mark_paid", systemImage: "banknote")
+                        Label("action_pay", systemImage: "checkmark.seal.fill")
                     }
                 }
 
@@ -86,9 +86,9 @@ struct CreditCardView: View {
     private var markPaidButton: some View {
         Group {
             if isPaidThisCycle {
-                markPaidButtonIcon
+                paidIndicator
             } else {
-                markPaidButtonIcon
+                payActionButton
                     .highPriorityGesture(TapGesture().onEnded { onMarkPaid?() })
             }
         }
@@ -100,34 +100,35 @@ struct CreditCardView: View {
         .animation(SmoothRevealAnimation.motion, value: isPaidThisCycle)
     }
 
-    private var markPaidButtonIcon: some View {
-        Image(systemName: isPaidThisCycle ? "checkmark.circle.fill" : "banknote")
-            .font(.title3.weight(.semibold))
-            .symbolRenderingMode(.palette)
-            .foregroundStyle(
-                isPaidThisCycle ? Color.emeraldStateForeground : contentColor,
-                isPaidThisCycle ? Color.emeraldStateBackground : contentColor.opacity(0.35)
-            )
-            .frame(width: 36, height: 36)
-            .background(markPaidButtonBackground)
-            .clipShape(Circle())
-            .overlay {
-                if !isPaidThisCycle {
-                    Circle()
-                        .strokeBorder(contentColor.opacity(0.45), lineWidth: 1.5)
-                }
-            }
-            .contentShape(Circle())
-            .opacity(isPaidThisCycle ? 0.85 : 1)
+    private var payActionButton: some View {
+        HStack(spacing: 5) {
+            Image(systemName: "checkmark.seal.fill")
+                .font(.caption.weight(.bold))
+
+            Text("action_pay")
+                .font(.caption.weight(.semibold))
+        }
+        .foregroundStyle(Color.emeraldStateForeground)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
+        .background(Color.white.opacity(0.95), in: Capsule())
+        .shadow(color: .black.opacity(0.14), radius: 3, y: 1)
+        .contentShape(Capsule())
     }
 
-    private var markPaidButtonBackground: Color {
-        if isPaidThisCycle {
-            return Color.emeraldStateBackground.opacity(0.95)
+    private var paidIndicator: some View {
+        HStack(spacing: 4) {
+            Image(systemName: "checkmark")
+                .font(.caption2.weight(.bold))
+
+            Text("card_status_paid")
+                .font(.caption2.weight(.bold))
         }
-        return card.color.isLightForegroundPreferred
-            ? Color.black.opacity(0.1)
-            : Color.white.opacity(0.22)
+        .foregroundStyle(Color.emeraldStateForeground)
+        .padding(.horizontal, 9)
+        .padding(.vertical, 5)
+        .background(Color.emeraldStateBackground.opacity(0.95), in: Capsule())
+        .opacity(0.9)
     }
 
     private var headerRow: some View {
