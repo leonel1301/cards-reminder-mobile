@@ -89,8 +89,8 @@ struct NotificationsSettingsView: View {
             .navigationTitle("screen_notifications_title")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("action_cancel") { dismiss() }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("action_done") { dismiss() }
                 }
             }
             .task(id: authManager.user?.uid) {

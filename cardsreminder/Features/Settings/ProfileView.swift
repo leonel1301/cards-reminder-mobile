@@ -1,73 +1,93 @@
+import FirebaseAuth
+import StoreKit
 import SwiftData
 import SwiftUI
 
-private enum SettingsSheet: Identifiable {
+private enum ProfileSheet: Identifiable {
     case createOwner
-    case notifications
     case editOwner(APIOwner)
 
     var id: String {
         switch self {
         case .createOwner:
             "createOwner"
-        case .notifications:
-            "notifications"
         case .editOwner(let owner):
             owner.id.uuidString
         }
     }
 }
 
-struct SettingsView: View {
+struct ProfileView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.openURL) private var openURL
+    @Environment(\.requestReview) private var requestReview
     @Environment(AuthManager.self) private var authManager
     @Environment(PushNotificationManager.self) private var pushManager
     @Environment(UserAPIService.self) private var userService
     @Environment(OwnersAPIService.self) private var ownersService
     @Query private var profiles: [UserProfile]
 
-    @State private var activeSheet: SettingsSheet?
+    @State private var activeSheet: ProfileSheet?
+    @State private var showSettings = false
+    @State private var isFeedbackPresented = false
 
     private var profile: UserProfile? { profiles.first }
 
+    private let lenaraURL = URL(string: "https://lenaralabs.com/")!
+
     var body: some View {
-        VStack(spacing: 0) {
-            screenHeader
+        NavigationStack {
+            VStack(spacing: 0) {
+                screenHeader
 
-            ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    profileSection
-                        .transition(SmoothRevealAnimation.sectionTransition)
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 24) {
+                        profileSection
+                            .transition(SmoothRevealAnimation.sectionTransition)
 
-                    ownersSection
-                        .transition(SmoothRevealAnimation.sectionTransition)
+                        ownersSection
+                            .transition(SmoothRevealAnimation.sectionTransition)
 
-                    if let errorMessage = userService.errorMessage ?? ownersService.errorMessage {
-                        errorBanner(errorMessage)
+                        moreAboutAppSection
+                            .transition(SmoothRevealAnimation.sectionTransition)
+
+                        appBrandingFooter
+                            .transition(SmoothRevealAnimation.sectionTransition)
+
+                        if let errorMessage = userService.errorMessage ?? ownersService.errorMessage {
+                            errorBanner(errorMessage)
+                        }
                     }
+                    .padding(.bottom, 32)
+                    .animation(SmoothRevealAnimation.motion, value: userService.contentRevision)
+                    .animation(SmoothRevealAnimation.motion, value: ownersService.contentRevision)
                 }
-                .padding(.bottom, 32)
-                .animation(SmoothRevealAnimation.motion, value: userService.contentRevision)
-                .animation(SmoothRevealAnimation.motion, value: ownersService.contentRevision)
+                .refreshable {
+                    await loadData()
+                }
+            }
+            .toolbar(.hidden, for: .navigationBar)
+            .navigationDestination(isPresented: $showSettings) {
+                AppSettingsView()
             }
         }
         .safeAreaPadding(.bottom)
         .task {
             await loadInitialData()
         }
-        .refreshable {
-            await loadData()
-        }
         .sheet(item: $activeSheet) { sheet in
             switch sheet {
             case .createOwner:
                 OwnerFormView(mode: .create)
-            case .notifications:
-                NotificationsSettingsView()
             case .editOwner(let owner):
                 OwnerFormView(mode: .edit(owner))
                     .id(owner.id)
             }
+        }
+        .sheet(isPresented: $isFeedbackPresented) {
+            FeedbackSheet()
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
         }
     }
 
@@ -93,11 +113,11 @@ struct SettingsView: View {
 
     private var screenHeader: some View {
         HStack(alignment: .center, spacing: 12) {
-            Text("screen_settings_title")
+            Text("screen_profile_title")
                 .font(.largeTitle.bold())
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            settingsMenu
+            profileMenu
         }
         .padding(.horizontal, 16)
         .padding(.top, 8)
@@ -105,12 +125,12 @@ struct SettingsView: View {
         .background(Color(.systemBackground))
     }
 
-    private var settingsMenu: some View {
+    private var profileMenu: some View {
         Menu {
             Button {
-                activeSheet = .notifications
+                showSettings = true
             } label: {
-                Label("action_notifications", systemImage: "bell")
+                Label("action_settings", systemImage: "gearshape")
             }
 
             Button(role: .destructive) {
@@ -145,8 +165,6 @@ struct SettingsView: View {
                 title: String(localized: "field_member_since"),
                 value: memberSinceText
             )
-            .background(Color(.secondarySystemBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .padding(.horizontal, 16)
         }
     }
@@ -177,7 +195,7 @@ struct SettingsView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(16)
                     .background(Color(.secondarySystemBackground))
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .buttonStyle(.plain)
             .padding(.horizontal, 16)
@@ -214,12 +232,172 @@ struct SettingsView: View {
                         }
                     }
                 }
-                .background(Color(.secondarySystemBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .padding(.horizontal, 16)
                 .transition(SmoothRevealAnimation.sectionTransition)
             }
         }
+    }
+
+    private var moreAboutAppSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            sectionHeader("section_more_about_app")
+                .padding(.horizontal, 16)
+
+            VStack(spacing: 0) {
+                rateAppActionRow
+                feedbackActionRow
+                actionRow(title: "action_faq", icon: "questionmark.circle", url: AppMetadata.faqURL)
+            }
+            .padding(.horizontal, 16)
+        }
+    }
+
+    private var appBrandingFooter: some View {
+        VStack(spacing: 8) {
+            Text("app_description_short")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+
+            Button {
+                openURL(lenaraURL)
+            } label: {
+                HStack(spacing: 4) {
+                    Text("footer_powered_by")
+                        .foregroundStyle(.secondary)
+
+                    Text("Lenara")
+                        .fontWeight(.semibold)
+                        .foregroundStyle(Color.accentColor)
+
+                    Image(systemName: "arrow.up.right")
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(Color.accentColor)
+                }
+                .font(.caption)
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(Text("footer_powered_by_lenara"))
+
+            VStack(spacing: 2) {
+                Text(
+                    String(
+                        format: String(localized: "footer_version_build"),
+                        AppMetadata.version,
+                        AppMetadata.build
+                    )
+                )
+                Text(
+                    String(
+                        format: String(localized: "footer_user_email"),
+                        userEmail
+                    )
+                )
+            }
+            .font(.caption2)
+            .foregroundStyle(.tertiary)
+            .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
+    }
+
+    private var userEmail: String {
+        if let email = profile?.email, !email.isEmpty {
+            return email
+        }
+        if let email = authManager.user?.email, !email.isEmpty {
+            return email
+        }
+        return String(localized: "value_not_available")
+    }
+
+    private var rateAppActionRow: some View {
+        Button {
+            requestReview()
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: "star")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Color.accentColor)
+                    .frame(width: 28, height: 28)
+                    .background(Color.accentColor.opacity(0.12))
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+
+                Text("action_rate_app")
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(.primary)
+
+                Spacer(minLength: 0)
+
+                Image(systemName: "chevron.right")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.tertiary)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var feedbackActionRow: some View {
+        Button {
+            isFeedbackPresented = true
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: "bubble.left.and.bubble.right")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Color.accentColor)
+                    .frame(width: 28, height: 28)
+                    .background(Color.accentColor.opacity(0.12))
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+
+                Text("action_share_feedback")
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(.primary)
+
+                Spacer(minLength: 0)
+
+                Image(systemName: "chevron.right")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.tertiary)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func actionRow(title: LocalizedStringKey, icon: String, url: URL) -> some View {
+        Button {
+            openURL(url)
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: icon)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Color.accentColor)
+                    .frame(width: 28, height: 28)
+                    .background(Color.accentColor.opacity(0.12))
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+
+                Text(title)
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(.primary)
+
+                Spacer(minLength: 0)
+
+                Image(systemName: "chevron.right")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.tertiary)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
     }
 
     private func ownerRow(_ owner: APIOwner) -> some View {
@@ -312,10 +490,11 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView()
+    ProfileView()
         .environment(AuthManager())
         .environment(PushNotificationManager.shared)
         .environment(UserAPIService())
         .environment(OwnersAPIService())
+        .environment(FeedbackAPIService())
         .modelContainer(for: UserProfile.self, inMemory: true)
 }

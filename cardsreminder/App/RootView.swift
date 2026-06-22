@@ -5,6 +5,7 @@ struct RootView: View {
     @Environment(AuthManager.self) private var authManager
     @Environment(CardsAPIService.self) private var cardsService
     @Environment(OwnersAPIService.self) private var ownersService
+    @Environment(FeedbackAPIService.self) private var feedbackService
     @Environment(PaymentsAPIService.self) private var paymentsService
     @Environment(UserAPIService.self) private var userService
     @Environment(PushNotificationManager.self) private var pushManager
@@ -77,6 +78,7 @@ struct RootView: View {
         APIAlertCenter.shared.dismiss()
         cardsService.resetSession()
         ownersService.resetSession()
+        feedbackService.resetSession()
         paymentsService.resetSession()
         userService.resetSession()
     }
@@ -87,6 +89,7 @@ struct RootView: View {
         .environment(AuthManager())
         .environment(CardsAPIService())
         .environment(OwnersAPIService())
+        .environment(FeedbackAPIService())
         .environment(PaymentsAPIService())
         .environment(UserAPIService())
         .environment(PushNotificationManager.shared)

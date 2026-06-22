@@ -1,17 +1,29 @@
 import SwiftUI
 
 struct PoweredByLenaraFooter: View {
-    var body: some View {
-        HStack(spacing: 4) {
-            Text("footer_powered_by")
-                .foregroundStyle(Color.secondaryText)
+    @Environment(\.openURL) private var openURL
 
-            Text("Lenara")
-                .fontWeight(.semibold)
-                .foregroundStyle(Color.primaryAction)
+    private let lenaraURL = URL(string: "https://lenaralabs.com/")!
+
+    var body: some View {
+        Button {
+            openURL(lenaraURL)
+        } label: {
+            HStack(spacing: 4) {
+                Text("footer_powered_by")
+                    .foregroundStyle(.secondary)
+
+                Text("Lenara")
+                    .fontWeight(.semibold)
+                    .foregroundStyle(Color.accentColor)
+
+                Image(systemName: "arrow.up.right")
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(Color.accentColor)
+            }
+            .font(.caption)
         }
-        .font(.caption)
-        .accessibilityElement(children: .combine)
+        .buttonStyle(.plain)
         .accessibilityLabel(Text("footer_powered_by_lenara"))
     }
 }

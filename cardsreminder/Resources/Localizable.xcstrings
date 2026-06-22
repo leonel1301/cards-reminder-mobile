@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "es",
   "strings" : {
+    "" : {
+
+    },
     "%lld" : {
 
     },
@@ -34,6 +37,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Añadir titular"
+          }
+        }
+      }
+    },
+    "action_add_feedback" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add feedback"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadir comentario"
           }
         }
       }
@@ -89,6 +109,23 @@
         }
       }
     },
+    "action_delete_account" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete account"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar cuenta"
+          }
+        }
+      }
+    },
     "action_delete_card" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -119,6 +156,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eliminar titular"
+          }
+        }
+      }
+    },
+    "action_delete_feedback" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete feedback"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar comentario"
+          }
+        }
+      }
+    },
+    "action_done" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listo"
+          }
+        }
+      }
+    },
+    "action_faq" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FAQ"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preguntas frecuentes"
           }
         }
       }
@@ -157,6 +245,23 @@
         }
       }
     },
+    "action_not_now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not now"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ahora no"
+          }
+        }
+      }
+    },
     "action_notifications" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -174,18 +279,21 @@
         }
       }
     },
-    "action_not_now" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not now" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Ahora no" } }
-      }
-    },
     "action_ok" : {
       "extractionState" : "manual",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "OK" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Entendido" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entendido"
+          }
+        }
       }
     },
     "action_pay" : {
@@ -201,6 +309,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pagar"
+          }
+        }
+      }
+    },
+    "action_privacy_policy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Política de privacidad"
+          }
+        }
+      }
+    },
+    "action_rate_app" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rate the app"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calificar la app"
           }
         }
       }
@@ -222,6 +364,57 @@
         }
       }
     },
+    "action_settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajustes"
+          }
+        }
+      }
+    },
+    "action_share_feedback" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share feedback"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar comentarios"
+          }
+        }
+      }
+    },
+    "action_sign_out" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign out"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerrar sesión"
+          }
+        }
+      }
+    },
     "action_skip" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -239,19 +432,53 @@
         }
       }
     },
+    "action_terms_of_service" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of Service"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Términos de servicio"
+          }
+        }
+      }
+    },
+    "app_description_short" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waloop - Card billing cycles & payment tracker"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waloop - Ciclos de facturación y seguimiento de pagos"
+          }
+        }
+      }
+    },
     "app_name" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cards Reminder"
+            "value" : "Waloop"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cards Reminder"
+            "value" : "Waloop"
           }
         }
       }
@@ -388,6 +615,91 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "FACTURACIÓN"
+          }
+        }
+      }
+    },
+    "card_create_reminders_enable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable reminders"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activar recordatorios"
+          }
+        }
+      }
+    },
+    "card_create_reminders_later_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can turn on reminders anytime from Settings → ⋯ → Notifications."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes activar los recordatorios cuando quieras desde Ajustes → ⋯ → Notificaciones."
+          }
+        }
+      }
+    },
+    "card_create_reminders_later_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reminders not enabled"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recordatorios no activados"
+          }
+        }
+      }
+    },
+    "card_create_reminders_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow notifications to get payment reminders before your cards are due."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permite las notificaciones para recibir recordatorios de pago antes del vencimiento."
+          }
+        }
+      }
+    },
+    "card_create_reminders_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable payment reminders?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Activar recordatorios de pago?"
           }
         }
       }
@@ -817,41 +1129,6 @@
         }
       }
     },
-    "card_create_reminders_enable" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enable reminders" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Activar recordatorios" } }
-      }
-    },
-    "card_create_reminders_later_message" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "You can turn on reminders anytime from Settings → ⋯ → Notifications." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Puedes activar los recordatorios cuando quieras desde Ajustes → ⋯ → Notificaciones." } }
-      }
-    },
-    "card_create_reminders_later_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reminders not enabled" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Recordatorios no activados" } }
-      }
-    },
-    "card_create_reminders_message" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Allow notifications to get payment reminders before your cards are due." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Permite las notificaciones para recibir recordatorios de pago antes del vencimiento." } }
-      }
-    },
-    "card_create_reminders_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enable payment reminders?" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Activar recordatorios de pago?" } }
-      }
-    },
     "delete_card_confirm_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -882,6 +1159,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "¿Eliminar este titular?"
+          }
+        }
+      }
+    },
+    "delete_feedback_confirm_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this feedback?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Eliminar este comentario?"
+          }
+        }
+      }
+    },
+    "delete_account_confirm_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete your account?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Eliminar tu cuenta?"
+          }
+        }
+      }
+    },
+    "delete_account_confirm_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This action is permanent. Your account, cards, cardholders, payments, and all associated data will be deleted. You will not be able to recover them."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta acción es permanente. Se eliminarán tu cuenta, tarjetas, titulares, pagos y todos los datos asociados. No podrás recuperarlos."
           }
         }
       }
@@ -1141,6 +1469,57 @@
         }
       }
     },
+    "field_device" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Device"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dispositivo"
+          }
+        }
+      }
+    },
+    "field_feedback_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subject"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asunto"
+          }
+        }
+      }
+    },
+    "field_feedback_content" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Message"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mensaje"
+          }
+        }
+      }
+    },
     "field_notes_optional" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1192,6 +1571,414 @@
         }
       }
     },
+    "field_theme" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theme"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tema"
+          }
+        }
+      }
+    },
+    "feedback_empty_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tell us about bugs, ideas, or anything we can improve."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuéntanos errores, ideas o cualquier cosa que podamos mejorar."
+          }
+        }
+      }
+    },
+    "feedback_empty_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No feedback yet"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay comentarios"
+          }
+        }
+      }
+    },
+    "feedback_sheet_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your feedback"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tus comentarios"
+          }
+        }
+      }
+    },
+    "feedback_more_link" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can see more feedback here."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes ver más comentarios aquí."
+          }
+        }
+      }
+    },
+    "finance_feeling_accessibility_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shows why your cards are in this state"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muestra por qué tus tarjetas están en este estado"
+          }
+        }
+      }
+    },
+    "finance_feeling_blank" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blank slate"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lienzo en blanco"
+          }
+        }
+      }
+    },
+    "finance_feeling_clear" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear books"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al corriente"
+          }
+        }
+      }
+    },
+    "finance_feeling_countdown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On the clock"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reloj activo"
+          }
+        }
+      }
+    },
+    "finance_feeling_cruising" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cruising"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estable"
+          }
+        }
+      }
+    },
+    "finance_feeling_crunch" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crunch time"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modo crunch"
+          }
+        }
+      }
+    },
+    "finance_feeling_headline_blank" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a card to start tracking cycles and due dates."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añade una tarjeta para empezar a seguir ciclos y vencimientos."
+          }
+        }
+      }
+    },
+    "finance_feeling_headline_clear" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every active card is paid for this cycle."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas tus tarjetas activas están pagadas en este ciclo."
+          }
+        }
+      }
+    },
+    "finance_feeling_headline_countdown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due dates are approaching — worth a look this week."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se acercan vencimientos — conviene revisar esta semana."
+          }
+        }
+      }
+    },
+    "finance_feeling_headline_cruising" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing urgent — your cards are on track."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada urgente — tus tarjetas van al día."
+          }
+        }
+      }
+    },
+    "finance_feeling_headline_crunch" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Payments are due very soon and need your attention."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hay pagos muy próximos que necesitan tu atención."
+          }
+        }
+      }
+    },
+    "finance_feeling_headline_prime" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "At least one card is in an optimal purchase window today."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al menos una tarjeta está en ventana óptima de compra hoy."
+          }
+        }
+      }
+    },
+    "finance_feeling_headline_red_zone" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "At least one payment is past its due date."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al menos un pago ya pasó su fecha de vencimiento."
+          }
+        }
+      }
+    },
+    "finance_feeling_on_track_count" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld on track"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld al día"
+          }
+        }
+      }
+    },
+    "finance_feeling_prime" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prime window"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ventana prime"
+          }
+        }
+      }
+    },
+    "finance_feeling_red_zone" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Red zone"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zona roja"
+          }
+        }
+      }
+    },
+    "finance_feeling_sheet_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your vibe check"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu vibe check"
+          }
+        }
+      }
+    },
+    "finance_feeling_why_blank" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No cards to track yet."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay tarjetas que seguir."
+          }
+        }
+      }
+    },
+    "finance_feeling_why_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Why this vibe?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Por qué este vibe?"
+          }
+        }
+      }
+    },
     "footer_powered_by" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1222,6 +2009,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Powered by Lenara"
+          }
+        }
+      }
+    },
+    "footer_user_email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email: %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email: %@"
+          }
+        }
+      }
+    },
+    "footer_version_build" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@, build: %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versión %@, build: %@"
           }
         }
       }
@@ -1501,40 +2322,6 @@
         }
       }
     },
-    "onboarding_owners_subtitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add owners for your partner, parents, or household and keep everyone's cards organized in one place."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Agrega titulares para tu pareja, tus padres o tu hogar y organiza las tarjetas de todos en un solo lugar."
-          }
-        }
-      }
-    },
-    "onboarding_owners_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cards for the whole family"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tarjetas para toda la familia"
-          }
-        }
-      }
-    },
     "onboarding_optimal_subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1565,6 +2352,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Compra en el mejor día"
+          }
+        }
+      }
+    },
+    "onboarding_owners_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add owners for your partner, parents, or household and keep everyone's cards organized in one place."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega titulares para tu pareja, tus padres o tu hogar y organiza las tarjetas de todos en un solo lugar."
+          }
+        }
+      }
+    },
+    "onboarding_owners_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cards for the whole family"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarjetas para toda la familia"
           }
         }
       }
@@ -1694,13 +2515,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Welcome to Cards Reminder"
+            "value" : "Welcome to Waloop"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bienvenido a Cards Reminder"
+            "value" : "Bienvenido a Waloop"
           }
         }
       }
@@ -2028,6 +2849,23 @@
         }
       }
     },
+    "payments_mark_cycle_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For billing period %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Corresponde al periodo %@"
+          }
+        }
+      }
+    },
     "payments_mark_paid" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2043,13 +2881,6 @@
             "value" : "Marcar como pagada"
           }
         }
-      }
-    },
-    "payments_mark_cycle_hint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "For billing period %@" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Corresponde al periodo %@" } }
       }
     },
     "payments_mark_section_title" : {
@@ -2137,27 +2968,6 @@
         }
       }
     },
-    "payments_quick_confirm_message" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "You are about to mark as paid the billing period %@." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Estás a punto de marcar como pagado el periodo %@." } }
-      }
-    },
-    "payments_quick_confirm_message_fallback" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "You are about to mark this card as paid for the current pending period." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Estás a punto de marcar esta tarjeta como pagada para el periodo pendiente actual." } }
-      }
-    },
-    "payments_quick_confirm_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Confirm payment" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Confirmar pago" } }
-      }
-    },
     "payments_pending_payment_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2171,6 +2981,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pago pendiente"
+          }
+        }
+      }
+    },
+    "payments_quick_confirm_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are about to mark as paid the billing period %@."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estás a punto de marcar como pagado el periodo %@."
+          }
+        }
+      }
+    },
+    "payments_quick_confirm_message_fallback" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are about to mark this card as paid for the current pending period."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estás a punto de marcar esta tarjeta como pagada para el periodo pendiente actual."
+          }
+        }
+      }
+    },
+    "payments_quick_confirm_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm payment"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmar pago"
           }
         }
       }
@@ -2396,6 +3257,40 @@
         }
       }
     },
+    "screen_new_feedback_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New feedback"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuevo comentario"
+          }
+        }
+      }
+    },
+    "screen_edit_feedback_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit feedback"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar comentario"
+          }
+        }
+      }
+    },
     "screen_notifications_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2409,6 +3304,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notificaciones"
+          }
+        }
+      }
+    },
+    "screen_profile_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perfil"
           }
         }
       }
@@ -2443,6 +3355,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hoy"
+          }
+        }
+      }
+    },
+    "section_account" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuenta"
           }
         }
       }
@@ -2498,6 +3427,23 @@
         }
       }
     },
+    "section_more_about_app" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More about the app"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más sobre la app"
+          }
+        }
+      }
+    },
     "section_notes" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2515,6 +3461,23 @@
         }
       }
     },
+    "section_other" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otros"
+          }
+        }
+      }
+    },
     "section_owner" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2528,6 +3491,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Titular"
+          }
+        }
+      }
+    },
+    "section_feedback" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comentario"
+          }
+        }
+      }
+    },
+    "section_preferences" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferences"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferencias"
           }
         }
       }
@@ -2600,6 +3597,23 @@
         }
       }
     },
+    "sign_in_loading" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signing you in…"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciando sesión…"
+          }
+        }
+      }
+    },
     "sign_in_prompt" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2668,6 +3682,23 @@
         }
       }
     },
+    "tab_profile" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perfil"
+          }
+        }
+      }
+    },
     "tab_settings" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2698,6 +3729,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hoy"
+          }
+        }
+      }
+    },
+    "theme_dark" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oscuro"
+          }
+        }
+      }
+    },
+    "theme_light" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claro"
+          }
+        }
+      }
+    },
+    "theme_system" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sistema"
           }
         }
       }
@@ -3074,139 +4156,6 @@
             "value" : "Usuario"
           }
         }
-      }
-    },
-    "finance_feeling_accessibility_hint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Shows why your cards are in this state" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Muestra por qué tus tarjetas están en este estado" } }
-      }
-    },
-    "finance_feeling_blank" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Blank slate" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Lienzo en blanco" } }
-      }
-    },
-    "finance_feeling_clear" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clear books" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Al corriente" } }
-      }
-    },
-    "finance_feeling_countdown" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "On the clock" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Reloj activo" } }
-      }
-    },
-    "finance_feeling_crunch" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Crunch time" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Modo crunch" } }
-      }
-    },
-    "finance_feeling_cruising" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cruising" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Estable" } }
-      }
-    },
-    "finance_feeling_headline_blank" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add a card to start tracking cycles and due dates." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Añade una tarjeta para empezar a seguir ciclos y vencimientos." } }
-      }
-    },
-    "finance_feeling_headline_clear" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Every active card is paid for this cycle." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Todas tus tarjetas activas están pagadas en este ciclo." } }
-      }
-    },
-    "finance_feeling_headline_countdown" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Due dates are approaching — worth a look this week." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Se acercan vencimientos — conviene revisar esta semana." } }
-      }
-    },
-    "finance_feeling_headline_crunch" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Payments are due very soon and need your attention." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Hay pagos muy próximos que necesitan tu atención." } }
-      }
-    },
-    "finance_feeling_headline_cruising" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Nothing urgent — your cards are on track." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Nada urgente — tus tarjetas van al día." } }
-      }
-    },
-    "finance_feeling_headline_prime" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "At least one card is in an optimal purchase window today." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Al menos una tarjeta está en ventana óptima de compra hoy." } }
-      }
-    },
-    "finance_feeling_headline_red_zone" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "At least one payment is past its due date." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Al menos un pago ya pasó su fecha de vencimiento." } }
-      }
-    },
-    "finance_feeling_on_track_count" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld on track" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "%lld al día" } }
-      }
-    },
-    "finance_feeling_prime" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Prime window" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Ventana prime" } }
-      }
-    },
-    "finance_feeling_red_zone" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Red zone" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Zona roja" } }
-      }
-    },
-    "finance_feeling_sheet_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your vibe check" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Tu vibe check" } }
-      }
-    },
-    "finance_feeling_why_blank" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "No cards to track yet." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Aún no hay tarjetas que seguir." } }
-      }
-    },
-    "finance_feeling_why_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Why this vibe?" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Por qué este vibe?" } }
       }
     },
     "value_not_available" : {

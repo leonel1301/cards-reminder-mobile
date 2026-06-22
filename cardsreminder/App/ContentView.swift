@@ -27,9 +27,9 @@ struct ContentView: View {
                     Label("tab_cards", systemImage: "creditcard")
                 }
 
-            SettingsView()
+            ProfileView()
                 .tabItem {
-                    Label("tab_settings", systemImage: "gearshape")
+                    Label("tab_profile", systemImage: "person.crop.circle")
                 }
         }
         .task {

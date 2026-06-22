@@ -64,4 +64,19 @@ final class UserAPIService {
         fetchTask = task
         await task.value
     }
+
+    func deleteAccount() async -> Bool {
+        isLoading = true
+        errorMessage = nil
+        defer { isLoading = false }
+
+        do {
+            try await api.requestVoid(path: "/me", method: "DELETE")
+            resetSession()
+            return true
+        } catch {
+            APIErrorHandling.handle(error) { errorMessage = $0 }
+            return false
+        }
+    }
 }
