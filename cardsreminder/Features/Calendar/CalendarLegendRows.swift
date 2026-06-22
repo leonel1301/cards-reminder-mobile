@@ -157,6 +157,7 @@ struct CalendarLegendRows: View {
     }
 
     private func toggleSelection(_ newSelection: CalendarSelection) {
+        Haptics.selection()
         if selection == newSelection {
             selection = nil
         } else {

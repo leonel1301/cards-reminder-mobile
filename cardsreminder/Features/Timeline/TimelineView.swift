@@ -1,5 +1,4 @@
 import SwiftUI
-import UIKit
 
 struct TimelineView: View {
     @Environment(CardsAPIService.self) private var cardsService
@@ -114,6 +113,7 @@ struct TimelineView: View {
                 )
                 .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .onTapGesture {
+                    Haptics.lightImpact()
                     paymentsCard = featuredEntry.card
                 }
 
@@ -163,6 +163,7 @@ struct TimelineView: View {
                             let globalIndex = item.startIndex + eventIndex
 
                             Button {
+                                Haptics.lightImpact()
                                 paymentsCard = event.card
                             } label: {
                                 TimelineEventRow(
@@ -183,6 +184,7 @@ struct TimelineView: View {
                             .contextMenu {
                                 if canMarkPaid(event) {
                                     Button {
+                                        Haptics.lightImpact()
                                         Task { await quickMarkPaid(event.card) }
                                     } label: {
                                         Label("payments_mark_paid", systemImage: "checkmark.circle")
@@ -296,8 +298,7 @@ struct TimelineView: View {
             cardsService.cards[index] = response.card
         }
 
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.success)
+        Haptics.success()
     }
 }
 

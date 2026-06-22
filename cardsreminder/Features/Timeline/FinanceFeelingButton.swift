@@ -6,6 +6,7 @@ struct FinanceFeelingButton: View {
 
     var body: some View {
         Button {
+            Haptics.lightImpact()
             isExplanationPresented = true
         } label: {
             HStack(spacing: 5) {
@@ -20,13 +21,26 @@ struct FinanceFeelingButton: View {
             .padding(.horizontal, 10)
             .padding(.vertical, 6)
         }
-        .buttonStyle(.glass)
-        .controlSize(.small)
+        .modifier(FeelingButtonStyle())
         .accessibilityHint(Text("finance_feeling_accessibility_hint"))
         .sheet(isPresented: $isExplanationPresented) {
             FeelingExplanationSheet(feeling: feeling)
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
+        }
+    }
+}
+
+private struct FeelingButtonStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 26, *) {
+            content
+                .buttonStyle(.glass)
+                .controlSize(.small)
+        } else {
+            content
+                .buttonStyle(.plain)
+                .controlSize(.small)
         }
     }
 }

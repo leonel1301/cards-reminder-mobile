@@ -12,6 +12,7 @@ struct AppSettingsView: View {
     @State private var showNotifications = false
     @State private var showDeleteAccountConfirmation = false
     @State private var isDeletingAccount = false
+    @State private var presentedSafariURL: PresentedURL?
 
     var body: some View {
         ScrollView {
@@ -40,6 +41,7 @@ struct AppSettingsView: View {
                 ProgressView()
             }
         }
+        .inAppSafariSheet(presentedURL: $presentedSafariURL)
     }
 
     private var preferencesSection: some View {
@@ -75,6 +77,9 @@ struct AppSettingsView: View {
             }
             .labelsHidden()
             .tint(.primary)
+            .onChange(of: appearanceManager.appearance) { _, _ in
+                Haptics.selection()
+            }
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
@@ -113,11 +118,11 @@ struct AppSettingsView: View {
 
             VStack(spacing: 0) {
                 settingsActionRow(title: "action_privacy_policy", icon: "hand.raised") {
-                    openURL(AppMetadata.privacyURL)
+                    AppLink.open(AppMetadata.privacyURL, presentingIn: $presentedSafariURL, openURL: openURL)
                 }
 
                 settingsActionRow(title: "action_terms_of_service", icon: "doc.text") {
-                    openURL(AppMetadata.termsURL)
+                    AppLink.open(AppMetadata.termsURL, presentingIn: $presentedSafariURL, openURL: openURL)
                 }
             }
             .padding(.horizontal, 16)

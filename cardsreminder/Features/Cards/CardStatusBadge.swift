@@ -21,7 +21,7 @@ struct CardStatusBadge: View {
         case .urgent: Color.amberStateBackground
         case .dueSoon: Color.violetStateBackground
         case .optimalDay: Color.violetStateBackground
-        case .onTrack: Color(.tertiarySystemFill)
+        case .onTrack: Color.onTrackStateBackground
         }
     }
 
@@ -32,7 +32,7 @@ struct CardStatusBadge: View {
         case .urgent: Color.amberStateForeground
         case .dueSoon: Color.violetStateForeground
         case .optimalDay: Color.violetStateForeground
-        case .onTrack: Color.secondary
+        case .onTrack: Color.onTrackStateForeground
         }
     }
 

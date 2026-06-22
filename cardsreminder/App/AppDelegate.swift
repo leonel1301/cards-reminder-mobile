@@ -45,6 +45,6 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         _ center: UNUserNotificationCenter,
         didReceive response: UNNotificationResponse
     ) async {
-        // TODO: deep link según payload (ej. cardId)
+        
     }
 }

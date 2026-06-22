@@ -3,11 +3,9 @@ import SwiftUI
 struct PoweredByLenaraFooter: View {
     @Environment(\.openURL) private var openURL
 
-    private let lenaraURL = URL(string: "https://lenaralabs.com/")!
-
     var body: some View {
         Button {
-            openURL(lenaraURL)
+            openURL(AppLink.lenaraHomepage)
         } label: {
             HStack(spacing: 4) {
                 Text("footer_powered_by")

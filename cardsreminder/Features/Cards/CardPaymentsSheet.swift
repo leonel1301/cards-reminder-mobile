@@ -234,6 +234,7 @@ struct CardPaymentsSheet: View {
             paymentNotesField
 
             Button {
+                Haptics.lightImpact()
                 showMarkPaidConfirmation = true
             } label: {
                 HStack {
@@ -399,6 +400,7 @@ struct CardPaymentsSheet: View {
         }
 
         updateCardInService(response.card)
+        Haptics.success()
         dismiss()
     }
 }

@@ -35,6 +35,9 @@ struct OnboardingView: View {
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
+                .onChange(of: currentPage) { _, _ in
+                    Haptics.selection()
+                }
 
                 pageIndicator
                     .padding(.top, 8)
@@ -68,6 +71,7 @@ struct OnboardingView: View {
                     currentPage += 1
                 }
             } else {
+                Haptics.mediumImpact()
                 onComplete()
             }
         } label: {

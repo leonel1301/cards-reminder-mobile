@@ -30,10 +30,9 @@ struct ProfileView: View {
     @State private var activeSheet: ProfileSheet?
     @State private var showSettings = false
     @State private var isFeedbackPresented = false
+    @State private var presentedSafariURL: PresentedURL?
 
     private var profile: UserProfile? { profiles.first }
-
-    private let lenaraURL = URL(string: "https://lenaralabs.com/")!
 
     var body: some View {
         NavigationStack {
@@ -89,19 +88,16 @@ struct ProfileView: View {
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
         }
+        .inAppSafariSheet(presentedURL: $presentedSafariURL)
     }
 
     private func loadInitialData() async {
-        if userService.hasLoaded && ownersService.hasLoaded { return }
-
-        if !userService.hasLoaded && !ownersService.hasLoaded {
-            async let profile: Void = userService.fetchProfile(into: modelContext)
+        async let profile: Void = userService.fetchProfile(into: modelContext)
+        if !ownersService.hasLoaded {
             async let owners: Void = ownersService.fetchOwners()
             _ = await (profile, owners)
-        } else if !userService.hasLoaded {
-            await userService.fetchProfile(into: modelContext)
         } else {
-            await ownersService.fetchOwners()
+            await profile
         }
     }
 
@@ -128,6 +124,7 @@ struct ProfileView: View {
     private var profileMenu: some View {
         Menu {
             Button {
+                Haptics.lightImpact()
                 showSettings = true
             } label: {
                 Label("action_settings", systemImage: "gearshape")
@@ -260,7 +257,7 @@ struct ProfileView: View {
                 .multilineTextAlignment(.center)
 
             Button {
-                openURL(lenaraURL)
+                openURL(AppLink.lenaraHomepage)
             } label: {
                 HStack(spacing: 4) {
                     Text("footer_powered_by")
@@ -373,7 +370,7 @@ struct ProfileView: View {
 
     private func actionRow(title: LocalizedStringKey, icon: String, url: URL) -> some View {
         Button {
-            openURL(url)
+            AppLink.open(url, presentingIn: $presentedSafariURL, openURL: openURL)
         } label: {
             HStack(spacing: 12) {
                 Image(systemName: icon)

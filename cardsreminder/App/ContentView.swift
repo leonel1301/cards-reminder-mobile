@@ -1,37 +1,51 @@
 import SwiftUI
 
+private enum AppTab: Hashable {
+    case timeline
+    case calendar
+    case cards
+    case profile
+}
+
 struct ContentView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.scenePhase) private var scenePhase
     @Environment(CardsAPIService.self) private var cardsService
     @Environment(PaymentsAPIService.self) private var paymentsService
 
+    @State private var selectedTab: AppTab = .timeline
+
     private var timelineTabIcon: String {
         colorScheme == .dark ? "moon.fill" : "sun.max.fill"
     }
 
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             TimelineView()
                 .tabItem {
                     Label("tab_timeline", systemImage: timelineTabIcon)
                 }
+                .tag(AppTab.timeline)
 
             CalendarView()
                 .tabItem {
                     Label("tab_calendar", systemImage: "calendar")
                 }
+                .tag(AppTab.calendar)
 
             CardsView()
                 .tabItem {
                     Label("tab_cards", systemImage: "creditcard")
                 }
+                .tag(AppTab.cards)
 
             ProfileView()
                 .tabItem {
                     Label("tab_profile", systemImage: "person.crop.circle")
                 }
+                .tag(AppTab.profile)
         }
+        .sensoryFeedback(.selection, trigger: selectedTab)
         .task {
             await bootstrapDataIfNeeded()
         }

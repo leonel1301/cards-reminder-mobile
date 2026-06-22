@@ -1,5 +1,4 @@
 import SwiftUI
-import UIKit
 
 struct CardsView: View {
     @Environment(CardsAPIService.self) private var cardsService
@@ -143,6 +142,7 @@ struct CardsView: View {
 
     private var addButton: some View {
         Button {
+            Haptics.lightImpact()
             showCreateForm = true
         } label: {
             Label("action_add_card", systemImage: "plus.circle.fill")
@@ -177,8 +177,14 @@ struct CardsView: View {
                     card: card,
                     status: paymentsService.status(for: card.id),
                     statusRevealDelay: SmoothRevealAnimation.staggerDelay(for: index),
-                    onOpenPayments: { paymentsCard = card },
-                    onMarkPaid: card.isActive ? { cardPendingPayment = card } : nil,
+                    onOpenPayments: {
+                        Haptics.lightImpact()
+                        paymentsCard = card
+                    },
+                    onMarkPaid: card.isActive ? {
+                        Haptics.lightImpact()
+                        cardPendingPayment = card
+                    } : nil,
                     onEdit: { editingCard = card },
                     onDelete: { cardPendingDelete = card }
                 )
@@ -244,8 +250,7 @@ struct CardsView: View {
         deletingCardID = nil
         await paymentsService.fetchDashboard()
 
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.success)
+        Haptics.success()
     }
 
     private func quickMarkPaid(_ card: APICard) async {
@@ -258,8 +263,7 @@ struct CardsView: View {
             cardsService.cards[index] = response.card
         }
 
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.success)
+        Haptics.success()
     }
 }
 

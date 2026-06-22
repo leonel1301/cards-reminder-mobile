@@ -40,6 +40,10 @@ final class OwnersAPIService {
         let task = Task { @MainActor in
             isLoading = true
             errorMessage = nil
+            defer {
+                isLoading = false
+                fetchTask = nil
+            }
 
             do {
                 let list: [APIOwner] = try await api.request(path: "/owners")
@@ -52,9 +56,6 @@ final class OwnersAPIService {
             } catch {
                 APIErrorHandling.handle(error) { errorMessage = $0 }
             }
-
-            isLoading = false
-            fetchTask = nil
         }
 
         fetchTask = task

@@ -19,6 +19,7 @@ struct FeedbackSheet: View {
     @Environment(FeedbackAPIService.self) private var feedbackService
 
     @State private var activeForm: FeedbackSheetRoute?
+    @State private var presentedSafariURL: PresentedURL?
 
     var body: some View {
         NavigationStack {
@@ -73,6 +74,7 @@ struct FeedbackSheet: View {
                     .id(feedback.id)
             }
         }
+        .inAppSafariSheet(presentedURL: $presentedSafariURL)
     }
 
     private var headerIcon: some View {
@@ -87,7 +89,7 @@ struct FeedbackSheet: View {
                 .padding(.top, 8)
 
             Button {
-                openURL(AppMetadata.feedbackURL)
+                AppLink.open(AppMetadata.feedbackURL, presentingIn: $presentedSafariURL, openURL: openURL)
             } label: {
                 HStack(spacing: 4) {
                     Text("feedback_more_link")

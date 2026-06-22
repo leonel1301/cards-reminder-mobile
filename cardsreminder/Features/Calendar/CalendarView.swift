@@ -143,7 +143,7 @@ struct CalendarView: View {
     private var monthHeader: some View {
         HStack {
             Button {
-                goToPreviousMonth()
+                changeMonth(by: -1)
             } label: {
                 Image(systemName: "chevron.left")
                     .font(.body.weight(.semibold))
@@ -158,7 +158,7 @@ struct CalendarView: View {
             Spacer()
 
             Button {
-                goToNextMonth()
+                changeMonth(by: 1)
             } label: {
                 Image(systemName: "chevron.right")
                     .font(.body.weight(.semibold))
@@ -211,23 +211,20 @@ struct CalendarView: View {
                 guard abs(value.translation.width) > abs(value.translation.height) else { return }
 
                 if value.translation.width < -40 {
-                    goToNextMonth()
+                    changeMonth(by: 1)
                 } else if value.translation.width > 40 {
-                    goToPreviousMonth()
+                    changeMonth(by: -1)
                 }
             }
     }
 
-    private func goToPreviousMonth() {
-        if let newDate = Calendar.current.date(byAdding: .month, value: -1, to: displayedMonth) {
-            displayedMonth = newDate
+    private func changeMonth(by value: Int) {
+        guard let newDate = Calendar.current.date(byAdding: .month, value: value, to: displayedMonth) else {
+            return
         }
-    }
 
-    private func goToNextMonth() {
-        if let newDate = Calendar.current.date(byAdding: .month, value: 1, to: displayedMonth) {
-            displayedMonth = newDate
-        }
+        Haptics.selection()
+        displayedMonth = newDate
     }
 
     private func isToday(day: Int) -> Bool {

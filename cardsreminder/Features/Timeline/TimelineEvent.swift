@@ -193,7 +193,7 @@ extension TimelineEventKind {
         case .optimalToday: Color.violetStateBackground
         case .cycleEndsToday: Color.violetStateBackground.opacity(0.75)
         case .paid: Color.emeraldStateBackground
-        case .onTrack: Color(.tertiarySystemFill)
+        case .onTrack: Color.onTrackStateBackground
         }
     }
 
@@ -206,7 +206,7 @@ extension TimelineEventKind {
         case .optimalToday: Color.violetStateForeground
         case .cycleEndsToday: Color.violetStateForeground
         case .paid: Color.emeraldStateForeground
-        case .onTrack: Color.secondary
+        case .onTrack: Color.onTrackStateForeground
         }
     }
 }

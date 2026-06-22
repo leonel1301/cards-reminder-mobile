@@ -59,14 +59,16 @@ struct APIService {
         method: String = "GET",
         body: (any Encodable)? = nil
     ) async throws -> T {
-        let data = try await performRequest(path: path, method: method, body: body)
-        do {
-            return try decoder.decode(T.self, from: data)
-        } catch let error as DecodingError {
-            throw APIError.decodingFailed(Self.decodingErrorDescription(error))
-        } catch {
-            throw APIError.decodingFailed(error.localizedDescription)
-        }
+        let data = try await performRequest(path: path, method: method, body: body, authenticated: true)
+        return try decode(T.self, from: data)
+    }
+
+    func publicRequest<T: Decodable>(
+        path: String,
+        method: String = "GET"
+    ) async throws -> T {
+        let data = try await performRequest(path: path, method: method, body: nil, authenticated: false)
+        return try decode(T.self, from: data)
     }
 
     func requestVoid(
@@ -74,7 +76,17 @@ struct APIService {
         method: String = "DELETE",
         body: (any Encodable)? = nil
     ) async throws {
-        _ = try await performRequest(path: path, method: method, body: body)
+        _ = try await performRequest(path: path, method: method, body: body, authenticated: true)
+    }
+
+    private func decode<T: Decodable>(_ type: T.Type, from data: Data) throws -> T {
+        do {
+            return try decoder.decode(T.self, from: data)
+        } catch let error as DecodingError {
+            throw APIError.decodingFailed(Self.decodingErrorDescription(error))
+        } catch {
+            throw APIError.decodingFailed(error.localizedDescription)
+        }
     }
 
     private static func decodingErrorDescription(_ error: DecodingError) -> String {
@@ -95,9 +107,15 @@ struct APIService {
     private func performRequest(
         path: String,
         method: String,
-        body: (any Encodable)?
+        body: (any Encodable)?,
+        authenticated: Bool
     ) async throws -> Data {
-        let urlRequest = try await authorizedRequest(path: path, method: method, body: body)
+        let urlRequest = try await buildRequest(
+            path: path,
+            method: method,
+            body: body,
+            authenticated: authenticated
+        )
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
 
         guard let httpResponse = response as? HTTPURLResponse else {
@@ -112,25 +130,29 @@ struct APIService {
         return data
     }
 
-    private func authorizedRequest(
+    private func buildRequest(
         path: String,
         method: String,
-        body: (any Encodable)?
+        body: (any Encodable)?,
+        authenticated: Bool
     ) async throws -> URLRequest {
-        guard let firebaseUser = Auth.auth().currentUser else {
-            throw APIError.notAuthenticated
-        }
-
-        let token = try await firebaseUser.getIDToken()
         guard let url = URL(string: path, relativeTo: baseURL) else {
             throw APIError.invalidResponse
         }
 
         var request = URLRequest(url: url)
         request.httpMethod = method
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue(Self.acceptLanguageHeaderValue, forHTTPHeaderField: "Accept-Language")
+
+        if authenticated {
+            guard let firebaseUser = Auth.auth().currentUser else {
+                throw APIError.notAuthenticated
+            }
+
+            let token = try await firebaseUser.getIDToken()
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
 
         if let body {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")

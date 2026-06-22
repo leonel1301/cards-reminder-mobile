@@ -117,6 +117,7 @@ struct NotificationsSettingsView: View {
         Binding(
             get: { pushManager.isNotificationsPreferenceEnabled },
             set: { newValue in
+                Haptics.selection()
                 Task {
                     await pushManager.applyNotificationsPreference(enabled: newValue)
                 }

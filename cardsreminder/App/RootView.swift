@@ -27,8 +27,7 @@ struct RootView: View {
                 }
                 .transition(.opacity)
             } else if authManager.isSignedIn {
-                ContentView()
-                    .transition(.opacity)
+                signedInContent
             } else {
                 SignInView()
                     .transition(.opacity)
@@ -37,6 +36,7 @@ struct RootView: View {
         .animation(.easeInOut(duration: 0.35), value: showSplash)
         .animation(.easeInOut(duration: 0.35), value: hasCompletedOnboarding)
         .animation(.easeInOut(duration: 0.35), value: authManager.isSignedIn)
+        .animation(.easeInOut(duration: 0.35), value: userService.contentRevision)
         .task(id: authManager.user?.uid) {
             let currentUID = authManager.user?.uid
 
@@ -53,15 +53,46 @@ struct RootView: View {
                 resetUserScopedData()
             }
 
+            await userService.refreshCurrentUser()
             await pushManager.handleUserSessionChange(userSwitched: userSwitched)
         }
         .onReceive(NotificationCenter.default.publisher(for: NSLocale.currentLocaleDidChangeNotification)) { _ in
             Task { await resyncLanguageIfNeeded() }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-            Task { await resyncLanguageIfNeeded() }
+            Task {
+                if authManager.isSignedIn {
+                    await userService.refreshCurrentUser()
+                }
+                await resyncLanguageIfNeeded()
+            }
         }
         .apiErrorAlert()
+    }
+
+    @ViewBuilder
+    private var signedInContent: some View {
+        if !userService.hasResolvedTermsStatus {
+            sessionLoadingView
+                .transition(.opacity)
+        } else if userService.needsTermsAcceptance {
+            PostLoginSetupView()
+                .transition(.opacity)
+        } else {
+            ContentView()
+                .transition(.opacity)
+        }
+    }
+
+    private var sessionLoadingView: some View {
+        ZStack {
+            Color.appBackground
+                .ignoresSafeArea()
+
+            ProgressView()
+                .controlSize(.large)
+                .tint(Color.primaryAction)
+        }
     }
 
     private func resyncLanguageIfNeeded() async {

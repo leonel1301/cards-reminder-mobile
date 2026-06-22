@@ -57,6 +57,7 @@ struct CardColorPaletteGrid: View {
         let isSelected = CardPaletteOption.normalize(selection) == option.id
 
         return Button {
+            Haptics.selection()
             selection = option.id
         } label: {
             Circle()
@@ -95,6 +96,7 @@ struct DayNumberPicker: View {
     var body: some View {
         VStack(spacing: 0) {
             Button {
+                Haptics.selection()
                 expandedPickerID = isExpanded ? nil : id
             } label: {
                 HStack {
