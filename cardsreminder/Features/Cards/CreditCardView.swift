@@ -256,7 +256,8 @@ struct CreditCardView: View {
     }
 
     private var formattedCardNumber: String {
-        "•••• •••• •••• \(card.lastFourDigits)"
+        guard card.lastFourDigits != "0000" else { return "•••• •••• •••• ••••" }
+        return "•••• •••• •••• \(card.lastFourDigits)"
     }
 }
 

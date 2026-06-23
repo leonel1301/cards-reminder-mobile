@@ -1452,6 +1452,40 @@
         }
       }
     },
+    "field_last_four_digits_help_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last 4 digits"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Últimos 4 dígitos"
+          }
+        }
+      }
+    },
+    "field_last_four_digits_help_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is for reference only, to help you identify the card. If you prefer not to enter it, 0000 will be used."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es solo de referencia, para ayudarte a identificar la tarjeta. Si prefieres no ingresarlo, se usará 0000."
+          }
+        }
+      }
+    },
     "field_member_since" : {
       "extractionState" : "manual",
       "localizations" : {

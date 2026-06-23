@@ -25,6 +25,7 @@ struct CardFormView: View {
     @State private var showDeleteConfirmation = false
     @State private var showRemindersPrompt = false
     @State private var showRemindersLaterInfo = false
+    @State private var showLastFourDigitsInfo = false
     @State private var expandedDayPickerID: String?
 
     private var isEditing: Bool {
@@ -41,14 +42,25 @@ struct CardFormView: View {
             Form {
                 Section {
                     TextField("field_card_name", text: $name)
-                    TextField("field_last_four_digits", text: $lastFourDigits)
-                        .keyboardType(.numberPad)
-                        .onChange(of: lastFourDigits) { _, newValue in
-                            let sanitized = sanitizeLastFourDigits(newValue)
-                            if sanitized != newValue {
-                                lastFourDigits = sanitized
+                    HStack(spacing: 8) {
+                        TextField("field_last_four_digits", text: $lastFourDigits)
+                            .keyboardType(.numberPad)
+                            .onChange(of: lastFourDigits) { _, newValue in
+                                let sanitized = sanitizeLastFourDigits(newValue)
+                                if sanitized != newValue {
+                                    lastFourDigits = sanitized
+                                }
                             }
+
+                        Button {
+                            showLastFourDigitsInfo = true
+                        } label: {
+                            Image(systemName: "questionmark.circle")
+                                .foregroundStyle(.secondary)
                         }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel(Text("field_last_four_digits_help_title"))
+                    }
                     TextField("field_issuer_optional", text: $issuer)
                 } header: {
                     Text("section_card")
@@ -167,6 +179,11 @@ struct CardFormView: View {
             } message: {
                 Text("card_create_reminders_later_message")
             }
+            .alert("field_last_four_digits_help_title", isPresented: $showLastFourDigitsInfo) {
+                Button("action_ok", role: .cancel) {}
+            } message: {
+                Text("field_last_four_digits_help_message")
+            }
             .overlay {
                 if cardsService.isLoading {
                     ProgressView()
@@ -185,7 +202,11 @@ struct CardFormView: View {
 
     private var canSave: Bool {
         !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-            && lastFourDigits.count == 4
+            && (lastFourDigits.isEmpty || lastFourDigits.count == 4)
+    }
+
+    private var resolvedLastFourDigits: String {
+        lastFourDigits.isEmpty ? "0000" : lastFourDigits
     }
 
     private func sanitizeLastFourDigits(_ value: String) -> String {
@@ -196,7 +217,7 @@ struct CardFormView: View {
         guard case .edit(let card) = mode else { return }
 
         name = card.name
-        lastFourDigits = card.lastFourDigits
+        lastFourDigits = card.lastFourDigits == "0000" ? "" : card.lastFourDigits
         issuer = card.issuer ?? ""
         billingCycleDay = card.billingCycleDay
         paymentDueDay = card.paymentDueDay
@@ -216,7 +237,7 @@ struct CardFormView: View {
         case .create:
             let request = CreateCardRequest(
                 name: trimmedName,
-                lastFourDigits: lastFourDigits,
+                lastFourDigits: resolvedLastFourDigits,
                 issuer: trimmedIssuer.isEmpty ? nil : trimmedIssuer,
                 billingCycleDay: billingCycleDay,
                 paymentDueDay: paymentDueDay,
@@ -235,7 +256,7 @@ struct CardFormView: View {
         case .edit(let card):
             let request = UpdateCardRequest(
                 name: trimmedName,
-                lastFourDigits: lastFourDigits,
+                lastFourDigits: resolvedLastFourDigits,
                 issuer: trimmedIssuer.isEmpty ? nil : trimmedIssuer,
                 billingCycleDay: billingCycleDay,
                 paymentDueDay: paymentDueDay,

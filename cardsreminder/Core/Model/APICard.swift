@@ -95,5 +95,8 @@ extension APICard {
 
     var color: Color { Color(hex: displayColorHex) }
 
-    var maskedNumber: String { "•••• \(lastFourDigits)" }
+    var maskedNumber: String {
+        guard lastFourDigits != "0000" else { return "•••• ••••" }
+        return "•••• \(lastFourDigits)"
+    }
 }
