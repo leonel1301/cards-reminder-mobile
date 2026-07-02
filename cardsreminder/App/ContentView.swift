@@ -1,3 +1,4 @@
+import FirebaseAnalytics
 import SwiftUI
 
 private enum AppTab: Hashable {
@@ -26,24 +27,28 @@ struct ContentView: View {
                     Label("tab_timeline", systemImage: timelineTabIcon)
                 }
                 .tag(AppTab.timeline)
+                .analyticsScreen(name: "Timeline")
 
             CalendarView()
                 .tabItem {
                     Label("tab_calendar", systemImage: "calendar")
                 }
                 .tag(AppTab.calendar)
+                .analyticsScreen(name: "Calendar")
 
             CardsView()
                 .tabItem {
                     Label("tab_cards", systemImage: "creditcard")
                 }
                 .tag(AppTab.cards)
+                .analyticsScreen(name: "Cards")
 
             ProfileView()
                 .tabItem {
                     Label("tab_profile", systemImage: "person.crop.circle")
                 }
                 .tag(AppTab.profile)
+                .analyticsScreen(name: "Profile")
         }
         .sensoryFeedback(.selection, trigger: selectedTab)
         .task {

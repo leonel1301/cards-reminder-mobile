@@ -5,6 +5,7 @@
 //  Created by Leonel Ortega on 8/06/26.
 //
 
+import FirebaseAnalytics
 import FirebaseCore
 import GoogleSignIn
 import SwiftData

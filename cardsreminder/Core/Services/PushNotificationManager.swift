@@ -1,3 +1,4 @@
+import FirebaseAnalytics
 import FirebaseAuth
 import UIKit
 import UserNotifications
@@ -97,6 +98,7 @@ final class PushNotificationManager {
             setNotificationsPreferenceEnabled(true)
             UIApplication.shared.registerForRemoteNotifications()
             await syncDeviceWithBackendIfNeeded()
+            Analytics.logEvent("notification_enabled", parameters: nil)
         } else {
             setNotificationsPreferenceEnabled(false)
             await unregisterFromBackend()

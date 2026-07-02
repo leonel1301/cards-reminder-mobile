@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E3A78AC22FF6C9F600A76683 /* FirebaseAnalyticsCore in Frameworks */ = {isa = PBXBuildFile; productRef = E3A78AC12FF6C9F600A76683 /* FirebaseAnalyticsCore */; };
 		E3CA15F02FD87353001F7273 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E3CA15EF2FD87353001F7273 /* FirebaseAuth */; };
 		E3CA15F22FD87353001F7273 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = E3CA15F12FD87353001F7273 /* FirebaseCore */; };
 		E3CA15F52FD8745D001F7273 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = E3CA15F42FD8745D001F7273 /* GoogleSignIn */; };
@@ -61,6 +62,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3CA15F22FD87353001F7273 /* FirebaseCore in Frameworks */,
+				E3A78AC22FF6C9F600A76683 /* FirebaseAnalyticsCore in Frameworks */,
 				E3CA15F02FD87353001F7273 /* FirebaseAuth in Frameworks */,
 				E3CA15F82FD87500001F7273 /* FirebaseMessaging in Frameworks */,
 				E3CA15F52FD8745D001F7273 /* GoogleSignIn in Frameworks */,
@@ -85,12 +87,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E3A78AC02FF6C9F600A76683 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E3FA130F2FD7CD6200D7C538 = {
 			isa = PBXGroup;
 			children = (
 				E3FA131A2FD7CD6200D7C538 /* cardsreminder */,
 				E3FA132A2FD7CD6400D7C538 /* cardsreminderTests */,
 				E3FA13342FD7CD6400D7C538 /* cardsreminderUITests */,
+				E3A78AC02FF6C9F600A76683 /* Frameworks */,
 				E3FA13192FD7CD6200D7C538 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,6 +140,7 @@
 				E3CA15F72FD87500001F7273 /* FirebaseMessaging */,
 				E3CA15F42FD8745D001F7273 /* GoogleSignIn */,
 				E3CA15F62FD8745D001F7273 /* GoogleSignInSwift */,
+				E3A78AC12FF6C9F600A76683 /* FirebaseAnalyticsCore */,
 			);
 			productName = cardsreminder;
 			productReference = E3FA13182FD7CD6200D7C538 /* cardsreminder.app */;
@@ -420,7 +431,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = cardsreminder/Resources/cardsreminder.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = HJVULG4KAD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -438,15 +449,23 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lenaralabs.cardsreminder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -457,7 +476,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = cardsreminder/Resources/cardsreminder.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = HJVULG4KAD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -475,15 +494,23 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lenaralabs.cardsreminder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -632,6 +659,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E3A78AC12FF6C9F600A76683 /* FirebaseAnalyticsCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E3CA15EE2FD87353001F7273 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsCore;
+		};
 		E3CA15EF2FD87353001F7273 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E3CA15EE2FD87353001F7273 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

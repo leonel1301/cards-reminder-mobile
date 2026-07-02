@@ -185,7 +185,7 @@ struct AppSettingsView: View {
 
         guard await userService.deleteAccount() else { return }
 
-        await pushManager.unregisterFromBackend()
+        pushManager.clearNotificationsPreferenceForCurrentUser()
         UserProfile.clearAll(in: modelContext)
         authManager.signOut()
     }

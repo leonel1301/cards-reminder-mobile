@@ -1,3 +1,4 @@
+import FirebaseAnalytics
 import Foundation
 import SwiftUI
 
@@ -128,9 +129,11 @@ final class PaymentsAPIService {
 
     func fetchOptimalPurchaseDays(cardID: UUID) async -> OptimalPurchaseDaysResponse? {
         do {
-            return try await api.request(
+            let response: OptimalPurchaseDaysResponse = try await api.request(
                 path: "/cards/\(cardID.uuidString)/optimal-purchase-days"
             )
+            Analytics.logEvent("purchase_day_checked", parameters: nil)
+            return response
         } catch {
             return nil
         }
@@ -159,6 +162,7 @@ final class PaymentsAPIService {
             )
             statusByCardID[cardID] = response.status
             await fetchDashboard(silentUnlessEmpty: false, maxAttempts: 2)
+            Analytics.logEvent("payment_completed", parameters: nil)
             return response
         } catch {
             APIErrorHandling.handle(error) { errorMessage = $0 }

@@ -1,3 +1,4 @@
+import FirebaseAnalytics
 import FirebaseAuth
 import Foundation
 import SwiftUI
@@ -122,6 +123,7 @@ final class CardsAPIService {
             let card: APICard = try await api.request(path: "/cards", method: "POST", body: input)
             cards.append(card)
             cards.sort { $0.name.localizedCompare($1.name) == .orderedAscending }
+            Analytics.logEvent("card_created", parameters: nil)
             return card
         } catch {
             APIErrorHandling.handle(error) { errorMessage = $0 }

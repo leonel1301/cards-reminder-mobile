@@ -1,3 +1,4 @@
+import FirebaseAnalytics
 import SwiftUI
 
 struct PostLoginSetupView: View {
@@ -59,6 +60,7 @@ struct PostLoginSetupView: View {
             runEntranceAnimation()
         }
         .inAppSafariSheet(presentedURL: $presentedSafariURL)
+        .analyticsScreen(name: "Post Login Setup")
     }
 
     private var background: some View {

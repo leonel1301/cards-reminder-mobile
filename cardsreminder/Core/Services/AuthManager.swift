@@ -1,5 +1,6 @@
 import AuthenticationServices
 import CryptoKit
+import FirebaseAnalytics
 import FirebaseAuth
 import FirebaseCore
 import GoogleSignIn
@@ -22,6 +23,7 @@ final class AuthManager {
         authStateHandle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             Task { @MainActor in
                 self?.user = user
+                Analytics.setUserID(user?.uid)
             }
         }
     }

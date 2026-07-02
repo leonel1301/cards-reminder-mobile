@@ -1,3 +1,4 @@
+import FirebaseAnalytics
 import SwiftUI
 
 struct OnboardingView: View {
@@ -51,6 +52,7 @@ struct OnboardingView: View {
                     .padding(.bottom, 24)
             }
         }
+        .analyticsScreen(name: "Onboarding")
     }
 
     private var pageIndicator: some View {

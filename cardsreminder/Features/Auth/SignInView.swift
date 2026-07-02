@@ -1,3 +1,4 @@
+import FirebaseAnalytics
 import SwiftUI
 
 private struct SignInPressButtonStyle: ButtonStyle {
@@ -48,6 +49,7 @@ struct SignInView: View {
         .onAppear {
             runEntranceAnimation()
         }
+        .analyticsScreen(name: "Sign In")
     }
 
     private var background: some View {
