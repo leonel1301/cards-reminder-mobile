@@ -20,8 +20,15 @@ struct TimelineEvent: Identifiable, Equatable, Sendable {
     let sortOrder: Int
 }
 
+enum TimelineSectionKind: String, Equatable, Sendable {
+    case attention
+    case recommended
+    case allClear
+}
+
 struct TimelineSection: Identifiable, Equatable, Sendable {
     let id: String
+    let kind: TimelineSectionKind
     let titleKey: String
     let events: [TimelineEvent]
 }
@@ -74,13 +81,34 @@ enum TimelineEventBuilder {
         var sections: [TimelineSection] = []
 
         if !attention.isEmpty {
-            sections.append(TimelineSection(id: "attention", titleKey: "timeline_section_attention", events: attention))
+            sections.append(
+                TimelineSection(
+                    id: "attention",
+                    kind: .attention,
+                    titleKey: "timeline_section_attention",
+                    events: attention
+                )
+            )
         }
         if !recommended.isEmpty {
-            sections.append(TimelineSection(id: "recommended", titleKey: "timeline_section_recommended", events: recommended))
+            sections.append(
+                TimelineSection(
+                    id: "recommended",
+                    kind: .recommended,
+                    titleKey: "timeline_section_recommended",
+                    events: recommended
+                )
+            )
         }
         if !allClear.isEmpty {
-            sections.append(TimelineSection(id: "all_clear", titleKey: "timeline_section_all_clear", events: allClear))
+            sections.append(
+                TimelineSection(
+                    id: "all_clear",
+                    kind: .allClear,
+                    titleKey: "timeline_section_all_clear",
+                    events: allClear
+                )
+            )
         }
 
         return TimelineBuildResult(sections: sections)
@@ -212,6 +240,26 @@ extension TimelineEventKind {
 }
 
 extension TimelineEvent {
+    /// Only events with an outstanding balance in the current cycle can be settled.
+    var canMarkPaid: Bool {
+        guard card.isActive, !status.isPaidThisCycle else { return false }
+
+        switch kind {
+        case .overdue, .paymentDueToday, .urgent, .dueSoon:
+            return true
+        case .optimalToday, .cycleEndsToday, .paid, .onTrack:
+            return false
+        }
+    }
+
+    var accessibilityLabel: String {
+        [
+            card.name,
+            String(localized: String.LocalizationValue(stringLiteral: kind.titleKey)),
+            subtitle,
+        ].joined(separator: ". ")
+    }
+
     var subtitle: String {
         switch kind {
         case .overdue:

@@ -21,58 +21,86 @@ struct ProfileView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.openURL) private var openURL
     @Environment(\.requestReview) private var requestReview
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(AuthManager.self) private var authManager
-    @Environment(PushNotificationManager.self) private var pushManager
     @Environment(UserAPIService.self) private var userService
     @Environment(OwnersAPIService.self) private var ownersService
+    @Environment(CardsAPIService.self) private var cardsService
     @Query private var profiles: [UserProfile]
 
     @State private var activeSheet: ProfileSheet?
     @State private var showSettings = false
     @State private var isFeedbackPresented = false
     @State private var presentedSafariURL: PresentedURL?
+    @State private var openSwipeOwnerID: String?
+    @State private var ownerPendingDeletion: APIOwner?
 
     private var profile: UserProfile? { profiles.first }
 
+    private var motion: Animation? {
+        SmoothRevealAnimation.motion(reduceMotion: reduceMotion)
+    }
+
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                screenHeader
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    errorBanner
 
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 24) {
-                        profileSection
-                            .transition(SmoothRevealAnimation.sectionTransition)
+                    ProfileIdentityCard(
+                        name: displayName,
+                        email: userEmail,
+                        memberSince: memberSinceText
+                    )
 
-                        ownersSection
-                            .transition(SmoothRevealAnimation.sectionTransition)
+                    ProfileOwnersSection(
+                        owners: ownersService.owners,
+                        isLoading: ownersService.isLoading,
+                        contentRevision: ownersService.contentRevision,
+                        cardCount: { cardCount(for: $0) },
+                        openSwipeOwnerID: $openSwipeOwnerID,
+                        onAdd: { activeSheet = .createOwner },
+                        onEdit: { activeSheet = .editOwner($0) },
+                        onDelete: { ownerPendingDeletion = $0 }
+                    )
 
-                        moreAboutAppSection
-                            .transition(SmoothRevealAnimation.sectionTransition)
+                    moreAboutAppSection
 
-                        appBrandingFooter
-                            .transition(SmoothRevealAnimation.sectionTransition)
-
-                        if let errorMessage = userService.errorMessage ?? ownersService.errorMessage {
-                            errorBanner(errorMessage)
-                        }
-                    }
-                    .padding(.bottom, 32)
-                    .animation(SmoothRevealAnimation.motion, value: userService.contentRevision)
-                    .animation(SmoothRevealAnimation.motion, value: ownersService.contentRevision)
+                    appBrandingFooter
                 }
-                .refreshable {
-                    await loadData()
+                .padding(.horizontal, 16)
+                .padding(.top, 4)
+                .padding(.bottom, 32)
+                .animation(motion, value: userService.contentRevision)
+                .animation(motion, value: ownersService.contentRevision)
+            }
+            .background(Color.appBackground)
+            .navigationTitle("screen_profile_title")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        Haptics.lightImpact()
+                        showSettings = true
+                    } label: {
+                        Image(systemName: "gearshape")
+                            .font(.body.weight(.semibold))
+                    }
+                    .accessibilityLabel(Text("action_settings"))
                 }
             }
-            .toolbar(.hidden, for: .navigationBar)
+            .refreshable {
+                await loadData()
+            }
             .navigationDestination(isPresented: $showSettings) {
                 AppSettingsView()
             }
         }
-        .safeAreaPadding(.bottom)
         .task {
             await loadInitialData()
+        }
+        .onChange(of: ownersService.contentRevision) { _, _ in
+            openSwipeOwnerID = nil
         }
         .sheet(item: $activeSheet) { sheet in
             switch sheet {
@@ -88,16 +116,40 @@ struct ProfileView: View {
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
         }
+        .alert(
+            "delete_owner_confirm_title",
+            isPresented: isDeletingOwner,
+            presenting: ownerPendingDeletion
+        ) { owner in
+            Button("action_cancel", role: .cancel) {
+                ownerPendingDeletion = nil
+            }
+            Button("action_delete", role: .destructive) {
+                Task { await deleteOwner(owner) }
+            }
+        } message: { owner in
+            Text(owner.name)
+        }
         .inAppSafariSheet(presentedURL: $presentedSafariURL)
+    }
+
+    private var isDeletingOwner: Binding<Bool> {
+        Binding(
+            get: { ownerPendingDeletion != nil },
+            set: { presented in
+                if !presented { ownerPendingDeletion = nil }
+            }
+        )
     }
 
     private func loadInitialData() async {
         async let profile: Void = userService.fetchProfile(into: modelContext)
-        if !ownersService.hasLoaded {
+
+        if ownersService.hasLoaded {
+            await profile
+        } else {
             async let owners: Void = ownersService.fetchOwners()
             _ = await (profile, owners)
-        } else {
-            await profile
         }
     }
 
@@ -107,145 +159,45 @@ struct ProfileView: View {
         _ = await (profile, owners)
     }
 
-    private var screenHeader: some View {
-        HStack(alignment: .center, spacing: 12) {
-            Text("screen_profile_title")
-                .font(.largeTitle.bold())
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-            profileMenu
-        }
-        .padding(.horizontal, 16)
-        .padding(.top, 8)
-        .padding(.bottom, 8)
-        .background(Color(.systemBackground))
+    /// `nil` until cards arrive, so a row never claims an owner has none while
+    /// the list is still in flight.
+    private func cardCount(for owner: APIOwner) -> Int? {
+        guard cardsService.hasLoaded else { return nil }
+        return cardsService.cards.filter { $0.ownerID == owner.id }.count
     }
 
-    private var profileMenu: some View {
-        Menu {
-            Button {
-                Haptics.lightImpact()
-                showSettings = true
-            } label: {
-                Label("action_settings", systemImage: "gearshape")
-            }
+    private func deleteOwner(_ owner: APIOwner) async {
+        ownerPendingDeletion = nil
 
-            Button(role: .destructive) {
-                signOut()
-            } label: {
-                Label("action_logout", systemImage: "rectangle.portrait.and.arrow.right")
-            }
-        } label: {
-            Image(systemName: "ellipsis")
-                .font(.title3.weight(.semibold))
-                .foregroundStyle(.primary)
-                .frame(width: 44, height: 44)
-                .contentShape(Rectangle())
-        }
-    }
+        guard await ownersService.deleteOwner(id: owner.id) else { return }
 
-    private func signOut() {
-        Task {
-            await pushManager.unregisterFromBackend()
-            UserProfile.clearAll(in: modelContext)
-            authManager.signOut()
-        }
-    }
-
-    private var profileSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            sectionHeader("profile_section")
-                .padding(.horizontal, 16)
-
-            detailRow(
-                icon: "calendar",
-                title: String(localized: "field_member_since"),
-                value: memberSinceText
-            )
-            .padding(.horizontal, 16)
-        }
-    }
-
-    private var ownersSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                sectionHeader("owners_section")
-
-                if !ownersService.owners.isEmpty {
-                    Text("\(ownersService.owners.count)")
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(.secondary)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(Color(.tertiarySystemFill))
-                        .clipShape(Capsule())
-                        .transition(SmoothRevealAnimation.transition)
-                }
-            }
-            .padding(.horizontal, 16)
-
-            Button {
-                activeSheet = .createOwner
-            } label: {
-                Label("action_add_owner", systemImage: "plus.circle.fill")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(16)
-                    .background(Color(.secondarySystemBackground))
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-            }
-            .buttonStyle(.plain)
-            .padding(.horizontal, 16)
-
-            if ownersService.isLoading && ownersService.owners.isEmpty {
-                ProgressView()
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 24)
-                    .padding(.horizontal, 16)
-            } else if ownersService.owners.isEmpty {
-                Text("owners_empty_message")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .padding(.horizontal, 16)
-            } else {
-                VStack(spacing: 0) {
-                    ForEach(Array(ownersService.owners.enumerated()), id: \.element.id) { index, owner in
-                        Button {
-                            activeSheet = .editOwner(owner)
-                        } label: {
-                            ownerRow(owner)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-                        .transition(SmoothRevealAnimation.transition)
-                        .animation(
-                            SmoothRevealAnimation.motion.delay(SmoothRevealAnimation.staggerDelay(for: index)),
-                            value: ownersService.contentRevision
-                        )
-
-                        if owner.id != ownersService.owners.last?.id {
-                            Divider().padding(.leading, 16)
-                        }
-                    }
-                }
-                .padding(.horizontal, 16)
-                .transition(SmoothRevealAnimation.sectionTransition)
-            }
-        }
+        Haptics.success()
+        // Cards may have been reassigned or removed server side.
+        await cardsService.fetchCards(silentUnlessEmpty: false)
     }
 
     private var moreAboutAppSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             sectionHeader("section_more_about_app")
-                .padding(.horizontal, 16)
 
             VStack(spacing: 0) {
-                rateAppActionRow
-                feedbackActionRow
-                actionRow(title: "action_faq", icon: "questionmark.circle", url: AppMetadata.faqURL)
+                actionRow(title: "action_rate_app", icon: "star") {
+                    requestReview()
+                }
+
+                Divider().padding(.leading, 56)
+
+                actionRow(title: "action_share_feedback", icon: "bubble.left.and.bubble.right") {
+                    isFeedbackPresented = true
+                }
+
+                Divider().padding(.leading, 56)
+
+                actionRow(title: "action_faq", icon: "questionmark.circle") {
+                    AppLink.open(AppMetadata.faqURL, presentingIn: $presentedSafariURL, openURL: openURL)
+                }
             }
-            .padding(.horizontal, 16)
+            .sectionCard()
         }
     }
 
@@ -256,129 +208,63 @@ struct ProfileView: View {
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
 
-            Button {
-                openURL(AppLink.lenaraHomepage)
-            } label: {
-                HStack(spacing: 4) {
-                    Text("footer_powered_by")
-                        .foregroundStyle(.secondary)
+            PoweredByLenaraFooter()
 
-                    Text("Lenara")
-                        .fontWeight(.semibold)
-                        .foregroundStyle(Color.accentColor)
-
-                    Image(systemName: "arrow.up.right")
-                        .font(.caption2.weight(.semibold))
-                        .foregroundStyle(Color.accentColor)
-                }
-                .font(.caption)
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel(Text("footer_powered_by_lenara"))
-
-            VStack(spacing: 2) {
-                Text(
-                    String(
-                        format: String(localized: "footer_version_build"),
-                        AppMetadata.version,
-                        AppMetadata.build
-                    )
+            Text(
+                String(
+                    format: String(localized: "footer_version_build"),
+                    AppMetadata.version,
+                    AppMetadata.build
                 )
-                Text(
-                    String(
-                        format: String(localized: "footer_user_email"),
-                        userEmail
-                    )
-                )
-            }
+            )
             .font(.caption2)
             .foregroundStyle(.tertiary)
-            .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)
-        .padding(.horizontal, 16)
         .padding(.top, 8)
     }
 
-    private var userEmail: String {
+    private var displayName: String? {
+        if let name = profile?.displayName, !name.isEmpty {
+            return name
+        }
+        return authManager.user?.displayName
+    }
+
+    private var userEmail: String? {
         if let email = profile?.email, !email.isEmpty {
             return email
         }
-        if let email = authManager.user?.email, !email.isEmpty {
-            return email
-        }
-        return String(localized: "value_not_available")
+        return authManager.user?.email
     }
 
-    private var rateAppActionRow: some View {
-        Button {
-            requestReview()
-        } label: {
-            HStack(spacing: 12) {
-                Image(systemName: "star")
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(Color.accentColor)
-                    .frame(width: 28, height: 28)
-                    .background(Color.accentColor.opacity(0.12))
-                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+    private var memberSinceText: String? {
+        guard let createdAt = profile?.createdAt else { return nil }
 
-                Text("action_rate_app")
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(.primary)
-
-                Spacer(minLength: 0)
-
-                Image(systemName: "chevron.right")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.tertiary)
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
+        return String(
+            format: String(localized: "profile_member_since_value"),
+            createdAt.formatted(.dateTime.day().month(.wide).year())
+        )
     }
 
-    private var feedbackActionRow: some View {
+    private func actionRow(
+        title: LocalizedStringKey,
+        icon: String,
+        action: @escaping () -> Void
+    ) -> some View {
         Button {
-            isFeedbackPresented = true
-        } label: {
-            HStack(spacing: 12) {
-                Image(systemName: "bubble.left.and.bubble.right")
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(Color.accentColor)
-                    .frame(width: 28, height: 28)
-                    .background(Color.accentColor.opacity(0.12))
-                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-
-                Text("action_share_feedback")
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(.primary)
-
-                Spacer(minLength: 0)
-
-                Image(systemName: "chevron.right")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.tertiary)
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-    }
-
-    private func actionRow(title: LocalizedStringKey, icon: String, url: URL) -> some View {
-        Button {
-            AppLink.open(url, presentingIn: $presentedSafariURL, openURL: openURL)
+            Haptics.lightImpact()
+            action()
         } label: {
             HStack(spacing: 12) {
                 Image(systemName: icon)
                     .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(Color.accentColor)
+                    .foregroundStyle(Color.primaryAction)
                     .frame(width: 28, height: 28)
-                    .background(Color.accentColor.opacity(0.12))
-                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .background(
+                        Color.primaryAction.opacity(0.12),
+                        in: RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    )
 
                 Text(title)
                     .font(.subheadline.weight(.medium))
@@ -391,43 +277,10 @@ struct ProfileView: View {
                     .foregroundStyle(.tertiary)
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+            .padding(.vertical, 14)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-    }
-
-    private func ownerRow(_ owner: APIOwner) -> some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                HStack(spacing: 8) {
-                    Text(owner.name)
-                        .font(.subheadline.weight(.medium))
-                        .foregroundStyle(.primary)
-
-                    if owner.isSelf {
-                        Text("owner_self_badge")
-                            .font(.caption2.weight(.semibold))
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(Color.accentColor.opacity(0.15))
-                            .clipShape(Capsule())
-                    }
-                }
-
-                Text(owner.salaryDayLabel)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-
-            Spacer(minLength: 0)
-
-            Image(systemName: "chevron.right")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(.tertiary)
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
     }
 
     private func sectionHeader(_ key: LocalizedStringKey) -> some View {
@@ -437,61 +290,40 @@ struct ProfileView: View {
             .textCase(.uppercase)
     }
 
-    private func detailRow(icon: String, title: String, value: String) -> some View {
-        HStack(spacing: 12) {
-            Image(systemName: icon)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(Color.accentColor)
-                .frame(width: 28, height: 28)
-                .background(Color.accentColor.opacity(0.12))
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+    @ViewBuilder
+    private var errorBanner: some View {
+        if let message = userService.errorMessage ?? ownersService.errorMessage {
+            HStack(alignment: .top, spacing: 10) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundStyle(Color.amberStateForeground)
 
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
+                Text(message)
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
-                Text(value)
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(.primary)
+                Button("action_retry") {
+                    Task { await loadData() }
+                }
+                .font(.caption.weight(.semibold))
             }
-
-            Spacer(minLength: 0)
+            .padding(12)
+            .background(
+                Color.amberStateBackground.opacity(0.6),
+                in: RoundedRectangle(cornerRadius: 12, style: .continuous)
+            )
+            .transition(.opacity.combined(with: .move(edge: .top)))
         }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 12)
-    }
-
-    private func errorBanner(_ message: String) -> some View {
-        HStack(spacing: 8) {
-            Image(systemName: "exclamationmark.triangle.fill")
-                .foregroundStyle(.red)
-
-            Text(message)
-                .font(.caption)
-                .foregroundStyle(.red)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(12)
-        .background(Color.red.opacity(0.08))
-        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-        .padding(.horizontal, 16)
-    }
-
-    private var memberSinceText: String {
-        guard let createdAt = profile?.createdAt else {
-            return String(localized: "value_not_available")
-        }
-        return createdAt.formatted(.dateTime.day().month(.wide).year())
     }
 }
 
 #Preview {
     ProfileView()
         .environment(AuthManager())
+        .environment(AppearanceManager.shared)
         .environment(PushNotificationManager.shared)
         .environment(UserAPIService())
         .environment(OwnersAPIService())
+        .environment(CardsAPIService())
         .environment(FeedbackAPIService())
         .modelContainer(for: UserProfile.self, inMemory: true)
 }

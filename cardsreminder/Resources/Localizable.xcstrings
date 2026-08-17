@@ -7,6 +7,19 @@
     "%lld" : {
 
     },
+    "%lld/%lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld"
+          }
+        }
+      }
+    },
+    "+%lld" : {
+
+    },
     "action_add_card" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -24,23 +37,6 @@
         }
       }
     },
-    "action_add_owner" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add owner"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Añadir titular"
-          }
-        }
-      }
-    },
     "action_add_feedback" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -54,6 +50,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Añadir comentario"
+          }
+        }
+      }
+    },
+    "action_add_owner" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add owner"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadir titular"
           }
         }
       }
@@ -143,23 +156,6 @@
         }
       }
     },
-    "action_delete_owner" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete owner"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Eliminar titular"
-          }
-        }
-      }
-    },
     "action_delete_feedback" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -177,6 +173,23 @@
         }
       }
     },
+    "action_delete_owner" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete owner"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar titular"
+          }
+        }
+      }
+    },
     "action_done" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -190,6 +203,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Listo"
+          }
+        }
+      }
+    },
+    "action_edit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar"
           }
         }
       }
@@ -347,6 +377,23 @@
         }
       }
     },
+    "action_retry" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retry"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reintentar"
+          }
+        }
+      }
+    },
     "action_save" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -449,6 +496,23 @@
         }
       }
     },
+    "action_undo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undo"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deshacer"
+          }
+        }
+      }
+    },
     "app_description_short" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -517,6 +581,222 @@
         }
       }
     },
+    "calendar_a11y_day_payments" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld payments"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld pagos"
+          }
+        }
+      }
+    },
+    "calendar_a11y_day_periods" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld billing periods"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld periodos de facturación"
+          }
+        }
+      }
+    },
+    "calendar_a11y_export" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export calendar"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exportar calendario"
+          }
+        }
+      }
+    },
+    "calendar_a11y_next_day" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next day"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Día siguiente"
+          }
+        }
+      }
+    },
+    "calendar_a11y_next_month" : {
+
+    },
+    "calendar_a11y_next_week" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next week"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semana siguiente"
+          }
+        }
+      }
+    },
+    "calendar_a11y_previous_day" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous day"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Día anterior"
+          }
+        }
+      }
+    },
+    "calendar_a11y_previous_month" : {
+
+    },
+    "calendar_a11y_previous_week" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous week"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semana anterior"
+          }
+        }
+      }
+    },
+    "calendar_action_today" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoy"
+          }
+        }
+      }
+    },
+    "calendar_cut_badge" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cut"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Corte"
+          }
+        }
+      }
+    },
+    "calendar_day_empty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing scheduled this day."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No pasa nada este día."
+          }
+        }
+      }
+    },
+    "calendar_day_optimal_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buying today often gives you the longest runway before the next bill."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprar hoy suele darte el tramo más largo antes de la próxima factura."
+          }
+        }
+      }
+    },
+    "calendar_day_optimal_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good day to buy"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mejor día para comprar"
+          }
+        }
+      }
+    },
+    "calendar_day_payments_title" : {
+
+    },
+    "calendar_day_periods_title" : {
+
+    },
     "calendar_empty_message" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -547,6 +827,261 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No hay tarjetas activas"
+          }
+        }
+      }
+    },
+    "calendar_export_apple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to Apple Calendar"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadir a Apple Calendar"
+          }
+        }
+      }
+    },
+    "calendar_export_denied_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waloop adds payment due dates as events. Enable calendar access in Settings."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waloop añade las fechas de pago como eventos. Activa el acceso al calendario en Ajustes."
+          }
+        }
+      }
+    },
+    "calendar_export_denied_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendar access needed"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se necesita acceso al calendario"
+          }
+        }
+      }
+    },
+    "calendar_export_empty_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There are no payment dates in this month to export."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay fechas de pago este mes para exportar."
+          }
+        }
+      }
+    },
+    "calendar_export_empty_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to export"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nada que exportar"
+          }
+        }
+      }
+    },
+    "calendar_export_event_notes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Billing period: %@\nAdded by Waloop"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Periodo de facturación: %@\nAñadido por Waloop"
+          }
+        }
+      }
+    },
+    "calendar_export_event_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pay %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pagar %@"
+          }
+        }
+      }
+    },
+    "calendar_export_failed_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't add the events. Try again."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudieron añadir los eventos. Inténtalo de nuevo."
+          }
+        }
+      }
+    },
+    "calendar_export_failed_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export failed"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo exportar"
+          }
+        }
+      }
+    },
+    "calendar_export_ics" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share .ics file"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compartir archivo .ics"
+          }
+        }
+      }
+    },
+    "calendar_export_open_settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir Ajustes"
+          }
+        }
+      }
+    },
+    "calendar_export_success_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Added %lld payment dates to Calendar."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se añadieron %lld fechas de pago a Calendar."
+          }
+        }
+      }
+    },
+    "calendar_export_success_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Added to Calendar"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadido a Calendar"
+          }
+        }
+      }
+    },
+    "calendar_filter_all_cards" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas"
+          }
+        }
+      }
+    },
+    "calendar_hint_select_day" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap a day to see what happens on it."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toca un día para ver qué pasa ese día."
           }
         }
       }
@@ -602,6 +1137,86 @@
         }
       }
     },
+    "calendar_payment_state_due" : {
+
+    },
+    "calendar_payment_state_overdue" : {
+
+    },
+    "calendar_payment_state_paid" : {
+
+    },
+    "calendar_payment_state_scheduled" : {
+
+    },
+    "calendar_span_day" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Day"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Día"
+          }
+        }
+      }
+    },
+    "calendar_span_menu" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendar view"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vista del calendario"
+          }
+        }
+      }
+    },
+    "calendar_span_month" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Month"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mes"
+          }
+        }
+      }
+    },
+    "calendar_span_week" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Week"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semana"
+          }
+        }
+      }
+    },
     "card_billing_label" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -615,6 +1230,108 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "FACTURACIÓN"
+          }
+        }
+      }
+    },
+    "card_countdown_days" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld days left"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faltan %lld días"
+          }
+        }
+      }
+    },
+    "card_countdown_overdue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld days overdue"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vencida hace %lld días"
+          }
+        }
+      }
+    },
+    "card_countdown_overdue_yesterday" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due yesterday"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Venció ayer"
+          }
+        }
+      }
+    },
+    "card_countdown_paid" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paid this cycle"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pagada este ciclo"
+          }
+        }
+      }
+    },
+    "card_countdown_today" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due today"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vence hoy"
+          }
+        }
+      }
+    },
+    "card_countdown_tomorrow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due tomorrow"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vence mañana"
           }
         }
       }
@@ -700,6 +1417,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "¿Activar recordatorios de pago?"
+          }
+        }
+      }
+    },
+    "card_cycle_dates" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cut %@ · Payment %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Corte %@ · Pago %@"
+          }
+        }
+      }
+    },
+    "card_has_notes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Has notes"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiene notas"
           }
         }
       }
@@ -840,6 +1591,91 @@
         }
       }
     },
+    "cards_action_delete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar"
+          }
+        }
+      }
+    },
+    "cards_action_edit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar"
+          }
+        }
+      }
+    },
+    "cards_action_history" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historial"
+          }
+        }
+      }
+    },
+    "cards_clear_filters" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear filters"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quitar filtros"
+          }
+        }
+      }
+    },
+    "cards_deleted_toast" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ deleted"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ eliminada"
+          }
+        }
+      }
+    },
     "cards_empty_message" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -870,6 +1706,448 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aún no tienes tarjetas"
+          }
+        }
+      }
+    },
+    "cards_filter_all" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All · %lld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas · %lld"
+          }
+        }
+      }
+    },
+    "cards_filter_all_owners" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everyone"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todos"
+          }
+        }
+      }
+    },
+    "cards_inactive_section" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inactive (%lld)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inactivas (%lld)"
+          }
+        }
+      }
+    },
+    "cards_no_results_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No cards match your search"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ninguna tarjeta coincide con tu búsqueda"
+          }
+        }
+      }
+    },
+    "cards_search_prompt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search cards"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar tarjeta"
+          }
+        }
+      }
+    },
+    "cards_sort_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sort by"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordenar por"
+          }
+        }
+      }
+    },
+    "cards_sort_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre"
+          }
+        }
+      }
+    },
+    "cards_sort_payment_day" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Payment day"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Día de pago"
+          }
+        }
+      }
+    },
+    "cards_sort_urgency" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Urgency"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Urgencia"
+          }
+        }
+      }
+    },
+    "cloud_accessibility" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloud watching your world"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nube que observa tu mundo"
+          }
+        }
+      }
+    },
+    "cloud_accessibility_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Double tap to hear the next comment"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toca dos veces para el siguiente comentario"
+          }
+        }
+      }
+    },
+    "cloud_comment_dormant_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This world is very still. Pay a card and a tree will grow."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este mundo está muy quieto. Paga una tarjeta y crece un árbol."
+          }
+        }
+      }
+    },
+    "cloud_comment_dormant_2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I’m waiting up here. Add a card and I’ll have something to watch."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estoy esperando aquí arriba. Añade una tarjeta y tendré algo que mirar."
+          }
+        }
+      }
+    },
+    "cloud_comment_growing_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More green every day. You’re finding your footing."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cada día veo más verde. Vas encontrando el equilibrio."
+          }
+        }
+      }
+    },
+    "cloud_comment_growing_2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trees are spreading with every card you keep current."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los árboles se extienden con cada tarjeta que mantienes al día."
+          }
+        }
+      }
+    },
+    "cloud_comment_healthy_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I like how your world looks. Keep paying on time."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Me gusta cómo se ve tu mundo. Sigue pagando a tiempo."
+          }
+        }
+      }
+    },
+    "cloud_comment_healthy_2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The animals are grazing on every side. Nice work."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los animales pastan en todos los lados. Buen trabajo."
+          }
+        }
+      }
+    },
+    "cloud_comment_hungry" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Some animals went hungry. That happens when cards aren’t paid."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algunos animales pasaron hambre. Pasa cuando no se pagan las tarjetas."
+          }
+        }
+      }
+    },
+    "cloud_comment_no_animals" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The lake is quiet. Finish a lesson in Learn and someone will come drink."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El lago está solo. Termina una lección en Learn y alguien vendrá a beber."
+          }
+        }
+      }
+    },
+    "cloud_comment_no_trees" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I don’t see trees yet. Each paid card plants one on every side."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no veo árboles. Cada tarjeta pagada planta uno en cada lado."
+          }
+        }
+      }
+    },
+    "cloud_comment_struggling_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There’s a rush in the air. An urgent payment is shaking the farm."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hay prisa en el aire. Un pago urgente está sacudiendo la granja."
+          }
+        }
+      }
+    },
+    "cloud_comment_struggling_2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The animals look restless. Don’t let this pile up."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los animales se ven inquietos. No dejes que esto se acumule."
+          }
+        }
+      }
+    },
+    "cloud_comment_thriving_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every side is green and calm. This is a stable world."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cada lado está verde y en calma. Así se ve un mundo estable."
+          }
+        }
+      }
+    },
+    "cloud_comment_thriving_2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From up here, everything looks in balance. Don’t let it fade."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desde aquí arriba, todo se ve en equilibrio. No dejes que se apague."
+          }
+        }
+      }
+    },
+    "cloud_comment_withered_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The grass looks thirsty. Unpaid cards are stressing the land."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El pasto se ve sediento. Las tarjetas sin pagar están estresando la tierra."
+          }
+        }
+      }
+    },
+    "cloud_comment_withered_2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I can see animals struggling from up here. Pay what’s late."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desde aquí veo animales en apuros. Paga lo que está atrasado."
           }
         }
       }
@@ -1078,6 +2356,516 @@
         }
       }
     },
+    "contract_analyze" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Analyze contract"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Analizar contrato"
+          }
+        }
+      }
+    },
+    "contract_analyzing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Analyzing contract…"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Analizando contrato…"
+          }
+        }
+      }
+    },
+    "contract_card_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attach the PDF or photo. AI will read the terms and list how your card actually works."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adjunta el PDF o una foto. La IA leerá las condiciones y te dirá cómo funciona tu tarjeta."
+          }
+        }
+      }
+    },
+    "contract_choose_file" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose file"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elegir archivo"
+          }
+        }
+      }
+    },
+    "contract_confidence_high" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "High"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alta"
+          }
+        }
+      }
+    },
+    "contract_confidence_low" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Low"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baja"
+          }
+        }
+      }
+    },
+    "contract_confidence_medium" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medium"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Media"
+          }
+        }
+      }
+    },
+    "contract_day_of_month" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Day %lld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Día %lld"
+          }
+        }
+      }
+    },
+    "contract_empty_file" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No contract attached yet"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay un contrato adjunto"
+          }
+        }
+      }
+    },
+    "contract_field_annual_fee" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annual fee"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuota anual"
+          }
+        }
+      }
+    },
+    "contract_field_confidence" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confidence"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confianza"
+          }
+        }
+      }
+    },
+    "contract_field_interest" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interest rate"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tasa de interés"
+          }
+        }
+      }
+    },
+    "contract_field_issuer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Issuer"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emisor"
+          }
+        }
+      }
+    },
+    "contract_field_notes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notas"
+          }
+        }
+      }
+    },
+    "contract_field_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Summary"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resumen"
+          }
+        }
+      }
+    },
+    "contract_field_warnings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warnings"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advertencias"
+          }
+        }
+      }
+    },
+    "contract_file_too_large" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "That file is too large. Use a PDF or image under 10 MB."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ese archivo es demasiado grande. Usa un PDF o imagen de menos de 10 MB."
+          }
+        }
+      }
+    },
+    "contract_formats" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PDF or image from your bank"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PDF o imagen del banco"
+          }
+        }
+      }
+    },
+    "contract_import_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn’t attach that file. Try another PDF or image."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo adjuntar. Prueba con otro PDF o imagen."
+          }
+        }
+      }
+    },
+    "contract_missing_value" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "—"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "—"
+          }
+        }
+      }
+    },
+    "contract_powered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Powered with AI · Beta"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Powered with AI · Beta"
+          }
+        }
+      }
+    },
+    "contract_usage_remaining" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld of %lld free analyses left in beta"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Te quedan %lld de %lld análisis gratis en beta"
+          }
+        }
+      }
+    },
+    "contract_limit_reached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’ve used all 5 free beta analyses for now."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ya usaste los 5 análisis gratis de la beta."
+          }
+        }
+      }
+    },
+    "contract_limit_reached_short" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta limit reached"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Límite beta alcanzado"
+          }
+        }
+      }
+    },
+    "contract_replace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replace file"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambiar archivo"
+          }
+        }
+      }
+    },
+    "contract_result_idle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attach a file and tap analyze. The breakdown will show up here."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adjunta un archivo y toca analizar. El desglose aparecerá aquí."
+          }
+        }
+      }
+    },
+    "contract_result_pending" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Analyzing your contract. This can take a few seconds."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Analizando tu contrato. Puede tardar unos segundos."
+          }
+        }
+      }
+    },
+    "contract_result_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Card details"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datos de la tarjeta"
+          }
+        }
+      }
+    },
+    "contract_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upload the contract or terms your bank gave you. We’ll extract rates, fees, cut-off day, and due date — so you don’t have to hunt through the fine print."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sube el contrato o las condiciones que te dio el banco. Extraeremos tasas, comisiones, día de corte y fecha de pago — para que no tengas que buscar en la letra chica."
+          }
+        }
+      }
+    },
+    "contract_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your card contract"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contrato de tu tarjeta"
+          }
+        }
+      }
+    },
     "dashboard_due_soon_count" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1091,6 +2879,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld próxima"
+          }
+        }
+      }
+    },
+    "dashboard_on_track_count" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld on track"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld al día"
           }
         }
       }
@@ -1129,53 +2934,19 @@
         }
       }
     },
-    "delete_card_confirm_title" : {
+    "delete_account_confirm_message" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Delete this card?"
+            "value" : "This action is permanent. Your account, cards, cardholders, payments, and all associated data will be deleted. You will not be able to recover them."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "¿Eliminar esta tarjeta?"
-          }
-        }
-      }
-    },
-    "delete_owner_confirm_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete this owner?"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "¿Eliminar este titular?"
-          }
-        }
-      }
-    },
-    "delete_feedback_confirm_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete this feedback?"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "¿Eliminar este comentario?"
+            "value" : "Esta acción es permanente. Se eliminarán tu cuenta, tarjetas, titulares, pagos y todos los datos asociados. No podrás recuperarlos."
           }
         }
       }
@@ -1197,19 +2968,53 @@
         }
       }
     },
-    "delete_account_confirm_message" : {
+    "delete_card_confirm_title" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This action is permanent. Your account, cards, cardholders, payments, and all associated data will be deleted. You will not be able to recover them."
+            "value" : "Delete this card?"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Esta acción es permanente. Se eliminarán tu cuenta, tarjetas, titulares, pagos y todos los datos asociados. No podrás recuperarlos."
+            "value" : "¿Eliminar esta tarjeta?"
+          }
+        }
+      }
+    },
+    "delete_feedback_confirm_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this feedback?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Eliminar este comentario?"
+          }
+        }
+      }
+    },
+    "delete_owner_confirm_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this owner?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Eliminar este titular?"
           }
         }
       }
@@ -1333,6 +3138,74 @@
         }
       }
     },
+    "feedback_empty_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tell us about bugs, ideas, or anything we can improve."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuéntanos errores, ideas o cualquier cosa que podamos mejorar."
+          }
+        }
+      }
+    },
+    "feedback_empty_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No feedback yet"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay comentarios"
+          }
+        }
+      }
+    },
+    "feedback_more_link" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can see more feedback here."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes ver más comentarios aquí."
+          }
+        }
+      }
+    },
+    "feedback_sheet_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your feedback"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tus comentarios"
+          }
+        }
+      }
+    },
     "field_card_active" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1384,6 +3257,23 @@
         }
       }
     },
+    "field_device" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Device"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dispositivo"
+          }
+        }
+      }
+    },
     "field_email" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1397,6 +3287,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Email"
+          }
+        }
+      }
+    },
+    "field_feedback_content" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Message"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mensaje"
+          }
+        }
+      }
+    },
+    "field_feedback_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subject"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asunto"
           }
         }
       }
@@ -1435,19 +3359,19 @@
         }
       }
     },
-    "field_last_four_digits_validation" : {
+    "field_last_four_digits_help_message" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enter exactly 4 digits."
+            "value" : "This is for reference only, to help you identify the card. If you prefer not to enter it, 0000 will be used."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ingresa exactamente 4 dígitos."
+            "value" : "Es solo de referencia, para ayudarte a identificar la tarjeta. Si prefieres no ingresarlo, se usará 0000."
           }
         }
       }
@@ -1469,19 +3393,19 @@
         }
       }
     },
-    "field_last_four_digits_help_message" : {
+    "field_last_four_digits_validation" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This is for reference only, to help you identify the card. If you prefer not to enter it, 0000 will be used."
+            "value" : "Enter exactly 4 digits."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Es solo de referencia, para ayudarte a identificar la tarjeta. Si prefieres no ingresarlo, se usará 0000."
+            "value" : "Ingresa exactamente 4 dígitos."
           }
         }
       }
@@ -1499,57 +3423,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Miembro desde"
-          }
-        }
-      }
-    },
-    "field_device" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Device"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dispositivo"
-          }
-        }
-      }
-    },
-    "field_feedback_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Subject"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Asunto"
-          }
-        }
-      }
-    },
-    "field_feedback_content" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Message"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mensaje"
           }
         }
       }
@@ -1618,74 +3491,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tema"
-          }
-        }
-      }
-    },
-    "feedback_empty_message" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tell us about bugs, ideas, or anything we can improve."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cuéntanos errores, ideas o cualquier cosa que podamos mejorar."
-          }
-        }
-      }
-    },
-    "feedback_empty_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No feedback yet"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aún no hay comentarios"
-          }
-        }
-      }
-    },
-    "feedback_sheet_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your feedback"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tus comentarios"
-          }
-        }
-      }
-    },
-    "feedback_more_link" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You can see more feedback here."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Puedes ver más comentarios aquí."
           }
         }
       }
@@ -2081,8 +3886,1518 @@
         }
       }
     },
+    "garden_rebuild_action" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rebuild world"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reconstruir mundo"
+          }
+        }
+      }
+    },
+    "garden_rebuild_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh the voxel world from your latest payments."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualiza el mundo voxel con tus pagos más recientes."
+          }
+        }
+      }
+    },
+    "garden_share_action" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share world"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compartir mundo"
+          }
+        }
+      }
+    },
+    "garden_share_brand" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waloop"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waloop"
+          }
+        }
+      }
+    },
+    "garden_share_failed_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't capture your world. Try again."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo capturar tu mundo. Inténtalo de nuevo."
+          }
+        }
+      }
+    },
+    "garden_share_failed_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't share"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo compartir"
+          }
+        }
+      }
+    },
+    "garden_share_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Waloop world: %@. %@ I grow it by paying my cards on time."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mi mundo en Waloop: %@. %@ Lo hago crecer pagando a tiempo."
+          }
+        }
+      }
+    },
+    "garden_tree_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag to look around"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrastra para girar el mundo"
+          }
+        }
+      }
+    },
+    "learn_hub_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Three levels plus a look at how banks make money. Mark a lesson as read when it clicks."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tres niveles y una mirada a cómo ganan los bancos. Marca una lección como leída cuando te quede clara."
+          }
+        }
+      }
+    },
+    "learn_lesson_adv_multi_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Two cards with different close dates means two bills, two reminders, and two chances to be late. People don’t fail at credit math — they fail at tracking.\n\nA good setup: know which card is best for the next purchase (longest runway, or the one already paid), and never let a due date hide in email.\n\nFamily cards or extra holders multiply the calendar. Everyone spending needs to know whose due date is whose.\n\nThis app is built for that mess: one timeline, one calendar, and a mark-as-paid action so the household stays in sync."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dos tarjetas con cortes distintos son dos cuentas, dos recordatorios y dos oportunidades de atrasarte. La gente no falla en la aritmética: falla en el seguimiento.\n\nUn buen sistema: saber qué tarjeta conviene para la próxima compra (más días por delante, o la que ya está pagada) y que ninguna fecha de pago se quede escondida en el correo.\n\nLas tarjetas familiares o titulares extra multiplican el calendario. Quien gasta tiene que saber de quién es cada vencimiento.\n\nEsta app está hecha para ese lío: una línea de tiempo, un calendario y marcar como pagada para que la casa se mantenga alineada."
+          }
+        }
+      }
+    },
+    "learn_lesson_adv_multi_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each card has its own close and due date. The calendar is the product."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cada tarjeta tiene su propio corte y fecha de pago. El calendario es el producto."
+          }
+        }
+      }
+    },
+    "learn_lesson_adv_multi_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Juggling several cards"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varias tarjetas a la vez"
+          }
+        }
+      }
+    },
+    "learn_lesson_adv_revolving_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revolving means you didn’t clear the statement, so the leftover becomes next month’s starting balance — plus new spend, plus interest.\n\nIt feels normal because the card still works. The available credit shrinks, the minimum stays “affordable,” and months go by.\n\nTo stop revolving: freeze new purchases on that card, pay as much as you can every cycle, and attack the highest-rate card first if you have several.\n\nOnce a card is at zero, keep using it lightly and paying in full so the history stays positive — but don’t reopen the revolving habit."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revolving significa que no limpiaste el estado de cuenta, así que el resto se vuelve el saldo inicial del mes siguiente — más gastos nuevos, más intereses.\n\nSe siente normal porque la tarjeta sigue funcionando. El crédito disponible se encoge, el mínimo se ve “pagable” y pasan los meses.\n\nPara salir: congela compras nuevas en esa tarjeta, paga lo más que puedas cada ciclo y ataca primero la de mayor tasa si tienes varias.\n\nCuando una tarjeta llegue a cero, úsala poco y paga el total para que el historial siga bien — pero no reabras el hábito revolving."
+          }
+        }
+      }
+    },
+    "learn_lesson_adv_revolving_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When the balance rolls from cycle to cycle, you are the product."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuando el saldo pasa de un ciclo al siguiente, tú eres el producto."
+          }
+        }
+      }
+    },
+    "learn_lesson_adv_revolving_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revolving debt"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deuda revolving"
+          }
+        }
+      }
+    },
+    "learn_lesson_adv_rewards_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A 2% cash-back card looks generous until you leave a balance at 40% APR. One revolving month can wipe out a year of points.\n\nAnnual fees only make sense if you use the benefits and still pay in full. A fee you don’t earn back is just a more expensive card.\n\nChasing a sign-up bonus with spending you wouldn’t have done is not a bonus — it’s a purchase in costume.\n\nThe order of operations: pay in full, then pick rewards. Never the reverse."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una tarjeta con 2% de cashback se ve generosa hasta que dejas saldo al 40% de interés. Un mes de revolving puede borrar un año de puntos.\n\nLa anualidad solo tiene sentido si usas los beneficios y además pagas el total. Una anualidad que no recuperas es solo una tarjeta más cara.\n\nPerseguir un bono de bienvenida con gastos que no ibas a hacer no es un bono: es una compra disfrazada.\n\nEl orden es: paga el total, luego elige recompensas. Nunca al revés."
+          }
+        }
+      }
+    },
+    "learn_lesson_adv_rewards_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Points almost never beat interest. Pay in full, then collect rewards."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los puntos casi nunca ganan a los intereses. Paga el total y luego junta recompensas."
+          }
+        }
+      }
+    },
+    "learn_lesson_adv_rewards_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rewards vs interest"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recompensas vs intereses"
+          }
+        }
+      }
+    },
+    "learn_lesson_adv_util_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilization is current balances divided by credit limits, across cards. Scoring models often treat high utilization (especially over ~30%, and worse near 100%) as a risk signal.\n\nThe score usually cares about what is reported, often the statement balance, not the intra-cycle peak. Paying before the close date can lower the number that gets reported.\n\nOpening new cards to “lower utilization” can backfire: hard inquiries and younger average age of accounts also matter.\n\nThe healthy habit is simple: spend well below the limit and pay in full. Utilization then stays low without tricks."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La utilización es el saldo actual entre el límite, en todas las tarjetas. Los modelos de puntaje suelen ver una utilización alta (sobre todo arriba del ~30%, y peor cerca del 100%) como señal de riesgo.\n\nEl puntaje suele mirar lo que se reporta, a menudo el saldo del estado de cuenta, no el pico a mitad de ciclo. Pagar antes del corte puede bajar el número que se reporta.\n\nAbrir tarjetas nuevas para “bajar la utilización” puede salir mal: consultas duras y una edad promedio de cuentas más joven también cuentan.\n\nEl hábito sano es simple: gasta bastante por debajo del límite y paga el total. Así la utilización se queda baja sin trucos."
+          }
+        }
+      }
+    },
+    "learn_lesson_adv_util_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How much of the limit you use can weigh on your credit score."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuánto del límite usas puede pesar en tu historial crediticio."
+          }
+        }
+      }
+    },
+    "learn_lesson_adv_util_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilization and your score"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilización y tu puntaje"
+          }
+        }
+      }
+    },
+    "learn_lesson_banks_fees_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Late fees punish a missed due date. They also often trigger penalty APRs on some products. One slip can get expensive fast.\n\nAnnual fees are rent for the product. Cash advances are among the worst transactions: high fee, high rate, usually no grace period.\n\nForeign transaction fees skim a percentage when you pay in another currency or through a foreign merchant. Travel cards sometimes waive them — that’s a feature you can actually use.\n\nRead the fee table once. Most “surprises” were printed there. This app cannot block a cash advance; it can keep you from missing the due date that triggers the late fee."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La comisión por atraso castiga una fecha de pago fallida. En algunos productos también dispara una tasa de penalización. Un descuido se vuelve caro muy rápido.\n\nLa anualidad es la renta del producto. El avance de efectivo es de lo peor: comisión alta, tasa alta y casi nunca hay días de gracia.\n\nLos cargos internacionales descuentan un porcentaje si pagas en otra moneda o en un comercio del exterior. Algunas tarjetas de viaje los condonan: esa sí es una ventaja usable.\n\nLee la tabla de comisiones una vez. La mayoría de las “sorpresas” ya estaban impresas. Esta app no puede bloquear un avance de efectivo; sí puede evitar que se te pase la fecha que dispara el recargo por atraso."
+          }
+        }
+      }
+    },
+    "learn_lesson_banks_fees_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Late fees, annual fees, cash advances, foreign transactions."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comisión por atraso, anualidad, avances de efectivo, cargos internacionales."
+          }
+        }
+      }
+    },
+    "learn_lesson_banks_fees_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fees and penalties"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comisiones y cargos"
+          }
+        }
+      }
+    },
+    "learn_lesson_banks_incentives_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minimum-payment buttons, 0% teasers, and credit-limit increases all make it easier to spend more than you will pay this month.\n\nA limit increase feels like a reward. It is also an invitation to raise utilization and, if you revolve, to pay more interest on a bigger balance.\n\nNone of this is a conspiracy you have to decode every day. It is just aligned incentives: the issuer is paid when you swipe, when you are late, and most of all when you don’t pay in full.\n\nYour counter-move is boring and powerful: know the two dates, pay the statement, and use this app so the calendar is louder than the marketing."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los botones de pago mínimo, los meses a 0% y los aumentos de límite facilitan gastar más de lo que vas a pagar este mes.\n\nUn aumento de límite se siente como premio. También es una invitación a subir la utilización y, si dejas saldo, a pagar más intereses sobre un monto mayor.\n\nNada de esto es un complot que tengas que descifrar cada día. Son incentivos alineados: el emisor cobra cuando pagas con la tarjeta, cuando te atrasas y, sobre todo, cuando no liquidas el total.\n\nTu contrajugada es aburrida y poderosa: conoce las dos fechas, paga el estado de cuenta y usa esta app para que el calendario se oiga más fuerte que el marketing."
+          }
+        }
+      }
+    },
+    "learn_lesson_banks_incentives_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The product is designed so carrying a balance feels harmless."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El producto está diseñado para que dejar saldo se sienta inofensivo."
+          }
+        }
+      }
+    },
+    "learn_lesson_banks_incentives_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Why they want you to revolve"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por qué quieren que dejes saldo"
+          }
+        }
+      }
+    },
+    "learn_lesson_banks_interchange_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When you tap the card, the merchant’s bank pays an interchange fee to your card issuer (and the network takes a slice). That is one reason stores prefer cash or debit in some countries.\n\nYou don’t see this fee on your statement. It is baked into prices. Rewards cards often have higher interchange, which is how “free” points are funded.\n\nThis income exists even if you pay in full every month. Responsible customers are still profitable through interchange.\n\nUnderstanding interchange explains why a bank will give you a pretty card and still smile when you never pay interest: they already earned something on the swipe."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuando acercas la tarjeta, el banco del comercio paga una comisión de intercambio al emisor (y la red se queda una parte). Por eso en algunos países el comercio prefiere efectivo o débito.\n\nNo ves esa comisión en tu estado de cuenta. Va metida en los precios. Las tarjetas con recompensas suelen tener un intercambio más alto: así se financian los puntos “gratis”.\n\nEste ingreso existe aunque pagues el total todos los meses. Los clientes responsables igual son rentables por el intercambio.\n\nEntender el intercambio explica por qué un banco te da una tarjeta bonita y sonríe aunque nunca pagues intereses: ya ganó algo en cada pago."
+          }
+        }
+      }
+    },
+    "learn_lesson_banks_interchange_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merchants pay a cut of every swipe. You pay it in prices."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El comercio paga un porcentaje de cada pago. Tú lo pagas en el precio."
+          }
+        }
+      }
+    },
+    "learn_lesson_banks_interchange_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interchange fees"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comisión de intercambio"
+          }
+        }
+      }
+    },
+    "learn_lesson_banks_interest_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interest on unpaid balances is usually the largest profit center for a card issuer. It is recurring, high-rate, and easy to miss because it appears as a line item instead of a “fee.”\n\nThe business model likes customers who pay enough to stay current but not enough to leave. That is the revolving sweet spot.\n\nMarketing rarely says this out loud. Offers talk about miles, lounge access, and 0% intros that expire.\n\nIf you pay in full, you opt out of that product. The bank still has interchange; it no longer has you as an interest engine."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los intereses sobre saldos no pagados suelen ser el mayor centro de ganancia del emisor. Son recurrentes, de tasa alta y fáciles de pasar por alto porque aparecen como un renglón, no como una “comisión”.\n\nEl negocio prefiere clientes que pagan lo suficiente para no vencerse, pero no lo suficiente para salir. Ese es el punto dulce del revolving.\n\nEl marketing casi nunca lo dice así. Habla de millas, salas VIP y meses a 0% que se acaban.\n\nSi pagas el total, te sales de ese producto. Al banco le queda el intercambio; ya no eres un motor de intereses."
+          }
+        }
+      }
+    },
+    "learn_lesson_banks_interest_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revolving balances are where card issuers make the most."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los saldos revolving es donde el emisor gana más."
+          }
+        }
+      }
+    },
+    "learn_lesson_banks_interest_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interest is the big prize"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El interés es el gran premio"
+          }
+        }
+      }
+    },
+    "learn_lesson_basic_cycle_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A billing cycle is usually about 30 days. Purchases made in that window appear on the statement that closes at the end of the cycle.\n\nWhen the cycle closes (the statement or “cut-off” date), the bank adds up what you spent, minus payments, plus interest or fees if any. That total is what you owe.\n\nA new cycle starts the next day. Buying after the close date usually lands on the following statement — which is why timing matters.\n\nIn this app you set the cycle day per card. That is the day of the month when the bank typically closes the statement."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un periodo de facturación dura cerca de 30 días. Las compras de esa ventana aparecen en el estado de cuenta que cierra al final del ciclo.\n\nCuando el ciclo cierra (fecha de corte), el banco suma lo gastado, resta pagos y agrega intereses o comisiones si aplica. Ese total es lo que debes.\n\nAl día siguiente empieza un ciclo nuevo. Comprar después del corte casi siempre cae en el siguiente estado de cuenta: por eso importa el momento.\n\nEn esta app configuras el día de corte de cada tarjeta. Es el día del mes en que el banco suele cerrar el estado de cuenta."
+          }
+        }
+      }
+    },
+    "learn_lesson_basic_cycle_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A repeating window where purchases land on the next statement."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una ventana que se repite y agrupa tus compras en el siguiente estado de cuenta."
+          }
+        }
+      }
+    },
+    "learn_lesson_basic_cycle_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The billing cycle"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El periodo de facturación"
+          }
+        }
+      }
+    },
+    "learn_lesson_basic_dates_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The close date (cut-off) is when the bank freezes that cycle and prints the bill. The due date is later — often 20 to 25 days after — and is the last day to pay without being late.\n\nPaying after the due date can trigger a late fee, extra interest, and a mark on your credit history.\n\nPaying before the due date, and covering the full statement, is the clean path: no interest on most purchases.\n\nThis app treats those two dates as first-class. Reminders aim at the due date; the calendar shows the whole cycle so you are never guessing."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La fecha de corte es cuando el banco cierra el ciclo y genera el estado de cuenta. La fecha de pago llega después — a menudo 20 a 25 días — y es el último día para pagar sin atrasarte.\n\nPagar después de la fecha de pago puede traer comisión por atraso, más intereses y una marca en tu historial.\n\nPagar antes de esa fecha, y cubrir el total del estado de cuenta, es el camino limpio: en la mayoría de las compras no pagas intereses.\n\nEsta app trata esas dos fechas como protagonistas. Los recordatorios apuntan a la fecha de pago; el calendario muestra el ciclo completo para que no adivines."
+          }
+        }
+      }
+    },
+    "learn_lesson_basic_dates_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One date ends the statement. The other is the last day to pay without a late fee."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una fecha cierra el estado de cuenta. La otra es el último día para pagar sin recargo."
+          }
+        }
+      }
+    },
+    "learn_lesson_basic_dates_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close date vs due date"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fecha de corte vs fecha de pago"
+          }
+        }
+      }
+    },
+    "learn_lesson_basic_limit_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your credit limit is the maximum the bank will let you owe at once. Spend above it and the purchase is declined — or you pay an over-limit fee, depending on the product.\n\nThe available credit is the limit minus what you already owe. A big purchase can sit there for weeks until you pay the statement, so the limit is not a monthly allowance.\n\nKeeping a comfortable gap below the limit (often under 30% used) is healthier for your credit score. Maxing the card looks risky to lenders.\n\nA higher limit is only useful if your spending discipline stays the same. The limit is a ceiling, not a suggestion."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El límite de crédito es el máximo que el banco te deja deber a la vez. Si lo superas, la compra se rechaza o pagas una comisión por exceso, según el producto.\n\nEl crédito disponible es el límite menos lo que ya debes. Una compra grande puede quedarse ahí semanas hasta que pagues el estado de cuenta, así que el límite no es un presupuesto mensual.\n\nDejar holgura bajo el límite (a menudo menos del 30% usado) es más sano para tu puntaje. Llenar la tarjeta se ve riesgoso para otros prestamistas.\n\nUn límite más alto solo sirve si tu disciplina de gasto no cambia. El límite es un techo, no una sugerencia."
+          }
+        }
+      }
+    },
+    "learn_lesson_basic_limit_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The ceiling of what you can borrow, not a target to hit."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El techo de lo que puedes pedir prestado, no una meta a alcanzar."
+          }
+        }
+      }
+    },
+    "learn_lesson_basic_limit_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Credit limit"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Límite de crédito"
+          }
+        }
+      }
+    },
+    "learn_lesson_basic_what_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A credit card lets you spend the bank’s money up to a limit. Each purchase is a loan until you pay the statement.\n\nA debit card takes money from your account right away. Mixing them up is how people overspend without noticing.\n\nUsed well, a credit card is a tool: you get time to pay, purchase protection, and sometimes rewards. Used poorly, it becomes expensive debt.\n\nThis app exists so the calendar of that loan stays visible — close date, due date, and whether you already paid."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una tarjeta de crédito te deja gastar dinero del banco hasta un límite. Cada compra es un préstamo hasta que pagas el estado de cuenta.\n\nUna de débito toma el dinero de tu cuenta al momento. Confundirlas es una forma clásica de gastar de más sin notarlo.\n\nBien usada, la tarjeta es una herramienta: te da tiempo para pagar, protecciones y a veces recompensas. Mal usada, se vuelve deuda cara.\n\nEsta app existe para que el calendario de ese préstamo se vea claro: fecha de corte, fecha de pago y si ya pagaste."
+          }
+        }
+      }
+    },
+    "learn_lesson_basic_what_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A short-term loan you repay, not money you already have."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un préstamo de corto plazo que debes devolver, no dinero que ya tienes."
+          }
+        }
+      }
+    },
+    "learn_lesson_basic_what_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What a credit card is"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qué es una tarjeta de crédito"
+          }
+        }
+      }
+    },
+    "learn_lesson_benefits_credit_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used well, a credit card is a visible track record: you borrowed and you paid back on time. Lenders like that.\n\nUsed poorly — minimum payments, maxed limits, late fees — the same tool becomes a mark against you.\n\nThe card is not the benefit. The habit is: one statement, paid in full, before the due date. That is what this app is for."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bien usada, la tarjeta deja un rastro visible: pediste prestado y pagaste a tiempo. A los prestamistas eso les gusta.\n\nMal usada — pagos mínimos, límite lleno, recargos por atraso — la misma herramienta se vuelve una marca en contra.\n\nLa tarjeta no es el beneficio. El hábito sí: un estado de cuenta, pagado completo, antes de la fecha. Para eso existe esta app."
+          }
+        }
+      }
+    },
+    "learn_lesson_benefits_credit_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On-time full payments can help your score. Late ones hurt it."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pagar el total a tiempo puede ayudar a tu puntaje. Llegar tarde lo lastima."
+          }
+        }
+      }
+    },
+    "learn_lesson_benefits_credit_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A cleaner credit history"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un historial más sano"
+          }
+        }
+      }
+    },
+    "learn_lesson_benefits_float_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When you pay in full, you get weeks between the purchase and the due date. That float can keep cash in your account longer without costing interest.\n\nThis app’s optimal day is built on that idea: buy after the statement closes and you often get the longest runway.\n\nThe benefit disappears if you revolve a balance. Then the extra time is just more days of interest."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si pagas el total, tienes semanas entre la compra y la fecha de pago. Ese margen puede dejar el efectivo más tiempo en tu cuenta sin costarte intereses.\n\nEl día óptimo de esta app se basa en eso: compra después del corte y casi siempre ganas el tramo más largo.\n\nEl beneficio desaparece si dejas saldo. Entonces el tiempo extra solo son más días de intereses."
+          }
+        }
+      }
+    },
+    "learn_lesson_benefits_float_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The billing cycle is a short, interest-free loan — if you pay in full."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El ciclo de facturación es un préstamo corto sin intereses — si pagas el total."
+          }
+        }
+      }
+    },
+    "learn_lesson_benefits_float_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Extra time to pay"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiempo extra para pagar"
+          }
+        }
+      }
+    },
+    "learn_lesson_benefits_protection_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Credit cards often include dispute rights, fraud alerts, and extra cover on travel or electronics. If a charge is wrong, you fight the bank, not only the store.\n\nDebit pulls money from your account at once. A credit card lets you freeze the charge while it is investigated.\n\nThat protection is one of the few good reasons to use a card even if you could pay cash — as long as you still pay the statement in full."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las tarjetas de crédito suelen incluir derecho a disputar cargos, alertas de fraude y coberturas extra en viajes o electrónicos. Si un cargo está mal, peleas con el banco, no solo con la tienda.\n\nEl débito saca el dinero de tu cuenta al momento. El crédito te deja congelar el cargo mientras se investiga.\n\nEsa protección es una de las pocas buenas razones para usar tarjeta aunque puedas pagar en efectivo — siempre que sigas liquidando el estado de cuenta."
+          }
+        }
+      }
+    },
+    "learn_lesson_benefits_protection_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A card can stand between you and a bad merchant."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La tarjeta puede interponerse entre tú y un comercio problemático."
+          }
+        }
+      }
+    },
+    "learn_lesson_benefits_protection_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase protection"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protección en tus compras"
+          }
+        }
+      }
+    },
+    "learn_lesson_mid_grace_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Most cards give you a grace period: if you pay the previous statement in full by the due date, new purchases don’t accrue interest until the next due date.\n\nIf you carry a balance (you didn’t pay in full), the grace period often disappears. New purchases can start accruing interest immediately.\n\nThat is why “I’ll pay most of it” still costs money. The grace period is usually all-or-nothing on purchase balances.\n\nCash advances and some balance transfers typically have no grace period at all. Know which transactions are excluded."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La mayoría de las tarjetas dan días de gracia: si pagas el estado de cuenta anterior completo antes de la fecha de pago, las compras nuevas no generan intereses hasta la siguiente fecha de pago.\n\nSi dejas saldo (no pagaste el total), el periodo de gracia suele desaparecer. Las compras nuevas pueden generar intereses desde el día uno.\n\nPor eso “pago casi todo” igual cuesta. El periodo de gracia casi siempre es todo o nada sobre el saldo de compras.\n\nLos avances de efectivo y algunos traspasos de saldo no tienen gracia. Conviene saber qué movimientos están excluidos."
+          }
+        }
+      }
+    },
+    "learn_lesson_mid_grace_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interest-free time between the purchase and the due date — if you pay in full."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiempo sin intereses entre la compra y la fecha de pago — si liquidas el total."
+          }
+        }
+      }
+    },
+    "learn_lesson_mid_grace_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The grace period"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los días de gracia"
+          }
+        }
+      }
+    },
+    "learn_lesson_mid_interest_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "APR (or CAT in many Spanish-speaking markets) is the yearly cost of borrowing, including interest and often fees. On cards it is high compared with a simple loan — often well above 20% or 40% depending on the country and product.\n\nInterest is usually calculated on the average daily balance. A leftover amount can keep growing even if you stop spending.\n\nPaying in full every cycle means you typically pay 0% on regular purchases. That is the cheapest “rate” available.\n\nIf you already carry a balance, paying more than the minimum and stopping new spend is how you climb out. Interest is the bank’s favorite product."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El CAT (o APR en otros países) es el costo anual de pedir prestado, con intereses y a menudo comisiones. En tarjetas es alto comparado con un crédito simple: con frecuencia más del 20% o 40%, según el país y el producto.\n\nEl interés suele calcularse sobre el saldo promedio diario. Un resto puede seguir creciendo aunque dejes de gastar.\n\nPagar el total cada ciclo significa, en compras normales, un 0% de interés. Es la “tasa” más barata que existe.\n\nSi ya cargas saldo, pagar más del mínimo y frenar gastos nuevos es la salida. El interés es el producto favorito del banco."
+          }
+        }
+      }
+    },
+    "learn_lesson_mid_interest_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The price of not paying the statement in full."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El precio de no pagar el estado de cuenta completo."
+          }
+        }
+      }
+    },
+    "learn_lesson_mid_interest_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interest and APR"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intereses y CAT / APR"
+          }
+        }
+      }
+    },
+    "learn_lesson_mid_minimum_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The minimum payment is often a small percentage of the balance plus interest. It keeps the account from going delinquent, which feels like progress.\n\nIt is not progress. Most of a minimum payment can go to interest. The principal barely moves, so the debt can last many years.\n\nBanks highlight the minimum because it is easy to tap. Easy for you, profitable for them.\n\nIf you cannot pay in full, pay the largest amount you can — always above the minimum — and cut new spending on that card until the balance is gone."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El pago mínimo suele ser un porcentaje chico del saldo más intereses. Evita que la cuenta se venza, y eso se siente como avance.\n\nNo lo es. Gran parte del mínimo puede irse a intereses. El capital casi no baja, así que la deuda puede durar muchos años.\n\nLos bancos destacan el mínimo porque es fácil de tocar. Fácil para ti, rentable para ellos.\n\nSi no puedes pagar el total, paga lo más que puedas — siempre arriba del mínimo — y corta gastos nuevos en esa tarjeta hasta que el saldo desaparezca."
+          }
+        }
+      }
+    },
+    "learn_lesson_mid_minimum_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The smallest amount that keeps you “current” — and in debt for years."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La cantidad más baja que te deja “al corriente” — y endeudado durante años."
+          }
+        }
+      }
+    },
+    "learn_lesson_mid_minimum_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The minimum payment trap"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La trampa del pago mínimo"
+          }
+        }
+      }
+    },
+    "learn_lesson_mid_optimal_body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you pay in full, purchases still sit on the card until the next close, then you have until the due date to pay. Buying right after the close date often gives you the longest gap before that charge is due.\n\nBuying the day before the close date puts the charge on the statement that is about to print — so you may have to pay it in a couple of weeks.\n\nThis app highlights an optimal purchase day for that reason. It is not a license to spend more; it is a way to keep cash in your account longer when the purchase was already planned.\n\nThe trick only works if you still pay the statement in full. If you revolve a balance, extra time does not erase interest."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si pagas el total, las compras se quedan en la tarjeta hasta el siguiente corte y luego tienes hasta la fecha de pago. Comprar justo después del corte suele darte el tramo más largo antes de que ese cargo se venza.\n\nComprar el día anterior al corte pone el cargo en el estado de cuenta que está por salir: quizá tengas que pagarlo en un par de semanas.\n\nEsta app marca un día óptimo de compra por eso. No es permiso para gastar más; es una forma de dejar el efectivo más tiempo en tu cuenta cuando la compra ya estaba planeada.\n\nEl truco solo funciona si igual pagas el estado de cuenta completo. Si dejas saldo, el tiempo extra no borra los intereses."
+          }
+        }
+      }
+    },
+    "learn_lesson_mid_optimal_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buy just after the statement closes to get the longest interest-free runway."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compra justo después del corte para tener el tramo más largo sin intereses."
+          }
+        }
+      }
+    },
+    "learn_lesson_mid_optimal_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The best day to spend"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El mejor día para comprar"
+          }
+        }
+      }
+    },
+    "learn_mark_read" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark as read"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marcar como leída"
+          }
+        }
+      }
+    },
+    "learn_mark_unread" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read · tap to undo"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leída · toca para deshacer"
+          }
+        }
+      }
+    },
+    "learn_animal_reward_nav_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New animal"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuevo animal"
+          }
+        }
+      }
+    },
+    "learn_animal_reward_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You unlocked a friend"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloqueaste un amigo"
+          }
+        }
+      }
+    },
+    "learn_animal_reward_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish every lesson in a section to unlock a new animal in your world."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Termina todas las lecciones de una sección para desbloquear un animal nuevo en tu mundo."
+          }
+        }
+      }
+    },
+    "learn_animal_reward_claim" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claim animal"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtener animal"
+          }
+        }
+      }
+    },
+    "learn_animal_sheep" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sheep"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oveja"
+          }
+        }
+      }
+    },
+    "learn_animal_cow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cow"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vaca"
+          }
+        }
+      }
+    },
+    "learn_animal_pig" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pig"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerdo"
+          }
+        }
+      }
+    },
+    "learn_animal_chicken" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chicken"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gallina"
+          }
+        }
+      }
+    },
+    "learn_animal_rabbit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rabbit"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conejo"
+          }
+        }
+      }
+    },
+    "learn_animal_bee" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bee"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abeja"
+          }
+        }
+      }
+    },
+    "learn_track_advanced_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilization, juggling several cards, rewards vs interest, and revolving debt."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilización, varias tarjetas a la vez, recompensas vs intereses y la deuda revolving."
+          }
+        }
+      }
+    },
+    "learn_track_advanced_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advanced"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avanzado"
+          }
+        }
+      }
+    },
+    "learn_track_banks_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interchange, interest, fees, and why they prefer you not to pay in full."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intercambio, intereses, comisiones y por qué prefieren que no pagues el total."
+          }
+        }
+      }
+    },
+    "learn_track_banks_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How banks make money"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cómo ganan los bancos"
+          }
+        }
+      }
+    },
+    "learn_track_basics_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What a credit card is, the billing cycle, statement close, and due date."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qué es una tarjeta de crédito, el periodo de facturación, la fecha de corte y la de pago."
+          }
+        }
+      }
+    },
+    "learn_track_basics_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basics"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Básico"
+          }
+        }
+      }
+    },
+    "learn_track_benefits_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protection, extra time to pay, and a healthier credit history — if you pay in full."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protección, tiempo extra para pagar y un mejor historial — si liquidas el total."
+          }
+        }
+      }
+    },
+    "learn_track_benefits_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Why a credit card helps"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por qué conviene una tarjeta"
+          }
+        }
+      }
+    },
+    "learn_track_intermediate_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grace period, interest, the minimum-payment trap, and the best day to spend."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Días de gracia, intereses, la trampa del pago mínimo y el mejor día para comprar."
+          }
+        }
+      }
+    },
+    "learn_track_intermediate_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intermediate"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intermedio"
+          }
+        }
+      }
+    },
     "Lenara" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lenara"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lenara"
+          }
+        }
+      }
     },
     "notifications_debug_firebase_token_section" : {
       "extractionState" : "manual",
@@ -2560,125 +5875,6 @@
         }
       }
     },
-    "post_login_privacy_link" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Privacy Policy"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Política de Privacidad"
-          }
-        }
-      }
-    },
-    "post_login_terms_link" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terms"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Términos"
-          }
-        }
-      }
-    },
-    "post_login_terms_middle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : " and the "
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : " y la "
-          }
-        }
-      }
-    },
-    "post_login_terms_prefix" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "By continuing, you accept our "
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Al continuar, aceptas nuestros "
-          }
-        }
-      }
-    },
-    "post_login_terms_suffix" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "."
-          }
-        }
-      }
-    },
-    "post_login_welcome_excited" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "We're excited to begin this journey with you"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Estamos emocionados de empezar esta trayectoria contigo"
-          }
-        }
-      }
-    },
-    "post_login_welcome_ready" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Welcome to Waloop — let's keep your payments on track"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bienvenido a Waloop, tu aliado para pagar a tiempo"
-          }
-        }
-      }
-    },
     "owner_auto_assign" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3121,6 +6317,23 @@
         }
       }
     },
+    "payments_pay_action" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pay"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pagar"
+          }
+        }
+      }
+    },
     "payments_pending_payment_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3257,6 +6470,193 @@
         }
       }
     },
+    "post_login_privacy_link" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Política de Privacidad"
+          }
+        }
+      }
+    },
+    "post_login_terms_link" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Términos"
+          }
+        }
+      }
+    },
+    "post_login_terms_middle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " and the "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " y la "
+          }
+        }
+      }
+    },
+    "post_login_terms_prefix" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By continuing, you accept our "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al continuar, aceptas nuestros "
+          }
+        }
+      }
+    },
+    "post_login_terms_suffix" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "."
+          }
+        }
+      }
+    },
+    "post_login_welcome_excited" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We're excited to begin this journey with you"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estamos emocionados de empezar esta trayectoria contigo"
+          }
+        }
+      }
+    },
+    "post_login_welcome_ready" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to Waloop — let's keep your payments on track"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bienvenido a Waloop, tu aliado para pagar a tiempo"
+          }
+        }
+      }
+    },
+    "profile_identity_fallback_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tú"
+          }
+        }
+      }
+    },
+    "profile_member_since_value" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Member since %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Miembro desde %@"
+          }
+        }
+      }
+    },
+    "profile_owner_cards_count" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld cards"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld tarjetas"
+          }
+        }
+      }
+    },
+    "profile_owner_edit_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit owner"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar titular"
+          }
+        }
+      }
+    },
     "profile_section" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3342,6 +6742,23 @@
         }
       }
     },
+    "screen_edit_feedback_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit feedback"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar comentario"
+          }
+        }
+      }
+    },
     "screen_edit_owner_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3376,6 +6793,40 @@
         }
       }
     },
+    "screen_garden_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Things"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Things"
+          }
+        }
+      }
+    },
+    "screen_learn_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aprender"
+          }
+        }
+      }
+    },
     "screen_new_card_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3389,23 +6840,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nueva tarjeta"
-          }
-        }
-      }
-    },
-    "screen_new_owner_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "New owner"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nuevo titular"
           }
         }
       }
@@ -3427,19 +6861,19 @@
         }
       }
     },
-    "screen_edit_feedback_title" : {
+    "screen_new_owner_title" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Edit feedback"
+            "value" : "New owner"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Editar comentario"
+            "value" : "Nuevo titular"
           }
         }
       }
@@ -3580,6 +7014,23 @@
         }
       }
     },
+    "section_feedback" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comentario"
+          }
+        }
+      }
+    },
     "section_more_about_app" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3644,23 +7095,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Titular"
-          }
-        }
-      }
-    },
-    "section_feedback" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Feedback"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Comentario"
           }
         }
       }
@@ -3835,6 +7269,23 @@
         }
       }
     },
+    "tab_garden" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Things"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Things"
+          }
+        }
+      }
+    },
     "tab_profile" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3937,6 +7388,57 @@
         }
       }
     },
+    "things_world_starved" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld animals went hungry from unpaid cards"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld animales pasaron hambre por tarjetas sin pagar"
+          }
+        }
+      }
+    },
+    "things_world_stats" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld animals"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld animales"
+          }
+        }
+      }
+    },
+    "timeline_all_clear_count" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld need nothing"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld sin pendientes"
+          }
+        }
+      }
+    },
     "timeline_all_good_message" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3971,19 +7473,70 @@
         }
       }
     },
+    "timeline_empty_add_card" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add your first card"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añade tu primera tarjeta"
+          }
+        }
+      }
+    },
+    "timeline_empty_learn" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn how cards work"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aprende cómo funcionan las tarjetas"
+          }
+        }
+      }
+    },
+    "timeline_empty_learn_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Billing cycles, due dates, and how banks earn money — from basics to advanced."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Periodos de facturación, fechas de pago y cómo ganan los bancos — de lo básico a lo avanzado."
+          }
+        }
+      }
+    },
     "timeline_empty_message" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add your cards to see today's recommendations and reminders."
+            "value" : "Add a card to see today’s reminders, or learn how billing cycles work first."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Agrega tus tarjetas para ver recomendaciones y recordatorios de hoy."
+            "value" : "Añade una tarjeta para ver los recordatorios de hoy, o primero aprende cómo funcionan los periodos de facturación."
           }
         }
       }
@@ -3994,13 +7547,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nothing to show yet"
+            "value" : "Start with your first card"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nada que mostrar aún"
+            "value" : "Empieza con tu primera tarjeta"
           }
         }
       }
@@ -4290,6 +7843,210 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mañana"
+          }
+        }
+      }
+    },
+    "tree_health_subtitle_dormant" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a card and keep it current. Each paid card plants a tree."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añade una tarjeta y manténla al día. Cada tarjeta pagada planta un árbol."
+          }
+        }
+      }
+    },
+    "tree_health_subtitle_growing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trees grow with paid cards. Lessons you finish bring animals to the lake."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los árboles crecen con las tarjetas pagadas. Las lecciones que termines traen animales al lago."
+          }
+        }
+      }
+    },
+    "tree_health_subtitle_healthy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep paying on time so the trees stay and the animals keep grazing."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sigue pagando a tiempo para que los árboles se queden y los animales sigan pastando."
+          }
+        }
+      }
+    },
+    "tree_health_subtitle_struggling" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Urgent payments are stressing the farm. Clear them before animals go hungry."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hay pagos urgentes estresando la granja. Liquídalos antes de que los animales pasen hambre."
+          }
+        }
+      }
+    },
+    "tree_health_subtitle_thriving" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every card is paid. This is what a stable world looks like."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas las tarjetas están pagadas. Así se ve un mundo estable."
+          }
+        }
+      }
+    },
+    "tree_health_subtitle_withered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unpaid cards starve the animals. Pay what’s late and the world recovers."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las tarjetas sin pagar dejan a los animales sin comida. Paga lo atrasado y el mundo se recupera."
+          }
+        }
+      }
+    },
+    "tree_health_title_dormant" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A quiet plot"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un terreno en calma"
+          }
+        }
+      }
+    },
+    "tree_health_title_growing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finding its footing"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recuperando el equilibrio"
+          }
+        }
+      }
+    },
+    "tree_health_title_healthy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stable and green"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estable y en calma"
+          }
+        }
+      }
+    },
+    "tree_health_title_struggling" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balance is slipping"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El equilibrio se resiente"
+          }
+        }
+      }
+    },
+    "tree_health_title_thriving" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In perfect balance"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En perfecto equilibrio"
+          }
+        }
+      }
+    },
+    "tree_health_title_withered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The land is hungry"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La tierra pasa hambre"
           }
         }
       }

@@ -47,12 +47,6 @@ struct BillingPeriodInstance: Identifiable, Hashable {
     }
 }
 
-enum CalendarSelection: Hashable {
-    case card(UUID)
-    case billingPeriod(String)
-    case payment(String)
-}
-
 enum CalendarBillingLogic {
     private static var currentLocale: Locale { .current }
 
@@ -69,6 +63,8 @@ enum CalendarBillingLogic {
         return range.count
     }
 
+    /// Day slots for a month grid, padded so the first column matches the locale's
+    /// first weekday and the last week is complete.
     static func generateCalendarDays(year: Int, month: Int) -> [Int?] {
         var components = DateComponents()
         components.year = year
@@ -81,10 +77,30 @@ enum CalendarBillingLogic {
             return []
         }
 
-        let leadingBlanks = calendar.component(.weekday, from: firstOfMonth) - 1
+        let weekday = calendar.component(.weekday, from: firstOfMonth)
+        let leadingBlanks = (weekday - calendar.firstWeekday + 7) % 7
+
         var days = Array<Int?>(repeating: nil, count: leadingBlanks)
         days.append(contentsOf: dayRange.map { $0 })
+
+        let trailingBlanks = (7 - days.count % 7) % 7
+        days.append(contentsOf: Array<Int?>(repeating: nil, count: trailingBlanks))
+
         return days
+    }
+
+    /// Seven dates for the week that contains `date`, starting on the locale's first weekday.
+    static func datesInWeek(containing date: Date) -> [Date] {
+        let start = startOfWeek(for: date)
+        return (0..<7).compactMap { Calendar.current.date(byAdding: .day, value: $0, to: start) }
+    }
+
+    static func startOfWeek(for date: Date) -> Date {
+        let calendar = Calendar.current
+        let start = calendar.startOfDay(for: date)
+        let weekday = calendar.component(.weekday, from: start)
+        let leading = (weekday - calendar.firstWeekday + 7) % 7
+        return calendar.date(byAdding: .day, value: -leading, to: start) ?? start
     }
 
     static func addMonths(year: Int, month: Int, delta: Int) -> (year: Int, month: Int) {

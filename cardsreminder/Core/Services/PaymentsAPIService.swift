@@ -9,6 +9,7 @@ final class PaymentsAPIService {
     private(set) var dashboardCards: [DashboardCardEntry] = []
     private(set) var summary: DashboardSummary?
     private(set) var bestForPurchase: BestForPurchase?
+    private(set) var paymentCount: Int?
     private(set) var dashboardRevision = 0
     private(set) var isLoadingDashboard = false
     var isLoading = false
@@ -27,6 +28,7 @@ final class PaymentsAPIService {
         dashboardCards = []
         summary = nil
         bestForPurchase = nil
+        paymentCount = nil
         dashboardRevision = 0
         isLoadingDashboard = false
         errorMessage = nil
@@ -162,11 +164,23 @@ final class PaymentsAPIService {
             )
             statusByCardID[cardID] = response.status
             await fetchDashboard(silentUnlessEmpty: false, maxAttempts: 2)
+            await fetchPaymentCount()
             Analytics.logEvent("payment_completed", parameters: nil)
             return response
         } catch {
             APIErrorHandling.handle(error) { errorMessage = $0 }
             return nil
+        }
+    }
+
+    func fetchPaymentCount() async {
+        do {
+            let response: PaymentCountResponse = try await api.request(path: "/me/payment-count")
+            paymentCount = max(0, response.paymentCount)
+            dashboardRevision += 1
+        } catch {
+            guard !error.isRequestCancelled else { return }
+            // Keep the last known count; garden can fall back to summary.paid.
         }
     }
 }

@@ -48,11 +48,17 @@ private struct FeelingButtonStyle: ViewModifier {
 private struct FeelingIcon: View {
     let feeling: DashboardFeeling
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private var shouldPulse: Bool {
+        feeling.usesAttentionPulse && !reduceMotion
+    }
+
     var body: some View {
         Image(systemName: feeling.iconName)
             .font(.system(size: 12, weight: .semibold))
             .foregroundStyle(feeling.accentColor)
-            .symbolEffect(.pulse, options: feeling.usesAttentionPulse ? .repeating.speed(0.45) : .nonRepeating)
+            .symbolEffect(.pulse, options: shouldPulse ? .repeating.speed(0.45) : .nonRepeating)
     }
 }
 

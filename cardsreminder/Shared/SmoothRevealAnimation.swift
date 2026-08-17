@@ -18,4 +18,12 @@ enum SmoothRevealAnimation {
     static func staggerDelay(for index: Int) -> Double {
         Double(index) * 0.05
     }
+
+    static func motion(reduceMotion: Bool) -> Animation? {
+        reduceMotion ? nil : motion
+    }
+
+    static func transition(reduceMotion: Bool) -> AnyTransition {
+        reduceMotion ? .opacity : transition
+    }
 }

@@ -3,8 +3,22 @@ import SwiftUI
 struct CardStatusBadge: View {
     let status: APICardStatus
 
-    private var label: LocalizedStringKey {
-        switch status.kind {
+    var body: some View {
+        Text(status.kind.labelKey)
+            .font(.caption2.weight(.bold))
+            .lineLimit(1)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .foregroundStyle(status.kind.foregroundColor)
+            .background(status.kind.backgroundColor)
+            .clipShape(Capsule())
+            .accessibilityLabel(Text(status.kind.labelKey))
+    }
+}
+
+extension CardPaymentStatusKind {
+    var labelKey: LocalizedStringKey {
+        switch self {
         case .paid: "card_status_paid"
         case .overdue: "card_status_overdue"
         case .urgent: "card_status_urgent"
@@ -14,36 +28,35 @@ struct CardStatusBadge: View {
         }
     }
 
-    private var backgroundColor: Color {
-        switch status.kind {
+    var countFormatKey: String.LocalizationValue {
+        switch self {
+        case .paid: "timeline_summary_paid_count"
+        case .overdue: "dashboard_overdue_count"
+        case .urgent: "dashboard_urgent_count"
+        case .dueSoon: "dashboard_due_soon_count"
+        case .optimalDay: "timeline_summary_optimal_count"
+        case .onTrack: "dashboard_on_track_count"
+        }
+    }
+
+    var backgroundColor: Color {
+        switch self {
         case .paid: Color.emeraldStateBackground
         case .overdue: Color.redStateBackground
         case .urgent: Color.amberStateBackground
-        case .dueSoon: Color.violetStateBackground
-        case .optimalDay: Color.violetStateBackground
+        case .dueSoon, .optimalDay: Color.violetStateBackground
         case .onTrack: Color.onTrackStateBackground
         }
     }
 
-    private var foregroundColor: Color {
-        switch status.kind {
+    var foregroundColor: Color {
+        switch self {
         case .paid: Color.emeraldStateForeground
         case .overdue: Color.redStateForeground
         case .urgent: Color.amberStateForeground
-        case .dueSoon: Color.violetStateForeground
-        case .optimalDay: Color.violetStateForeground
+        case .dueSoon, .optimalDay: Color.violetStateForeground
         case .onTrack: Color.onTrackStateForeground
         }
-    }
-
-    var body: some View {
-        Text(label)
-            .font(.caption2.weight(.bold))
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
-            .foregroundStyle(foregroundColor)
-            .background(backgroundColor)
-            .clipShape(Capsule())
     }
 }
 

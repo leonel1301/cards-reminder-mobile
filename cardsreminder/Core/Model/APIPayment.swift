@@ -151,6 +151,14 @@ struct DashboardResponse: Codable, Sendable {
     }
 }
 
+struct PaymentCountResponse: Codable, Sendable, Equatable {
+    let paymentCount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case paymentCount = "payment_count"
+    }
+}
+
 enum CardPaymentStatusKind: String, Sendable {
     case paid
     case overdue

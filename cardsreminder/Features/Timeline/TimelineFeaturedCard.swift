@@ -6,6 +6,12 @@ struct TimelineFeaturedCard: View {
     let revealDelay: Double
     var isRevealed: Bool
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private var revealAnimation: Animation? {
+        reduceMotion ? nil : SmoothRevealAnimation.motion.delay(revealDelay)
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             HStack(spacing: 8) {
@@ -66,9 +72,10 @@ struct TimelineFeaturedCard: View {
                 .strokeBorder(Color.violetStateForeground.opacity(0.18), lineWidth: 1)
         }
         .opacity(isRevealed ? 1 : 0)
-        .scaleEffect(isRevealed ? 1 : 0.95)
-        .offset(y: isRevealed ? 0 : 10)
-        .animation(SmoothRevealAnimation.motion.delay(revealDelay), value: isRevealed)
+        .scaleEffect(isRevealed || reduceMotion ? 1 : 0.95)
+        .offset(y: isRevealed || reduceMotion ? 0 : 10)
+        .animation(revealAnimation, value: isRevealed)
+        .accessibilityElement(children: .combine)
     }
 }
 
@@ -76,6 +83,12 @@ struct TimelinePurchaseInsightRow: View {
     let why: String
     let revealDelay: Double
     var isRevealed: Bool
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private var revealAnimation: Animation? {
+        reduceMotion ? nil : SmoothRevealAnimation.motion.delay(revealDelay)
+    }
 
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -94,8 +107,8 @@ struct TimelinePurchaseInsightRow: View {
         .background(Color(.secondarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
         .opacity(isRevealed ? 1 : 0)
-        .offset(y: isRevealed ? 0 : 8)
-        .animation(SmoothRevealAnimation.motion.delay(revealDelay), value: isRevealed)
+        .offset(y: isRevealed || reduceMotion ? 0 : 8)
+        .animation(revealAnimation, value: isRevealed)
     }
 }
 

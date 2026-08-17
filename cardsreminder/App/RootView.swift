@@ -7,6 +7,7 @@ struct RootView: View {
     @Environment(OwnersAPIService.self) private var ownersService
     @Environment(FeedbackAPIService.self) private var feedbackService
     @Environment(PaymentsAPIService.self) private var paymentsService
+    @Environment(LearnAPIService.self) private var learnService
     @Environment(UserAPIService.self) private var userService
     @Environment(PushNotificationManager.self) private var pushManager
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
@@ -55,6 +56,7 @@ struct RootView: View {
 
             await userService.refreshCurrentUser()
             await pushManager.handleUserSessionChange(userSwitched: userSwitched)
+            await learnService.fetchProgress()
         }
         .onReceive(NotificationCenter.default.publisher(for: NSLocale.currentLocaleDidChangeNotification)) { _ in
             Task { await resyncLanguageIfNeeded() }
@@ -111,6 +113,7 @@ struct RootView: View {
         ownersService.resetSession()
         feedbackService.resetSession()
         paymentsService.resetSession()
+        learnService.resetSession()
         userService.resetSession()
     }
 }
@@ -122,6 +125,7 @@ struct RootView: View {
         .environment(OwnersAPIService())
         .environment(FeedbackAPIService())
         .environment(PaymentsAPIService())
+        .environment(LearnAPIService())
         .environment(UserAPIService())
         .environment(PushNotificationManager.shared)
 }

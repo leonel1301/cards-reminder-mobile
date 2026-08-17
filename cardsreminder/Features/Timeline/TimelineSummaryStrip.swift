@@ -5,6 +5,8 @@ struct TimelineSummaryStrip: View {
     let revealDelay: Double
     var isRevealed: Bool
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     private var chips: [(label: String, color: Color, background: Color)] {
         var items: [(String, Color, Color)] = []
 
@@ -60,16 +62,19 @@ struct TimelineSummaryStrip: View {
                         .clipShape(Capsule())
                         .opacity(isRevealed ? 1 : 0)
                         .offset(y: isRevealed ? 0 : 8)
-                        .animation(
-                            SmoothRevealAnimation.motion.delay(revealDelay + SmoothRevealAnimation.staggerDelay(for: index)),
-                            value: isRevealed
-                        )
+                        .animation(revealAnimation(for: index), value: isRevealed)
                 }
             }
             .padding(.horizontal, 16)
         }
         .opacity(chips.isEmpty ? 0 : 1)
         .frame(height: chips.isEmpty ? 0 : nil)
+    }
+
+    private func revealAnimation(for index: Int) -> Animation? {
+        guard !reduceMotion else { return nil }
+        return SmoothRevealAnimation.motion
+            .delay(revealDelay + SmoothRevealAnimation.staggerDelay(for: index))
     }
 }
 

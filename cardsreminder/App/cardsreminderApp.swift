@@ -21,6 +21,7 @@ struct cardsreminderApp: App {
     @State private var ownersService = OwnersAPIService()
     @State private var feedbackService = FeedbackAPIService()
     @State private var paymentsService = PaymentsAPIService()
+    @State private var learnService = LearnAPIService()
     @State private var appearanceManager = AppearanceManager.shared
 
     var sharedModelContainer: ModelContainer = {
@@ -53,6 +54,7 @@ struct cardsreminderApp: App {
                 .environment(ownersService)
                 .environment(feedbackService)
                 .environment(paymentsService)
+                .environment(learnService)
                 .environment(pushNotificationManager)
                 .environment(appearanceManager)
                 .preferredColorScheme(appearanceManager.appearance.colorScheme)

@@ -79,6 +79,39 @@ struct APIService {
         _ = try await performRequest(path: path, method: method, body: body, authenticated: true)
     }
 
+    /// Authenticated multipart upload. Field name should match the API (e.g. `"file"`).
+    func uploadMultipart<T: Decodable>(
+        path: String,
+        fieldName: String,
+        fileName: String,
+        mimeType: String,
+        fileData: Data
+    ) async throws -> T {
+        let boundary = "Boundary-\(UUID().uuidString)"
+        var request = try await buildBaseRequest(path: path, method: "POST", authenticated: true)
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.httpBody = Self.multipartBody(
+            boundary: boundary,
+            fieldName: fieldName,
+            fileName: fileName,
+            mimeType: mimeType,
+            fileData: fileData
+        )
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+
+        guard (200...299).contains(httpResponse.statusCode) else {
+            let message = Self.parseServerErrorMessage(from: data)
+            throw APIError.serverError(statusCode: httpResponse.statusCode, message: message)
+        }
+
+        return try decode(T.self, from: data)
+    }
+
     private func decode<T: Decodable>(_ type: T.Type, from data: Data) throws -> T {
         do {
             return try decoder.decode(T.self, from: data)
@@ -136,6 +169,21 @@ struct APIService {
         body: (any Encodable)?,
         authenticated: Bool
     ) async throws -> URLRequest {
+        var request = try await buildBaseRequest(path: path, method: method, authenticated: authenticated)
+
+        if let body {
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try encoder.encode(body)
+        }
+
+        return request
+    }
+
+    private func buildBaseRequest(
+        path: String,
+        method: String,
+        authenticated: Bool
+    ) async throws -> URLRequest {
         guard let url = URL(string: path, relativeTo: baseURL) else {
             throw APIError.invalidResponse
         }
@@ -154,12 +202,27 @@ struct APIService {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
 
-        if let body {
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = try encoder.encode(body)
-        }
-
         return request
+    }
+
+    private static func multipartBody(
+        boundary: String,
+        fieldName: String,
+        fileName: String,
+        mimeType: String,
+        fileData: Data
+    ) -> Data {
+        var body = Data()
+        let lineBreak = "\r\n"
+
+        body.append("--\(boundary)\(lineBreak)")
+        body.append(
+            "Content-Disposition: form-data; name=\"\(fieldName)\"; filename=\"\(fileName)\"\(lineBreak)"
+        )
+        body.append("Content-Type: \(mimeType)\(lineBreak)\(lineBreak)")
+        body.append(fileData)
+        body.append("\(lineBreak)--\(boundary)--\(lineBreak)")
+        return body
     }
 
     private static var acceptLanguageHeaderValue: String {
@@ -192,5 +255,13 @@ struct APIService {
         guard let raw, !raw.isEmpty else { return nil }
         if raw.hasPrefix("{") || raw.hasPrefix("[") { return nil }
         return raw
+    }
+}
+
+private extension Data {
+    mutating func append(_ string: String) {
+        if let data = string.data(using: .utf8) {
+            append(data)
+        }
     }
 }

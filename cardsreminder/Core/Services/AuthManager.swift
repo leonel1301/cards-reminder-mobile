@@ -6,11 +6,17 @@ import FirebaseCore
 import GoogleSignIn
 import UIKit
 
+enum SignInMethod: Equatable {
+    case apple
+    case google
+}
+
 @Observable
 @MainActor
 final class AuthManager {
     var user: User?
     var isLoading = false
+    private(set) var activeSignInMethod: SignInMethod?
     var errorMessage: String?
 
     var isSignedIn: Bool { user != nil }
@@ -29,13 +35,14 @@ final class AuthManager {
     }
 
     func signInWithGoogle() async {
+        guard !isLoading else { return }
+
         guard let rootViewController = Self.topViewController() else {
             errorMessage = String(localized: "error_sign_in_screen")
             return
         }
 
-        isLoading = true
-        errorMessage = nil
+        beginSignIn(.google)
 
         do {
             let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
@@ -55,14 +62,13 @@ final class AuthManager {
             }
         }
 
-        isLoading = false
+        endSignIn()
     }
 
     func signInWithApple() {
         guard !isLoading else { return }
 
-        isLoading = true
-        errorMessage = nil
+        beginSignIn(.apple)
 
         let coordinator = AppleSignInCoordinator()
         appleSignInCoordinator = coordinator
@@ -72,7 +78,7 @@ final class AuthManager {
                 guard let self else { return }
                 defer {
                     self.appleSignInCoordinator = nil
-                    self.isLoading = false
+                    self.endSignIn()
                 }
 
                 switch result {
@@ -119,12 +125,24 @@ final class AuthManager {
             || nsError.code == ASAuthorizationError.unknown.rawValue
     }
 
+    private func beginSignIn(_ method: SignInMethod) {
+        isLoading = true
+        activeSignInMethod = method
+        errorMessage = nil
+    }
+
+    private func endSignIn() {
+        isLoading = false
+        activeSignInMethod = nil
+    }
+
     func signOut() {
         do {
             try Auth.auth().signOut()
             GIDSignIn.sharedInstance.signOut()
             user = nil
             errorMessage = nil
+            endSignIn()
         } catch {
             errorMessage = error.localizedDescription
         }
